@@ -1,21 +1,21 @@
-part of 'sign_in_form_cubit.dart';
+part of 'register_form_cubit.dart';
 
 @freezed
-abstract class SignInFormState with _$SignInFormState {
-  const factory SignInFormState({
+abstract class RegisterFormState with _$RegisterFormState {
+  const factory RegisterFormState({
     required String emailAddress,
     required String password,
     // required bool showErrorMessages,
-    String? checkPassword,
+    required String checkPassword,
     required bool isSubmitting,
     required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
     required bool isPWObscure, // 密碼是否隱藏
     required bool validate, // 是否驗證過
-  }) = _SignInFormState;
+  }) = _RegisterFormState;
 
-  factory SignInFormState.initial() => SignInFormState(
-        emailAddress: 'testEmail@gmail.com',
-        password: 'aaaaaa',
+  factory RegisterFormState.initial() => RegisterFormState(
+        emailAddress: '',
+        password: '',
         checkPassword: '',
         // showErrorMessages: false,
         isSubmitting: false,

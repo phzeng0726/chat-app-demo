@@ -11,14 +11,15 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i1;
-import 'package:flutter/material.dart' as _i5;
+import 'package:flutter/material.dart' as _i6;
 
-import '../home/home.dart' as _i4;
+import '../home/home.dart' as _i5;
+import '../register/register_page.dart' as _i4;
 import '../sign_in/sign_in_page.dart' as _i3;
 import '../splash/splash_page.dart' as _i2;
 
 class RootRouter extends _i1.RootStackRouter {
-  RootRouter([_i5.GlobalKey<_i5.NavigatorState>? navigatorKey])
+  RootRouter([_i6.GlobalKey<_i6.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
@@ -35,9 +36,13 @@ class RootRouter extends _i1.RootStackRouter {
       return _i1.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i3.SignInPage());
     },
+    RegisterRoute.name: (routeData) {
+      return _i1.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i4.RegisterPage());
+    },
     HomeRoute.name: (routeData) {
       return _i1.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i4.HomePage());
+          routeData: routeData, child: const _i5.HomePage());
     }
   };
 
@@ -48,6 +53,8 @@ class RootRouter extends _i1.RootStackRouter {
               path: '', parent: EmptyRouterRoute.name),
           _i1.RouteConfig(SignInRoute.name,
               path: 'sign-in', parent: EmptyRouterRoute.name),
+          _i1.RouteConfig(RegisterRoute.name,
+              path: 'register', parent: EmptyRouterRoute.name),
           _i1.RouteConfig(HomeRoute.name,
               path: 'home', parent: EmptyRouterRoute.name)
         ])
@@ -80,7 +87,15 @@ class SignInRoute extends _i1.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.HomePage]
+/// [_i4.RegisterPage]
+class RegisterRoute extends _i1.PageRouteInfo<void> {
+  const RegisterRoute() : super(RegisterRoute.name, path: 'register');
+
+  static const String name = 'RegisterRoute';
+}
+
+/// generated route for
+/// [_i5.HomePage]
 class HomeRoute extends _i1.PageRouteInfo<void> {
   const HomeRoute() : super(HomeRoute.name, path: 'home');
 

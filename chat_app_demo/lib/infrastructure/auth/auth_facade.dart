@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:chat_app_demo/infrastructure/auth/firebase_user_mapper.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:injectable/injectable.dart';
@@ -9,6 +8,7 @@ import '../../domain/auth/auth_failure.dart';
 import '../../domain/auth/i_auth_facade.dart';
 import '../../domain/auth/user.dart';
 import '../../domain/core/logger.dart';
+import 'firebase_user_mapper.dart';
 
 @LazySingleton(as: IAuthFacade)
 class AuthFacade implements IAuthFacade {
@@ -22,49 +22,6 @@ class AuthFacade implements IAuthFacade {
   Future<Option<User>> getSignedInUser() async =>
       optionOf(_firebaseAuth.currentUser?.toDomain());
 
-  // // 同時創company跟user
-  // @override
-  // Future<Either<RegisterFailure, String>> registerCompany({
-  //   required Company company,
-  //   required User user,
-  // }) async {
-  //   final String emailAddress = user.emailAddress;
-  //   final String password = user.password;
-  //   try {
-  //     // NOTE: firebase_auth新增User帳號，如果email已經存在的話會擋
-  //     final credential = await _firebaseAuth.createUserWithEmailAndPassword(
-  //       email: emailAddress,
-  //       password: password,
-  //     );
-  //     // NOTE: firestore新增Company帳號，如果taxId已經存在的話會擋
-  //     final companyId = await _authFirestoreRepository.createCompanyDoc(
-  //       company: company,
-  //     );
-  //     // NOTE: firestore新增User帳號
-  //     await _authFirestoreRepository.createUserDoc(
-  //       user: user.copyWith(
-  //         userId: credential.user!.uid,
-  //         companyId: companyId,
-  //       ),
-  //     );
-  //     await ApiRemoteService().mergeCompanyInfoDoc(
-  //       userId: credential.user!.uid,
-  //       companyId: companyId,
-  //     );
-
-  //     return right(credential.user!.uid);
-  //   } on auth.FirebaseAuthException catch (e) {
-  //     LoggerService.simple.i(e.code);
-  //     if (e.code == 'email-already-in-use') {
-  //       return left(const RegisterFailure.emailAlreadyInUse());
-  //     } else {
-  //       // 也許要設更多種不同的failure
-  //       return left(const RegisterFailure.serverError());
-  //     }
-  //   }
-  // }
-
-  // // 只創user
   @override
   Future<Either<AuthFailure, String>> register(
       {required String emailAddress, required String password}) async {
@@ -80,8 +37,13 @@ class AuthFacade implements IAuthFacade {
       LoggerService.simple.i(e.code);
       if (e.code == 'email-already-in-use') {
         return left(const AuthFailure.emailAddressAlreadyInUse());
+      } else if (e.code == 'invalid-email') {
+        return left(const AuthFailure.invalidEmail());
+      } else if (e.code == 'weak-password') {
+        return left(const AuthFailure.weakPassword());
+      } else if (e.code == 'unknown') {
+        return left(const AuthFailure.unexpected());
       } else {
-        // 也許要設更多種不同的failure
         return left(const AuthFailure.serverError());
       }
     }
@@ -105,6 +67,8 @@ class AuthFacade implements IAuthFacade {
           e.code == 'wrong-password' ||
           e.code == 'invalid-email') {
         return left(const AuthFailure.invalidEmailAndPassword());
+      } else if (e.code == 'unknown') {
+        return left(const AuthFailure.unexpected());
       } else {
         return left(const AuthFailure.serverError());
       }

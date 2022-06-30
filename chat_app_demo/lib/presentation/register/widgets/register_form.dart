@@ -1,19 +1,20 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:another_flushbar/flushbar_helper.dart';
 
-import '../../../application/auth/auth_cubit.dart';
-import '../../../application/auth/sign_in_form/sign_in_form_cubit.dart';
-import '../../../domain/core/logger.dart';
+import '../../../../domain/core/logger.dart';
+import '../../../application/auth/register_form/register_form_cubit.dart';
+import '../../../injection.dart';
+import '../../routes/router.gr.dart';
 import 'email_address_box.dart';
 import 'password_box.dart';
 
-class SignInForm extends StatelessWidget {
-  const SignInForm({Key? key}) : super(key: key);
+class RegisterForm extends StatelessWidget {
+  const RegisterForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignInFormCubit, SignInFormState>(
+    return BlocConsumer<RegisterFormCubit, RegisterFormState>(
       listenWhen: (p, c) =>
           p.authFailureOrSuccessOption != c.authFailureOrSuccessOption,
       listener: (context, state) {
@@ -23,7 +24,7 @@ class SignInForm extends StatelessWidget {
             either.fold(
               (failure) {
                 LoggerService.simple.i(failure);
-                
+
                 FlushbarHelper.createError(
                     message: failure.map(
                   serverError: (_) => '伺服器有問題，請稍候再試',
@@ -36,7 +37,22 @@ class SignInForm extends StatelessWidget {
                 )).show(context);
               },
               (_) {
-                context.read<AuthCubit>().authCheckRequested();
+                return showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: const Text("恭喜！"),
+                    content: const Text("您已成功註冊用戶"),
+                    actions: <Widget>[
+                      ElevatedButton(
+                        onPressed: () async {
+                          getIt<RootRouter>().pop();
+                          getIt<RootRouter>().push(const SignInRoute());
+                        },
+                        child: const Text("OK"),
+                      ),
+                    ],
+                  ),
+                );
               },
             );
           },
@@ -47,14 +63,17 @@ class SignInForm extends StatelessWidget {
           children: [
             const EmailAddressBox(),
             const PasswordBox(),
+            // const CheckPasswordBox(),
             ElevatedButton(
-              child: const Text('登入'),
-              onPressed: () => context
-                  .read<SignInFormCubit>()
-                  .signInWithEmailAndPasswordPressed(),
+              child: const Text('註冊'),
+              onPressed: () {
+                context
+                    .read<RegisterFormCubit>()
+                    .registerWithEmailAndPasswordPressed();
+              },
             ),
             if (state.isSubmitting) ...const [
-              Text('登入中'),
+              Text('註冊中'),
               SizedBox(height: 12.0),
               LinearProgressIndicator()
             ]

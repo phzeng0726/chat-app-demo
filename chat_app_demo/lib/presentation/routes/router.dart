@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_app_demo/presentation/register/register_page.dart';
 import 'package:chat_app_demo/presentation/sign_in/sign_in_page.dart';
 import '../home/home.dart';
 import '../splash/splash_page.dart';
@@ -16,6 +17,7 @@ import '../splash/splash_page.dart';
         AutoRoute(page: SplashPage, path: '', initial: true),
         // AutoRoute(page: SignInPage, path: '', initial: true),
         AutoRoute(page: SignInPage, path: 'sign-in'),
+        AutoRoute(page: RegisterPage, path: 'register'),
         AutoRoute(page: HomePage, path: 'home'),
 
         // AutoRoute(page: UnauthHomePage, path: 'unauth-home', initial: true),

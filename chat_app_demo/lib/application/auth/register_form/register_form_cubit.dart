@@ -1,16 +1,16 @@
-import 'package:chat_app_demo/domain/auth/i_auth_facade.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/auth/auth_failure.dart';
+import '../../../domain/auth/i_auth_facade.dart';
 
-part 'sign_in_form_state.dart';
-part 'sign_in_form_cubit.freezed.dart';
+part 'register_form_state.dart';
+part 'register_form_cubit.freezed.dart';
 
-class SignInFormCubit extends Cubit<SignInFormState> {
+class RegisterFormCubit extends Cubit<RegisterFormState> {
   final IAuthFacade _authFacade;
-  SignInFormCubit(this._authFacade) : super(SignInFormState.initial());
+  RegisterFormCubit(this._authFacade) : super(RegisterFormState.initial());
 
   void emailAddressChanged(String emailAddressStr) {
     emit(
@@ -42,7 +42,7 @@ class SignInFormCubit extends Cubit<SignInFormState> {
     );
   }
 
-  Future<void> signInWithEmailAndPasswordPressed() async {
+  Future<void> registerWithEmailAndPasswordPressed() async {
     Either<AuthFailure, String> failureOrSuccess;
 
     emit(
@@ -53,7 +53,7 @@ class SignInFormCubit extends Cubit<SignInFormState> {
       ),
     );
 
-    failureOrSuccess = await _authFacade.signIn(
+    failureOrSuccess = await _authFacade.register(
       emailAddress: state.emailAddress,
       password: state.password,
     );
