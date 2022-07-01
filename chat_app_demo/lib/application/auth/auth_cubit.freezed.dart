@@ -18,10 +18,14 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$AuthStateTearOff {
   const _$AuthStateTearOff();
 
-  _AuthState call({required User user, required AuthStatus status}) {
+  _AuthState call(
+      {required User user,
+      required AuthStatus status,
+      required Option<AuthFailure> authFailureOption}) {
     return _AuthState(
       user: user,
       status: status,
+      authFailureOption: authFailureOption,
     );
   }
 }
@@ -34,6 +38,8 @@ mixin _$AuthState {
 // required CompanyInfo companyInfo,
   User get user => throw _privateConstructorUsedError;
   AuthStatus get status => throw _privateConstructorUsedError;
+  Option<AuthFailure> get authFailureOption =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthStateCopyWith<AuthState> get copyWith =>
@@ -44,7 +50,8 @@ mixin _$AuthState {
 abstract class $AuthStateCopyWith<$Res> {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
       _$AuthStateCopyWithImpl<$Res>;
-  $Res call({User user, AuthStatus status});
+  $Res call(
+      {User user, AuthStatus status, Option<AuthFailure> authFailureOption});
 
   $UserCopyWith<$Res> get user;
   $AuthStatusCopyWith<$Res> get status;
@@ -62,6 +69,7 @@ class _$AuthStateCopyWithImpl<$Res> implements $AuthStateCopyWith<$Res> {
   $Res call({
     Object? user = freezed,
     Object? status = freezed,
+    Object? authFailureOption = freezed,
   }) {
     return _then(_value.copyWith(
       user: user == freezed
@@ -72,6 +80,10 @@ class _$AuthStateCopyWithImpl<$Res> implements $AuthStateCopyWith<$Res> {
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as AuthStatus,
+      authFailureOption: authFailureOption == freezed
+          ? _value.authFailureOption
+          : authFailureOption // ignore: cast_nullable_to_non_nullable
+              as Option<AuthFailure>,
     ));
   }
 
@@ -96,7 +108,8 @@ abstract class _$AuthStateCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
           _AuthState value, $Res Function(_AuthState) then) =
       __$AuthStateCopyWithImpl<$Res>;
   @override
-  $Res call({User user, AuthStatus status});
+  $Res call(
+      {User user, AuthStatus status, Option<AuthFailure> authFailureOption});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -117,6 +130,7 @@ class __$AuthStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
   $Res call({
     Object? user = freezed,
     Object? status = freezed,
+    Object? authFailureOption = freezed,
   }) {
     return _then(_AuthState(
       user: user == freezed
@@ -127,6 +141,10 @@ class __$AuthStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as AuthStatus,
+      authFailureOption: authFailureOption == freezed
+          ? _value.authFailureOption
+          : authFailureOption // ignore: cast_nullable_to_non_nullable
+              as Option<AuthFailure>,
     ));
   }
 }
@@ -134,16 +152,22 @@ class __$AuthStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AuthState extends _AuthState {
-  const _$_AuthState({required this.user, required this.status}) : super._();
+  const _$_AuthState(
+      {required this.user,
+      required this.status,
+      required this.authFailureOption})
+      : super._();
 
   @override // required CompanyInfo companyInfo,
   final User user;
   @override
   final AuthStatus status;
+  @override
+  final Option<AuthFailure> authFailureOption;
 
   @override
   String toString() {
-    return 'AuthState(user: $user, status: $status)';
+    return 'AuthState(user: $user, status: $status, authFailureOption: $authFailureOption)';
   }
 
   @override
@@ -152,14 +176,17 @@ class _$_AuthState extends _AuthState {
         (other.runtimeType == runtimeType &&
             other is _AuthState &&
             const DeepCollectionEquality().equals(other.user, user) &&
-            const DeepCollectionEquality().equals(other.status, status));
+            const DeepCollectionEquality().equals(other.status, status) &&
+            const DeepCollectionEquality()
+                .equals(other.authFailureOption, authFailureOption));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(user),
-      const DeepCollectionEquality().hash(status));
+      const DeepCollectionEquality().hash(status),
+      const DeepCollectionEquality().hash(authFailureOption));
 
   @JsonKey(ignore: true)
   @override
@@ -168,14 +195,18 @@ class _$_AuthState extends _AuthState {
 }
 
 abstract class _AuthState extends AuthState {
-  const factory _AuthState({required User user, required AuthStatus status}) =
-      _$_AuthState;
+  const factory _AuthState(
+      {required User user,
+      required AuthStatus status,
+      required Option<AuthFailure> authFailureOption}) = _$_AuthState;
   const _AuthState._() : super._();
 
   @override // required CompanyInfo companyInfo,
   User get user;
   @override
   AuthStatus get status;
+  @override
+  Option<AuthFailure> get authFailureOption;
   @override
   @JsonKey(ignore: true)
   _$AuthStateCopyWith<_AuthState> get copyWith =>

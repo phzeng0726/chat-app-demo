@@ -14,6 +14,154 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+UserListDto _$UserListDtoFromJson(Map<String, dynamic> json) {
+  return _UserListDto.fromJson(json);
+}
+
+/// @nodoc
+class _$UserListDtoTearOff {
+  const _$UserListDtoTearOff();
+
+  _UserListDto call({required List<UserDto> list}) {
+    return _UserListDto(
+      list: list,
+    );
+  }
+
+  UserListDto fromJson(Map<String, Object?> json) {
+    return UserListDto.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $UserListDto = _$UserListDtoTearOff();
+
+/// @nodoc
+mixin _$UserListDto {
+  List<UserDto> get list => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $UserListDtoCopyWith<UserListDto> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserListDtoCopyWith<$Res> {
+  factory $UserListDtoCopyWith(
+          UserListDto value, $Res Function(UserListDto) then) =
+      _$UserListDtoCopyWithImpl<$Res>;
+  $Res call({List<UserDto> list});
+}
+
+/// @nodoc
+class _$UserListDtoCopyWithImpl<$Res> implements $UserListDtoCopyWith<$Res> {
+  _$UserListDtoCopyWithImpl(this._value, this._then);
+
+  final UserListDto _value;
+  // ignore: unused_field
+  final $Res Function(UserListDto) _then;
+
+  @override
+  $Res call({
+    Object? list = freezed,
+  }) {
+    return _then(_value.copyWith(
+      list: list == freezed
+          ? _value.list
+          : list // ignore: cast_nullable_to_non_nullable
+              as List<UserDto>,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$UserListDtoCopyWith<$Res>
+    implements $UserListDtoCopyWith<$Res> {
+  factory _$UserListDtoCopyWith(
+          _UserListDto value, $Res Function(_UserListDto) then) =
+      __$UserListDtoCopyWithImpl<$Res>;
+  @override
+  $Res call({List<UserDto> list});
+}
+
+/// @nodoc
+class __$UserListDtoCopyWithImpl<$Res> extends _$UserListDtoCopyWithImpl<$Res>
+    implements _$UserListDtoCopyWith<$Res> {
+  __$UserListDtoCopyWithImpl(
+      _UserListDto _value, $Res Function(_UserListDto) _then)
+      : super(_value, (v) => _then(v as _UserListDto));
+
+  @override
+  _UserListDto get _value => super._value as _UserListDto;
+
+  @override
+  $Res call({
+    Object? list = freezed,
+  }) {
+    return _then(_UserListDto(
+      list: list == freezed
+          ? _value.list
+          : list // ignore: cast_nullable_to_non_nullable
+              as List<UserDto>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_UserListDto extends _UserListDto {
+  const _$_UserListDto({required this.list}) : super._();
+
+  factory _$_UserListDto.fromJson(Map<String, dynamic> json) =>
+      _$$_UserListDtoFromJson(json);
+
+  @override
+  final List<UserDto> list;
+
+  @override
+  String toString() {
+    return 'UserListDto(list: $list)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _UserListDto &&
+            const DeepCollectionEquality().equals(other.list, list));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(list));
+
+  @JsonKey(ignore: true)
+  @override
+  _$UserListDtoCopyWith<_UserListDto> get copyWith =>
+      __$UserListDtoCopyWithImpl<_UserListDto>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_UserListDtoToJson(this);
+  }
+}
+
+abstract class _UserListDto extends UserListDto {
+  const factory _UserListDto({required List<UserDto> list}) = _$_UserListDto;
+  const _UserListDto._() : super._();
+
+  factory _UserListDto.fromJson(Map<String, dynamic> json) =
+      _$_UserListDto.fromJson;
+
+  @override
+  List<UserDto> get list;
+  @override
+  @JsonKey(ignore: true)
+  _$UserListDtoCopyWith<_UserListDto> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 UserDto _$UserDtoFromJson(Map<String, dynamic> json) {
   return _UserDto.fromJson(json);
 }

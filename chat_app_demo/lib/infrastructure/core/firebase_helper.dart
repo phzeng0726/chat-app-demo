@@ -23,46 +23,22 @@ extension FirestoreX on FirebaseFirestore {
     return FirebaseFirestore.instance.collection('userList').doc(userId);
   }
 
-  // Future<DocumentReference> companyDocument() async {
-  //   final userDoc = await userDocument();
-  //   final user = await userDoc.get().then(
-  //         (doc) => UserDto.fromFirestore(doc).toDomain(),
-  //       );
-  //   final companyId = user.companyId;
-  //   return companyListCollection.doc(companyId);
-  // }
+  Future<DocumentReference> groupChatDocument({
+    required String fromId,
+    required String toId,
+  }) async {
+    List<String> idList = [fromId, toId];
+    idList.sort();
+    final groupChatId = idList.join('');
+    return FirebaseFirestore.instance.collection('chatList').doc(groupChatId);
+  }
 
-  CollectionReference get userListCollection =>
-      collection('userList'); // companyUserList/{userId}
-  // CollectionReference get companyListCollection =>
-  //     collection('companyList'); // comapanyList/{companyId}
-
-  // CollectionReference get userPermissionListCollection => collection(
-  //     'userPermissionList'); // comapanyDataList/{companyId}/userPermissionList/{userId}
-
-  // CollectionReference get watchHistoryListCollection =>
-  //     collection('watchHistoryList'); // watchHistoryList/{}
-  // // fromId : candidateUserId or companyUserId
-  // // toId : jobId/caseId/candidateUserId
-  // // timestamp : int
-  // // historyType : 'job' 'case'
+  CollectionReference get userListCollection => collection('userList');
+  // CollectionReference get messageListCollection => collection('messageList');
 }
 
 // NOTE: 隸屬於doc支線以下的，用這個，才不用一直傳遞companyId
 extension DocumentReferenceX on DocumentReference {
-  // CollectionReference get userListCollection =>
-  //     collection('userList'); // jobOpeningList/{jobId}
-
-  // CollectionReference get jobOpeningListCollection =>
-  //     collection('jobOpeningList'); // jobOpeningList/{jobId}
-
-  // CollectionReference get jobApplyListCollection => collection('jobApplyList');
-
-  // CollectionReference get companyDataListCollection =>
-  //     collection('companyDataList');
-
-  // CollectionReference get tenderListCollection => collection('tenderList');
-
-  // CollectionReference get tenderApplyListCollection => collection('tenderApplyList');
-
+  CollectionReference get chatListCollection => collection('chatList');
+  CollectionReference get messageListCollection => collection('messageList');
 }

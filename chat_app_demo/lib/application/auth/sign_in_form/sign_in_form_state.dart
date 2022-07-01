@@ -14,8 +14,8 @@ abstract class SignInFormState with _$SignInFormState {
   }) = _SignInFormState;
 
   factory SignInFormState.initial() => SignInFormState(
-        emailAddress: 'qq@gmail.com',
-        password: 'qqqqqq123',
+        emailAddress: 'testEmail@gmail.com',
+        password: 'aaaaaa',
         checkPassword: '',
         // showErrorMessages: false,
         isSubmitting: false,

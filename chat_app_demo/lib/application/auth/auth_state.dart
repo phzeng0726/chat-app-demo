@@ -8,6 +8,7 @@ class AuthState with _$AuthState {
     // required CompanyInfo companyInfo,
     required User user,
     required AuthStatus status,
+    required Option<AuthFailure> authFailureOption,
     // required LoadStatus loadStatus,
   }) = _AuthState;
 
@@ -15,6 +16,7 @@ class AuthState with _$AuthState {
         // companyInfo: CompanyInfo.empty(),
         user: User.empty(),
         status: const AuthStatus.initial(),
+        authFailureOption: none(),
         // loadStatus: const LoadStatus.initial(),
       );
 }

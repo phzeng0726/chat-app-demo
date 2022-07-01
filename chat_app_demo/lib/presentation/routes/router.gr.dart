@@ -11,15 +11,16 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i1;
-import 'package:flutter/material.dart' as _i6;
+import 'package:flutter/material.dart' as _i7;
 
+import '../chat/chat_page.dart' as _i6;
 import '../home/home.dart' as _i5;
 import '../register/register_page.dart' as _i4;
 import '../sign_in/sign_in_page.dart' as _i3;
 import '../splash/splash_page.dart' as _i2;
 
 class RootRouter extends _i1.RootStackRouter {
-  RootRouter([_i6.GlobalKey<_i6.NavigatorState>? navigatorKey])
+  RootRouter([_i7.GlobalKey<_i7.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
@@ -43,6 +44,12 @@ class RootRouter extends _i1.RootStackRouter {
     HomeRoute.name: (routeData) {
       return _i1.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i5.HomePage());
+    },
+    ChatRoute.name: (routeData) {
+      final args = routeData.argsAs<ChatRouteArgs>();
+      return _i1.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i6.ChatPage(key: args.key, toUserId: args.toUserId));
     }
   };
 
@@ -56,7 +63,9 @@ class RootRouter extends _i1.RootStackRouter {
           _i1.RouteConfig(RegisterRoute.name,
               path: 'register', parent: EmptyRouterRoute.name),
           _i1.RouteConfig(HomeRoute.name,
-              path: 'home', parent: EmptyRouterRoute.name)
+              path: 'home', parent: EmptyRouterRoute.name),
+          _i1.RouteConfig(ChatRoute.name,
+              path: 'chat', parent: EmptyRouterRoute.name)
         ])
       ];
 }
@@ -100,4 +109,27 @@ class HomeRoute extends _i1.PageRouteInfo<void> {
   const HomeRoute() : super(HomeRoute.name, path: 'home');
 
   static const String name = 'HomeRoute';
+}
+
+/// generated route for
+/// [_i6.ChatPage]
+class ChatRoute extends _i1.PageRouteInfo<ChatRouteArgs> {
+  ChatRoute({_i7.Key? key, required String toUserId})
+      : super(ChatRoute.name,
+            path: 'chat', args: ChatRouteArgs(key: key, toUserId: toUserId));
+
+  static const String name = 'ChatRoute';
+}
+
+class ChatRouteArgs {
+  const ChatRouteArgs({this.key, required this.toUserId});
+
+  final _i7.Key? key;
+
+  final String toUserId;
+
+  @override
+  String toString() {
+    return 'ChatRouteArgs{key: $key, toUserId: $toUserId}';
+  }
 }

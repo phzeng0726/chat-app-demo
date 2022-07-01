@@ -15,12 +15,11 @@ class SplashPage extends StatelessWidget {
       listenWhen: (p, c) =>
           p.status != c.status && c.status != const AuthStatus.inProgress(),
       listener: (context, state) {
-        // print(state.status);
         state.status.map(
           initial: (_) {},
           inProgress: (_) {},
-          authenticated: (_) => getIt<RootRouter>().push(const HomeRoute()),
-          unauthenticated: (_) => getIt<RootRouter>().push(const SignInRoute()),
+          authenticated: (_) => getIt<RootRouter>().pushNamed('/home'),
+          unauthenticated: (_) => getIt<RootRouter>().pushNamed('/sign-in'),
         );
       },
       child: const Scaffold(

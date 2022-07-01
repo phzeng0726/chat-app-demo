@@ -1,16 +1,47 @@
-import 'package:chat_app_demo/application/auth/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../application/auth/auth_cubit.dart';
+import '../../application/home/home_cubit.dart';
+import '../../domain/chat/i_chat_repository.dart';
+import '../../domain/core/load_status.dart';
+import '../../injection.dart';
+import 'widgets/search_user_box.dart';
+import 'widgets/search_user_overview.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ElevatedButton(
-        onPressed: () => context.read<AuthCubit>().signedOut(),
-        child: Text('登出'),
+    return BlocProvider(
+      create: (context) => HomeCubit(getIt<IChatRepository>()),
+      child: Scaffold(
+        appBar: AppBar(
+            title: const Text('Chat App Demo'),
+            centerTitle: true,
+            actions: [
+              ElevatedButton(
+                onPressed: () => context.read<AuthCubit>().signedOut(),
+                child: const Text('登出'),
+              )
+            ]),
+        body: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            return Column(
+              children: [
+                const SearchUserBox(),
+                if (state.searchStatus == const LoadStatus.initial()) ...[
+                  const Text('聊天列表'),
+                ] else if (state.searchStatus == const LoadStatus.failed()) ...[
+                  const Text('查無用戶'),
+                ] else ...[
+                  const SearchUserOverview(),
+                ]
+              ],
+            );
+          },
+        ),
       ),
     );
   }

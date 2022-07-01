@@ -6,6 +6,18 @@ part of 'user_dtos.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$_UserListDto _$$_UserListDtoFromJson(Map<String, dynamic> json) =>
+    _$_UserListDto(
+      list: (json['list'] as List<dynamic>)
+          .map((e) => UserDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$_UserListDtoToJson(_$_UserListDto instance) =>
+    <String, dynamic>{
+      'list': instance.list,
+    };
+
 _$_UserDto _$$_UserDtoFromJson(Map<String, dynamic> json) => _$_UserDto(
       userId: json['userId'] as String,
       emailAddress: json['emailAddress'] as String,

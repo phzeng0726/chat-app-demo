@@ -8,6 +8,31 @@ part 'user_dtos.freezed.dart';
 part 'user_dtos.g.dart';
 
 @freezed
+class UserListDto with _$UserListDto {
+  const UserListDto._();
+  const factory UserListDto({
+    required List<UserDto> list,
+  }) = _UserListDto;
+
+  factory UserListDto.fromDomain(List<User> userList) {
+    return UserListDto(
+        list: userList.map((user) => UserDto.fromDomain(user)).toList());
+  }
+  
+  List<User> toDomain() {
+    return list.map((dto) => dto.toDomain()).toList();
+  }
+
+  factory UserListDto.fromJson(Map<String, dynamic> json) =>
+      _$UserListDtoFromJson(json);
+
+  factory UserListDto.fromFirestore(QuerySnapshot snapshot) {
+    final list = snapshot.docs.map((doc) => doc.data()).toList();
+    return UserListDto.fromJson({'list': list});
+  }
+}
+
+@freezed
 class UserDto with _$UserDto {
   const UserDto._();
   const factory UserDto({
@@ -21,13 +46,14 @@ class UserDto with _$UserDto {
 
   factory UserDto.fromDomain(User user) {
     return UserDto(
-        userId: user.userId,
-        emailAddress: user.emailAddress,
-        userName: user.userName,
-        phoneNumber: user.phoneNumber,
-        createdTimeStamp: user.createdTimeStamp.value.microsecondsSinceEpoch,
-        lastSignInTimeStamp: user.lastSignInTimeStamp.value.microsecondsSinceEpoch,
-      );
+      userId: user.userId,
+      emailAddress: user.emailAddress,
+      userName: user.userName,
+      phoneNumber: user.phoneNumber,
+      createdTimeStamp: user.createdTimeStamp.value.microsecondsSinceEpoch,
+      lastSignInTimeStamp:
+          user.lastSignInTimeStamp.value.microsecondsSinceEpoch,
+    );
   }
 
   User toDomain() => User(

@@ -20,16 +20,13 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> authCheckRequested() async {
     emit(
       state.copyWith(
-        // loadStatus: const LoadStatus.inProgress(),
         status: const AuthStatus.inProgress(),
       ),
     );
 
     try {
-      print('1');
       // 獲得signedIn的userId
       final userIdOption = await _authFacade.getSignedInUserId();
-      print('2');
 
       userIdOption.fold(
           () => emit(
@@ -55,18 +52,18 @@ class AuthCubit extends Cubit<AuthState> {
     failureOrUser.fold(
       (f) => emit(
         state.copyWith(
+          authFailureOption: some(f),
           status: const AuthStatus.unauthenticated(),
         ),
       ),
       (user) => emit(
         state.copyWith(
           user: user,
-          // loadStatus: const LoadStatus.succeed(),
+          authFailureOption: none(),
           status: const AuthStatus.authenticated(),
         ),
       ),
     );
-    print(state);
   }
 
   void signedOut() async {
@@ -80,7 +77,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   @override
   Future<void> close() async {
-    // await _userDataSubscription?.cancel();
+    await _userDataSubscription?.cancel();
     return super.close();
   }
 }
