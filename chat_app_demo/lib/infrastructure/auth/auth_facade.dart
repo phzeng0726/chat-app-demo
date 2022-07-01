@@ -1,35 +1,58 @@
 import 'dart:async';
 
+import 'package:chat_app_demo/domain/core/device_time_stamp.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/rxdart.dart'; // 為了使用 onErrorReturnWith
 
 import '../../domain/auth/auth_failure.dart';
 import '../../domain/auth/i_auth_facade.dart';
 import '../../domain/auth/user.dart';
 import '../../domain/core/logger.dart';
-import 'firebase_user_mapper.dart';
+import '../core/firebase_helper.dart';
+import 'user_dtos.dart';
 
 @LazySingleton(as: IAuthFacade)
 class AuthFacade implements IAuthFacade {
   final auth.FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _firestore;
 
   AuthFacade(
     this._firebaseAuth,
+    this._firestore,
   );
 
   @override
-  Future<Option<User>> getSignedInUser() async =>
-      optionOf(_firebaseAuth.currentUser?.toDomain());
+  Future<Option<String>> getSignedInUserId() async =>
+      optionOf(_firebaseAuth.currentUser?.uid);
 
   @override
-  Future<Either<AuthFailure, String>> register(
-      {required String emailAddress, required String password}) async {
+  Future<Either<AuthFailure, String>> register({
+    required String emailAddress,
+    required String password,
+  }) async {
     try {
       // NOTE firebase_auth新增User帳號，如果email已經存在的話會擋
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: emailAddress,
         password: password,
+      );
+
+      final user = User(
+          userId: credential.user!.uid,
+          emailAddress: emailAddress,
+          userName: credential.user!.displayName ?? '',
+          phoneNumber: credential.user!.phoneNumber ?? '',
+          createdTimeStamp:
+              DeviceTimeStamp(credential.user!.metadata.creationTime!),
+          lastSignInTimeStamp:
+              DeviceTimeStamp(credential.user!.metadata.lastSignInTime!),
+        );
+  
+      await createUserDoc(
+        user: user,
       );
 
       return right(credential.user!.uid);
@@ -78,5 +101,37 @@ class AuthFacade implements IAuthFacade {
   @override
   Future<void> signOut() async {
     return await _firebaseAuth.signOut();
+  }
+
+  @override
+  Future<void> createUserDoc({
+    required User user,
+  }) async {
+    // NOTE: 將帳號資訊放入firestore裡的userList裡
+    final userDoc = await _firestore.userDocument();
+    await userDoc.set(UserDto.fromDomain(user).toJson());
+
+    return;
+  }
+
+  @override
+  Stream<Either<AuthFailure, User>> watchUserData({
+    required String userId,
+  }) async* {
+    final userDoc = await _firestore.userDocument();
+    yield* userDoc
+        .snapshots()
+        .map(
+          (doc) =>
+              right<AuthFailure, User>(UserDto.fromFirestore(doc).toDomain()),
+        )
+        .onErrorReturnWith((e, stackTrace) {
+      LoggerService.simple.i(e);
+      if (e is FirebaseException && e.code == 'permission-denied') {
+        return left(const AuthFailure.insufficientPermission());
+      } else {
+        return left(const AuthFailure.unexpected());
+      }
+    });
   }
 }

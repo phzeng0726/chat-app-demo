@@ -24,8 +24,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => firebaseInjectableModule.firebaseAuth);
   gh.lazySingleton<_i4.FirebaseFirestore>(
       () => firebaseInjectableModule.firestore);
-  gh.lazySingleton<_i5.IAuthFacade>(
-      () => _i6.AuthFacade(get<_i3.FirebaseAuth>()));
+  gh.lazySingleton<_i5.IAuthFacade>(() =>
+      _i6.AuthFacade(get<_i3.FirebaseAuth>(), get<_i4.FirebaseFirestore>()));
   return get;
 }
 

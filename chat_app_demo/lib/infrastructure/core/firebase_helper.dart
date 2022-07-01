@@ -1,10 +1,7 @@
-import 'package:chat_app_demo/injection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
 
 import '../../domain/auth/i_auth_facade.dart';
+import '../../injection.dart';
 import 'errors.dart';
 
 /* NOTE: 
@@ -21,9 +18,9 @@ where 的時候篩選
 */
 extension FirestoreX on FirebaseFirestore {
   Future<DocumentReference> userDocument() async {
-    final userOption = await getIt<IAuthFacade>().getSignedInUser();
-    final user = userOption.getOrElse(() => throw NotAuthenticatedError());
-    return FirebaseFirestore.instance.collection('userList').doc(user.userId);
+    final userIdOption = await getIt<IAuthFacade>().getSignedInUserId();
+    final userId = userIdOption.getOrElse(() => throw NotAuthenticatedError());
+    return FirebaseFirestore.instance.collection('userList').doc(userId);
   }
 
   // Future<DocumentReference> companyDocument() async {
@@ -35,8 +32,8 @@ extension FirestoreX on FirebaseFirestore {
   //   return companyListCollection.doc(companyId);
   // }
 
-  // CollectionReference get userListCollection =>
-  //     collection('companyUserList'); // companyUserList/{userId}
+  CollectionReference get userListCollection =>
+      collection('userList'); // companyUserList/{userId}
   // CollectionReference get companyListCollection =>
   //     collection('companyList'); // comapanyList/{companyId}
 
