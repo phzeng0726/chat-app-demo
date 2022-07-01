@@ -22,12 +22,14 @@ class _$ChatStateTearOff {
       {required String groupChatId,
       required ChatMessage chatMessage,
       required List<ChatMessage> messageList,
-      required LoadStatus loadStatus}) {
+      required LoadStatus loadStatus,
+      required LoadStatus writingStatus}) {
     return _ChatState(
       groupChatId: groupChatId,
       chatMessage: chatMessage,
       messageList: messageList,
       loadStatus: loadStatus,
+      writingStatus: writingStatus,
     );
   }
 }
@@ -42,6 +44,7 @@ mixin _$ChatState {
   ChatMessage get chatMessage => throw _privateConstructorUsedError;
   List<ChatMessage> get messageList => throw _privateConstructorUsedError;
   LoadStatus get loadStatus => throw _privateConstructorUsedError;
+  LoadStatus get writingStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChatStateCopyWith<ChatState> get copyWith =>
@@ -56,10 +59,12 @@ abstract class $ChatStateCopyWith<$Res> {
       {String groupChatId,
       ChatMessage chatMessage,
       List<ChatMessage> messageList,
-      LoadStatus loadStatus});
+      LoadStatus loadStatus,
+      LoadStatus writingStatus});
 
   $ChatMessageCopyWith<$Res> get chatMessage;
   $LoadStatusCopyWith<$Res> get loadStatus;
+  $LoadStatusCopyWith<$Res> get writingStatus;
 }
 
 /// @nodoc
@@ -76,6 +81,7 @@ class _$ChatStateCopyWithImpl<$Res> implements $ChatStateCopyWith<$Res> {
     Object? chatMessage = freezed,
     Object? messageList = freezed,
     Object? loadStatus = freezed,
+    Object? writingStatus = freezed,
   }) {
     return _then(_value.copyWith(
       groupChatId: groupChatId == freezed
@@ -94,6 +100,10 @@ class _$ChatStateCopyWithImpl<$Res> implements $ChatStateCopyWith<$Res> {
           ? _value.loadStatus
           : loadStatus // ignore: cast_nullable_to_non_nullable
               as LoadStatus,
+      writingStatus: writingStatus == freezed
+          ? _value.writingStatus
+          : writingStatus // ignore: cast_nullable_to_non_nullable
+              as LoadStatus,
     ));
   }
 
@@ -110,6 +120,13 @@ class _$ChatStateCopyWithImpl<$Res> implements $ChatStateCopyWith<$Res> {
       return _then(_value.copyWith(loadStatus: value));
     });
   }
+
+  @override
+  $LoadStatusCopyWith<$Res> get writingStatus {
+    return $LoadStatusCopyWith<$Res>(_value.writingStatus, (value) {
+      return _then(_value.copyWith(writingStatus: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -122,12 +139,15 @@ abstract class _$ChatStateCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
       {String groupChatId,
       ChatMessage chatMessage,
       List<ChatMessage> messageList,
-      LoadStatus loadStatus});
+      LoadStatus loadStatus,
+      LoadStatus writingStatus});
 
   @override
   $ChatMessageCopyWith<$Res> get chatMessage;
   @override
   $LoadStatusCopyWith<$Res> get loadStatus;
+  @override
+  $LoadStatusCopyWith<$Res> get writingStatus;
 }
 
 /// @nodoc
@@ -145,6 +165,7 @@ class __$ChatStateCopyWithImpl<$Res> extends _$ChatStateCopyWithImpl<$Res>
     Object? chatMessage = freezed,
     Object? messageList = freezed,
     Object? loadStatus = freezed,
+    Object? writingStatus = freezed,
   }) {
     return _then(_ChatState(
       groupChatId: groupChatId == freezed
@@ -163,6 +184,10 @@ class __$ChatStateCopyWithImpl<$Res> extends _$ChatStateCopyWithImpl<$Res>
           ? _value.loadStatus
           : loadStatus // ignore: cast_nullable_to_non_nullable
               as LoadStatus,
+      writingStatus: writingStatus == freezed
+          ? _value.writingStatus
+          : writingStatus // ignore: cast_nullable_to_non_nullable
+              as LoadStatus,
     ));
   }
 }
@@ -174,7 +199,8 @@ class _$_ChatState extends _ChatState {
       {required this.groupChatId,
       required this.chatMessage,
       required this.messageList,
-      required this.loadStatus})
+      required this.loadStatus,
+      required this.writingStatus})
       : super._();
 
   @override
@@ -185,10 +211,12 @@ class _$_ChatState extends _ChatState {
   final List<ChatMessage> messageList;
   @override
   final LoadStatus loadStatus;
+  @override
+  final LoadStatus writingStatus;
 
   @override
   String toString() {
-    return 'ChatState(groupChatId: $groupChatId, chatMessage: $chatMessage, messageList: $messageList, loadStatus: $loadStatus)';
+    return 'ChatState(groupChatId: $groupChatId, chatMessage: $chatMessage, messageList: $messageList, loadStatus: $loadStatus, writingStatus: $writingStatus)';
   }
 
   @override
@@ -203,7 +231,9 @@ class _$_ChatState extends _ChatState {
             const DeepCollectionEquality()
                 .equals(other.messageList, messageList) &&
             const DeepCollectionEquality()
-                .equals(other.loadStatus, loadStatus));
+                .equals(other.loadStatus, loadStatus) &&
+            const DeepCollectionEquality()
+                .equals(other.writingStatus, writingStatus));
   }
 
   @override
@@ -212,7 +242,8 @@ class _$_ChatState extends _ChatState {
       const DeepCollectionEquality().hash(groupChatId),
       const DeepCollectionEquality().hash(chatMessage),
       const DeepCollectionEquality().hash(messageList),
-      const DeepCollectionEquality().hash(loadStatus));
+      const DeepCollectionEquality().hash(loadStatus),
+      const DeepCollectionEquality().hash(writingStatus));
 
   @JsonKey(ignore: true)
   @override
@@ -225,7 +256,8 @@ abstract class _ChatState extends ChatState {
       {required String groupChatId,
       required ChatMessage chatMessage,
       required List<ChatMessage> messageList,
-      required LoadStatus loadStatus}) = _$_ChatState;
+      required LoadStatus loadStatus,
+      required LoadStatus writingStatus}) = _$_ChatState;
   const _ChatState._() : super._();
 
   @override
@@ -236,6 +268,8 @@ abstract class _ChatState extends ChatState {
   List<ChatMessage> get messageList;
   @override
   LoadStatus get loadStatus;
+  @override
+  LoadStatus get writingStatus;
   @override
   @JsonKey(ignore: true)
   _$ChatStateCopyWith<_ChatState> get copyWith =>

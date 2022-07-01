@@ -1,41 +1,51 @@
-import 'package:chat_app_demo/application/chat/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MessageEnterBox extends StatelessWidget {
+import '../../../application/chat/chat_cubit.dart';
+
+class MessageEnterBox extends StatefulWidget {
   const MessageEnterBox({Key? key}) : super(key: key);
 
   @override
+  State<MessageEnterBox> createState() => _MessageEnterBoxState();
+}
+
+class _MessageEnterBoxState extends State<MessageEnterBox> {
+  late FocusNode focusNode;
+  TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    focusNode = FocusNode();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onChanged: (value) =>
-          context.read<ChatCubit>().chatMessageContentChanged(value),
-      autocorrect: false,
-      decoration:  InputDecoration(
-        fillColor: Colors.blue,
-        prefixIcon: const Icon(Icons.chat),
-        suffixIcon: IconButton(
-          onPressed: () => context.read<ChatCubit>().sendMessage(),
-          icon: const Icon(Icons.send),
-        ),
-        hintText: '訊息',
-      ),
+    return BlocBuilder<ChatCubit, ChatState>(
+      builder: (context, state) {
+        return TextField(
+          controller: controller,
+          // autofocus: true,
+          autocorrect: false,
+          focusNode: focusNode,
+          onSubmitted: (value) async {
+            await context.read<ChatCubit>().sendMessage(value);
+            controller.clear();
+            focusNode.requestFocus();
+          },
+          decoration: const InputDecoration(
+            prefixIcon: Icon(Icons.chat),
+            // suffixIcon: IconButton(
+            //   onPressed: () =>
+            //       context.read<ChatCubit>().sendMessage(controller.text),
+            //   icon: const Icon(Icons.send),
+            // ),
+            hintText: '訊息',
+          ),
+        );
+      },
     );
-    // return BlocBuilder<HomeCubit, HomeState>(
-    //   builder: (context, state) {
-    //     return TextFormField(
-    //       initialValue: state.emailAddress,
-    //       onChanged: (value) =>
-    //           context.read<HomeCubit>().searchUserChanged(value),
-    //       autocorrect: false,
-    //       decoration: const InputDecoration(
-    //         prefixIcon: Icon(Icons.search),
-    //         hintText: '請輸入要搜尋用戶的 Email 地址',
-    //       ),
-    //       onEditingComplete: () =>
-    //           context.read<HomeCubit>().searchUserStarted(),
-    //     );
-    //   },
-    // );
   }
 }

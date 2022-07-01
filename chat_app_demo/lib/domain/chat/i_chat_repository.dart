@@ -18,6 +18,10 @@ abstract class IChatRepository {
     required String toId,
   });
 
+  Stream<Either<ChatFailure, List<String>>> watchGroupChat({
+    required String userId,
+  });
+  
   Future<void> create({
     required ChatMessage chatMessage,
   });

@@ -60,19 +60,30 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   void chatMessageContentChanged(String chatMessageContent) {
-    emit(
-      state.copyWith(
-        chatMessage: state.chatMessage.copyWith(
-          content: chatMessageContent,
+    if (chatMessageContent == '') {
+      emit(
+        state.copyWith(
+          writingStatus: const LoadStatus.initial(),
+          chatMessage: state.chatMessage.copyWith(
+            content: chatMessageContent,
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      emit(
+        state.copyWith(
+          writingStatus: const LoadStatus.inProgress(),
+          chatMessage: state.chatMessage.copyWith(
+            content: chatMessageContent,
+          ),
+        ),
+      );
+    }
+
+    print(state.chatMessage.content);
   }
 
-  void sendMessage() async {
-    await _chatRepository.create(
-      chatMessage: state.chatMessage,
-    );
+  void textClear() {
     emit(
       state.copyWith(
         chatMessage: state.chatMessage.copyWith(
@@ -82,7 +93,22 @@ class ChatCubit extends Cubit<ChatState> {
     );
   }
 
-  
+  Future<void> sendMessage(String content) async {
+    await _chatRepository.create(
+      chatMessage: state.chatMessage.copyWith(
+        content: content,
+      ),
+    );
+    // emit(
+    //   state.copyWith(
+    //     writingStatus: const LoadStatus.succeed(),
+    //     chatMessage: state.chatMessage.copyWith(
+    //       content: '',
+    //     ),
+    //   ),
+    // );
+  }
+
   @override
   Future<void> close() async {
     await _messageListSubscription?.cancel();

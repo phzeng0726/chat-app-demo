@@ -26,16 +26,6 @@ class ChatRepository implements IChatRepository {
 
   // Stream<Either<ChatFailure, List<ChatMessage>>> watchChatMessageList();
 
-  // Future<void> create({
-  //   required ChatMessage chatMessage,
-  // });
-  // Future<void> update({
-  //   required ChatMessage chatMessage,
-  // });
-  // Future<void> delete({
-  //   required String chatMessageId,
-  // });
-
   @override
   Stream<Either<ChatFailure, List<ChatMessage>>> watchChatMessageList({
     required String fromId,
@@ -45,7 +35,6 @@ class ChatRepository implements IChatRepository {
       fromId: fromId,
       toId: toId,
     );
-    // final messageListCollection = _firestore.messageListCollection;
     yield* groupChatDoc.messageListCollection
         .orderBy('createdTimeStamp', descending: true)
         .snapshots()
@@ -65,15 +54,11 @@ class ChatRepository implements IChatRepository {
   Future<void> create({
     required ChatMessage chatMessage,
   }) async {
-    // NOTE: 將帳號資訊放入firestore裡的userList裡
     final groupChatDoc = await _firestore.groupChatDocument(
       fromId: chatMessage.fromId,
       toId: chatMessage.toId,
     );
-    await groupChatDoc
-        .messageListCollection
-        .doc()
-        .set(
+    await groupChatDoc.messageListCollection.doc().set(
           ChatMessageDto.fromDomain(
             chatMessage.copyWith(
               createdTimeStamp: DeviceTimeStamp.now(),
@@ -88,11 +73,10 @@ class ChatRepository implements IChatRepository {
   Future<void> update({
     required ChatMessage chatMessage,
   }) async {
-    // NOTE: 將帳號資訊放入firestore裡的userList裡
     final userDoc = await _firestore.userDocument();
-    await userDoc.chatListCollection.doc().set(
-          ChatMessageDto.fromDomain(chatMessage).toJson(),
-        );
+    // await userDoc.chatListCollection.doc().set(
+    //       ChatMessageDto.fromDomain(chatMessage).toJson(),
+    //     );
 
     return;
   }
@@ -101,12 +85,31 @@ class ChatRepository implements IChatRepository {
   Future<void> delete({
     required String chatMessageId,
   }) async {
-    // NOTE: 將帳號資訊放入firestore裡的userList裡
     final userDoc = await _firestore.userDocument();
 
-    await userDoc.chatListCollection.doc(chatMessageId).delete();
+    // await userDoc.chatListCollection.doc(chatMessageId).delete();
 
     return;
+  }
+
+  @override
+  Stream<Either<ChatFailure, List<String>>> watchGroupChat({
+    required String userId,
+  }) async* {
+    final chatListCollection = _firestore.chatListCollection;
+    yield* chatListCollection
+        .where(chatListCollection.id, arrayContains: userId)
+        .snapshots()
+        .map((snapshot) =>
+            right<ChatFailure, List<String>>([snapshot.toString()]))
+      ..onErrorReturnWith((e, stackTrace) {
+        LoggerService.simple.i(e);
+        if (e is FirebaseException && e.code == 'permission-denied') {
+          return left(const ChatFailure.insufficientPermission());
+        } else {
+          return left(const ChatFailure.unexpected());
+        }
+      });
   }
 
   @override
@@ -133,20 +136,5 @@ class ChatRepository implements IChatRepository {
           return left(const AuthFailure.unexpected());
         }
       });
-    // yield userListCollection
-    //     .where('emailAddress', isEqualTo: emailAddress)
-    //     .get()
-    //     .then(
-    //       (doc) => right<AuthFailure, List<User>>(
-    //           UserListDto.fromFirestore(doc).toDomain()),
-    //     )
-    //     .onErrorReturnWith((e, stackTrace) {
-    //   LoggerService.simple.i(e);
-    //   if (e is FirebaseException && e.code == 'permission-denied') {
-    //     return left(const AuthFailure.insufficientPermission());
-    //   } else {
-    //     return left(const AuthFailure.unexpected());
-    //   }
-    // });
   }
 }

@@ -20,7 +20,7 @@ extension FirestoreX on FirebaseFirestore {
   Future<DocumentReference> userDocument() async {
     final userIdOption = await getIt<IAuthFacade>().getSignedInUserId();
     final userId = userIdOption.getOrElse(() => throw NotAuthenticatedError());
-    return FirebaseFirestore.instance.collection('userList').doc(userId);
+    return userListCollection.doc(userId);
   }
 
   Future<DocumentReference> groupChatDocument({
@@ -30,15 +30,15 @@ extension FirestoreX on FirebaseFirestore {
     List<String> idList = [fromId, toId];
     idList.sort();
     final groupChatId = idList.join('');
-    return FirebaseFirestore.instance.collection('chatList').doc(groupChatId);
+    return chatListCollection.doc(groupChatId);
   }
 
+  CollectionReference get chatListCollection => collection('chatList');
   CollectionReference get userListCollection => collection('userList');
   // CollectionReference get messageListCollection => collection('messageList');
 }
 
 // NOTE: 隸屬於doc支線以下的，用這個，才不用一直傳遞companyId
 extension DocumentReferenceX on DocumentReference {
-  CollectionReference get chatListCollection => collection('chatList');
   CollectionReference get messageListCollection => collection('messageList');
 }
