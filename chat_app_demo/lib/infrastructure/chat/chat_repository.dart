@@ -36,7 +36,7 @@ class ChatRepository implements IChatRepository {
       toId: toId,
     );
     yield* groupChatDoc.messageListCollection
-        .orderBy('createdTimeStamp', descending: true)
+        .orderBy('createdTimeStamp')
         .snapshots()
         .map((snapshot) => right<ChatFailure, List<ChatMessage>>(
             ChatMessageListDto.fromFirestore(snapshot).toDomain()))

@@ -14,6 +14,7 @@ class SearchUserBox extends StatelessWidget {
           onChanged: (value) =>
               context.read<HomeCubit>().searchUserChanged(value),
           autocorrect: false,
+          autofocus: true,
           decoration: const InputDecoration(
             prefixIcon: Icon(Icons.search),
             hintText: '請輸入要搜尋用戶的 Email 地址',

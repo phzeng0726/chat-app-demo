@@ -1,4 +1,3 @@
-
 import 'package:chat_app_demo/presentation/routes/router.gr.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ Future<void> main() async {
   // // firestore_helpers.dart 跟 firebase_injectable_module.dart
   // // https://juejin.cn/post/7060525200139354148
   configureInjection(Environment.prod); // 沒有這行的話沒辦法用injection
-  getIt.registerSingleton<RootRouter>(RootRouter());        
+  getIt.registerSingleton<RootRouter>(RootRouter());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
