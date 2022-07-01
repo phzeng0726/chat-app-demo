@@ -1,16 +1,16 @@
 import 'dart:async';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:chat_app_demo/domain/auth/user.dart';
-import 'package:chat_app_demo/domain/chat/i_chat_repository.dart';
-import 'package:chat_app_demo/domain/core/load_status.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/auth/auth_failure.dart';
+import '../../domain/auth/user.dart';
+import '../../domain/chat/i_chat_repository.dart';
+import '../../domain/core/load_status.dart';
 
-part 'home_state.dart';
 part 'home_cubit.freezed.dart';
+part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final IChatRepository _chatRepository;

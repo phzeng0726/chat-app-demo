@@ -37,7 +37,27 @@ class HomePage extends StatelessWidget {
                   const Text('查無用戶'),
                 ] else ...[
                   const SearchUserOverview(),
-                ]
+                ],
+//                 ElevatedButton(
+//                   onPressed: () async {
+//                     /// Create a storage reference from our app
+//                     final storageRef = FirebaseStorage.instance.ref();
+
+// // Create a reference to "mountains.jpg"
+//                     final mountainsRef = storageRef.child("mountains.jpg");
+
+// // Create a reference to 'images/mountains.jpg'
+//                     final mountainImagesRef =
+//                         storageRef.child("images/mountains.jpg");
+
+// // While the file names are the same, the references point to different files
+//                     assert(mountainsRef.name == mountainImagesRef.name);
+//                     assert(mountainsRef.fullPath != mountainImagesRef.fullPath);
+//                     Directory appDocDir = await getApplicationDocumentsDirectory();
+
+//                   },
+//                   child: Text('測試'),
+//                 ),
               ],
             );
           },

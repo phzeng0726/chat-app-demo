@@ -18,28 +18,12 @@ class SearchUserOverview extends StatelessWidget {
           itemBuilder: ((context, index) {
             User user = state.searchUserList[index];
             return ListTile(
-              // trailing: IconButton(
-              //   icon: jobApply.isCollect
-              //       ? const Icon(
-              //           Icons.star,
-              //           color: Colors.blue,
-              //         )
-              //       : const Icon(Icons.star_border),
-              //   onPressed: () => getIt<IJobApplyRepository>().update(
-              //     jobApply: jobApply.copyWith(
-              //       isCollect: !jobApply.isCollect,
-              //     ),
-              //   ),
-              // ),
               onTap: () => getIt<RootRouter>().push(
                 ChatRoute(
-                  toUserId: user.userId,
+                  otherUser: user,
                 ),
               ),
-              title: Text(user.userId),
-              // subtitle: Text(
-              //   jobApply.applyTimeStamp.toReadableString(),
-              // ),
+              title: Text(user.userName),
             );
           }),
         ),

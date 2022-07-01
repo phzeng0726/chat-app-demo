@@ -59,39 +59,37 @@ class ChatCubit extends Cubit<ChatState> {
     );
   }
 
-  void chatMessageContentChanged(String chatMessageContent) {
-    if (chatMessageContent == '') {
-      emit(
-        state.copyWith(
-          writingStatus: const LoadStatus.initial(),
-          chatMessage: state.chatMessage.copyWith(
-            content: chatMessageContent,
-          ),
-        ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          writingStatus: const LoadStatus.inProgress(),
-          chatMessage: state.chatMessage.copyWith(
-            content: chatMessageContent,
-          ),
-        ),
-      );
-    }
+  // void chatMessageContentChanged(String chatMessageContent) {
+  //   if (chatMessageContent == '') {
+  //     emit(
+  //       state.copyWith(
+  //         writingStatus: const LoadStatus.initial(),
+  //         chatMessage: state.chatMessage.copyWith(
+  //           content: chatMessageContent,
+  //         ),
+  //       ),
+  //     );
+  //   } else {
+  //     emit(
+  //       state.copyWith(
+  //         writingStatus: const LoadStatus.inProgress(),
+  //         chatMessage: state.chatMessage.copyWith(
+  //           content: chatMessageContent,
+  //         ),
+  //       ),
+  //     );
+  //   }
+  // }
 
-    print(state.chatMessage.content);
-  }
-
-  void textClear() {
-    emit(
-      state.copyWith(
-        chatMessage: state.chatMessage.copyWith(
-          content: '',
-        ),
-      ),
-    );
-  }
+  // void textClear() {
+  //   emit(
+  //     state.copyWith(
+  //       chatMessage: state.chatMessage.copyWith(
+  //         content: '',
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Future<void> sendMessage(String content) async {
     await _chatRepository.create(
@@ -99,14 +97,6 @@ class ChatCubit extends Cubit<ChatState> {
         content: content,
       ),
     );
-    // emit(
-    //   state.copyWith(
-    //     writingStatus: const LoadStatus.succeed(),
-    //     chatMessage: state.chatMessage.copyWith(
-    //       content: '',
-    //     ),
-    //   ),
-    // );
   }
 
   @override

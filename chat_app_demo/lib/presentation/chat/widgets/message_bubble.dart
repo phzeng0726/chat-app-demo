@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../../../domain/chat/chat_message.dart';
-
+// https://stackoverflow.com/questions/66201124/right-aligning-message-timestamp-with-trailing-right-hand-side-of-flutter-messag/66365293#66365293
 class MessageBubble extends StatelessWidget {
   final ChatMessage chatMessage;
   final bool isMyMessage;
@@ -86,12 +86,15 @@ class MessageBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // NOTE: \u202F => NARROW NO-BREAK SPACE
     return Stack(
       children: [
-        _buildText(
-            message, const TextStyle(fontSize: 20), '            \u202F'),
+        _buildText(message, const TextStyle(fontSize: 20), '\u202F'),
         Positioned.fill(
-          child: Align(alignment: Alignment.bottomRight, child: timeStamp),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: timeStamp,
+          ),
         ),
       ],
     );
@@ -121,7 +124,7 @@ class MessageBox extends StatelessWidget {
                   reservePainter.height > originalPainter.height + 0.001;
 
           return Text(
-            changeLine ? message + '\n' : message,
+            changeLine ? '$message\n' : message,
             style: style,
           );
         },

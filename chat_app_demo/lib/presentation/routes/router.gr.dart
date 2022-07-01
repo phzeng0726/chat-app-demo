@@ -13,6 +13,7 @@
 import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i7;
 
+import '../../domain/auth/user.dart' as _i8;
 import '../chat/chat_page.dart' as _i6;
 import '../home/home.dart' as _i5;
 import '../register/register_page.dart' as _i4;
@@ -49,7 +50,7 @@ class RootRouter extends _i1.RootStackRouter {
       final args = routeData.argsAs<ChatRouteArgs>();
       return _i1.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i6.ChatPage(key: args.key, toUserId: args.toUserId));
+          child: _i6.ChatPage(key: args.key, otherUser: args.otherUser));
     }
   };
 
@@ -114,22 +115,22 @@ class HomeRoute extends _i1.PageRouteInfo<void> {
 /// generated route for
 /// [_i6.ChatPage]
 class ChatRoute extends _i1.PageRouteInfo<ChatRouteArgs> {
-  ChatRoute({_i7.Key? key, required String toUserId})
+  ChatRoute({_i7.Key? key, required _i8.User otherUser})
       : super(ChatRoute.name,
-            path: 'chat', args: ChatRouteArgs(key: key, toUserId: toUserId));
+            path: 'chat', args: ChatRouteArgs(key: key, otherUser: otherUser));
 
   static const String name = 'ChatRoute';
 }
 
 class ChatRouteArgs {
-  const ChatRouteArgs({this.key, required this.toUserId});
+  const ChatRouteArgs({this.key, required this.otherUser});
 
   final _i7.Key? key;
 
-  final String toUserId;
+  final _i8.User otherUser;
 
   @override
   String toString() {
-    return 'ChatRouteArgs{key: $key, toUserId: $toUserId}';
+    return 'ChatRouteArgs{key: $key, otherUser: $otherUser}';
   }
 }

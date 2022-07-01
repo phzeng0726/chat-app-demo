@@ -1,3 +1,4 @@
+import 'package:chat_app_demo/domain/auth/user.dart';
 import 'package:chat_app_demo/presentation/chat/widgets/message_overview_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,10 +10,10 @@ import '../../injection.dart';
 import 'widgets/message_enter_box.dart';
 
 class ChatPage extends StatelessWidget {
-  final String toUserId;
+  final User otherUser;
   const ChatPage({
     Key? key,
-    required this.toUserId,
+    required this.otherUser,
   }) : super(key: key);
 
   @override
@@ -21,11 +22,11 @@ class ChatPage extends StatelessWidget {
       create: (context) => ChatCubit(getIt<IChatRepository>())
         ..init(
           fromId: context.read<AuthCubit>().state.user.userId,
-          toId: toUserId,
+          toId: otherUser.userId,
         ),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(toUserId),
+          title: Text(otherUser.userName),
           centerTitle: true,
         ),
         body: BlocBuilder<ChatCubit, ChatState>(
@@ -43,14 +44,6 @@ class ChatPage extends StatelessWidget {
                       alignment: Alignment.bottomCenter,
                       child: MessageEnterBox(),
                     )
-                    // const SearchUserBox(),
-                    // if (state.searchStatus == const LoadStatus.initial()) ...[
-                    //   const Text('聊天列表'),
-                    // ] else if (state.searchStatus == const LoadStatus.failed()) ...[
-                    //   const Text('查無用戶'),
-                    // ] else ...[
-                    //   const SearchUserOverview(),
-                    // ]
                   ],
                 );
               },
