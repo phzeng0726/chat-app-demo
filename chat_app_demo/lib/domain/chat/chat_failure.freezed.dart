@@ -29,6 +29,10 @@ class _$ChatFailureTearOff {
   _Unexpected unexpected() {
     return const _Unexpected();
   }
+
+  _UserNotExist userNotExist() {
+    return const _UserNotExist();
+  }
 }
 
 /// @nodoc
@@ -41,6 +45,7 @@ mixin _$ChatFailure {
     required TResult Function() serverError,
     required TResult Function() insufficientPermission,
     required TResult Function() unexpected,
+    required TResult Function() userNotExist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -48,6 +53,7 @@ mixin _$ChatFailure {
     TResult Function()? serverError,
     TResult Function()? insufficientPermission,
     TResult Function()? unexpected,
+    TResult Function()? userNotExist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +61,7 @@ mixin _$ChatFailure {
     TResult Function()? serverError,
     TResult Function()? insufficientPermission,
     TResult Function()? unexpected,
+    TResult Function()? userNotExist,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -64,6 +71,7 @@ mixin _$ChatFailure {
     required TResult Function(_InsufficientPermission value)
         insufficientPermission,
     required TResult Function(_Unexpected value) unexpected,
+    required TResult Function(_UserNotExist value) userNotExist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,6 +79,7 @@ mixin _$ChatFailure {
     TResult Function(_ServerError value)? serverError,
     TResult Function(_InsufficientPermission value)? insufficientPermission,
     TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_UserNotExist value)? userNotExist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -78,6 +87,7 @@ mixin _$ChatFailure {
     TResult Function(_ServerError value)? serverError,
     TResult Function(_InsufficientPermission value)? insufficientPermission,
     TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_UserNotExist value)? userNotExist,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -142,6 +152,7 @@ class _$_ServerError implements _ServerError {
     required TResult Function() serverError,
     required TResult Function() insufficientPermission,
     required TResult Function() unexpected,
+    required TResult Function() userNotExist,
   }) {
     return serverError();
   }
@@ -152,6 +163,7 @@ class _$_ServerError implements _ServerError {
     TResult Function()? serverError,
     TResult Function()? insufficientPermission,
     TResult Function()? unexpected,
+    TResult Function()? userNotExist,
   }) {
     return serverError?.call();
   }
@@ -162,6 +174,7 @@ class _$_ServerError implements _ServerError {
     TResult Function()? serverError,
     TResult Function()? insufficientPermission,
     TResult Function()? unexpected,
+    TResult Function()? userNotExist,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -177,6 +190,7 @@ class _$_ServerError implements _ServerError {
     required TResult Function(_InsufficientPermission value)
         insufficientPermission,
     required TResult Function(_Unexpected value) unexpected,
+    required TResult Function(_UserNotExist value) userNotExist,
   }) {
     return serverError(this);
   }
@@ -187,6 +201,7 @@ class _$_ServerError implements _ServerError {
     TResult Function(_ServerError value)? serverError,
     TResult Function(_InsufficientPermission value)? insufficientPermission,
     TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_UserNotExist value)? userNotExist,
   }) {
     return serverError?.call(this);
   }
@@ -197,6 +212,7 @@ class _$_ServerError implements _ServerError {
     TResult Function(_ServerError value)? serverError,
     TResult Function(_InsufficientPermission value)? insufficientPermission,
     TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_UserNotExist value)? userNotExist,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -254,6 +270,7 @@ class _$_InsufficientPermission implements _InsufficientPermission {
     required TResult Function() serverError,
     required TResult Function() insufficientPermission,
     required TResult Function() unexpected,
+    required TResult Function() userNotExist,
   }) {
     return insufficientPermission();
   }
@@ -264,6 +281,7 @@ class _$_InsufficientPermission implements _InsufficientPermission {
     TResult Function()? serverError,
     TResult Function()? insufficientPermission,
     TResult Function()? unexpected,
+    TResult Function()? userNotExist,
   }) {
     return insufficientPermission?.call();
   }
@@ -274,6 +292,7 @@ class _$_InsufficientPermission implements _InsufficientPermission {
     TResult Function()? serverError,
     TResult Function()? insufficientPermission,
     TResult Function()? unexpected,
+    TResult Function()? userNotExist,
     required TResult orElse(),
   }) {
     if (insufficientPermission != null) {
@@ -289,6 +308,7 @@ class _$_InsufficientPermission implements _InsufficientPermission {
     required TResult Function(_InsufficientPermission value)
         insufficientPermission,
     required TResult Function(_Unexpected value) unexpected,
+    required TResult Function(_UserNotExist value) userNotExist,
   }) {
     return insufficientPermission(this);
   }
@@ -299,6 +319,7 @@ class _$_InsufficientPermission implements _InsufficientPermission {
     TResult Function(_ServerError value)? serverError,
     TResult Function(_InsufficientPermission value)? insufficientPermission,
     TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_UserNotExist value)? userNotExist,
   }) {
     return insufficientPermission?.call(this);
   }
@@ -309,6 +330,7 @@ class _$_InsufficientPermission implements _InsufficientPermission {
     TResult Function(_ServerError value)? serverError,
     TResult Function(_InsufficientPermission value)? insufficientPermission,
     TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_UserNotExist value)? userNotExist,
     required TResult orElse(),
   }) {
     if (insufficientPermission != null) {
@@ -365,6 +387,7 @@ class _$_Unexpected implements _Unexpected {
     required TResult Function() serverError,
     required TResult Function() insufficientPermission,
     required TResult Function() unexpected,
+    required TResult Function() userNotExist,
   }) {
     return unexpected();
   }
@@ -375,6 +398,7 @@ class _$_Unexpected implements _Unexpected {
     TResult Function()? serverError,
     TResult Function()? insufficientPermission,
     TResult Function()? unexpected,
+    TResult Function()? userNotExist,
   }) {
     return unexpected?.call();
   }
@@ -385,6 +409,7 @@ class _$_Unexpected implements _Unexpected {
     TResult Function()? serverError,
     TResult Function()? insufficientPermission,
     TResult Function()? unexpected,
+    TResult Function()? userNotExist,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -400,6 +425,7 @@ class _$_Unexpected implements _Unexpected {
     required TResult Function(_InsufficientPermission value)
         insufficientPermission,
     required TResult Function(_Unexpected value) unexpected,
+    required TResult Function(_UserNotExist value) userNotExist,
   }) {
     return unexpected(this);
   }
@@ -410,6 +436,7 @@ class _$_Unexpected implements _Unexpected {
     TResult Function(_ServerError value)? serverError,
     TResult Function(_InsufficientPermission value)? insufficientPermission,
     TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_UserNotExist value)? userNotExist,
   }) {
     return unexpected?.call(this);
   }
@@ -420,6 +447,7 @@ class _$_Unexpected implements _Unexpected {
     TResult Function(_ServerError value)? serverError,
     TResult Function(_InsufficientPermission value)? insufficientPermission,
     TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_UserNotExist value)? userNotExist,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -431,4 +459,121 @@ class _$_Unexpected implements _Unexpected {
 
 abstract class _Unexpected implements ChatFailure {
   const factory _Unexpected() = _$_Unexpected;
+}
+
+/// @nodoc
+abstract class _$UserNotExistCopyWith<$Res> {
+  factory _$UserNotExistCopyWith(
+          _UserNotExist value, $Res Function(_UserNotExist) then) =
+      __$UserNotExistCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$UserNotExistCopyWithImpl<$Res> extends _$ChatFailureCopyWithImpl<$Res>
+    implements _$UserNotExistCopyWith<$Res> {
+  __$UserNotExistCopyWithImpl(
+      _UserNotExist _value, $Res Function(_UserNotExist) _then)
+      : super(_value, (v) => _then(v as _UserNotExist));
+
+  @override
+  _UserNotExist get _value => super._value as _UserNotExist;
+}
+
+/// @nodoc
+
+class _$_UserNotExist implements _UserNotExist {
+  const _$_UserNotExist();
+
+  @override
+  String toString() {
+    return 'ChatFailure.userNotExist()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _UserNotExist);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() serverError,
+    required TResult Function() insufficientPermission,
+    required TResult Function() unexpected,
+    required TResult Function() userNotExist,
+  }) {
+    return userNotExist();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? serverError,
+    TResult Function()? insufficientPermission,
+    TResult Function()? unexpected,
+    TResult Function()? userNotExist,
+  }) {
+    return userNotExist?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? serverError,
+    TResult Function()? insufficientPermission,
+    TResult Function()? unexpected,
+    TResult Function()? userNotExist,
+    required TResult orElse(),
+  }) {
+    if (userNotExist != null) {
+      return userNotExist();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ServerError value) serverError,
+    required TResult Function(_InsufficientPermission value)
+        insufficientPermission,
+    required TResult Function(_Unexpected value) unexpected,
+    required TResult Function(_UserNotExist value) userNotExist,
+  }) {
+    return userNotExist(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_ServerError value)? serverError,
+    TResult Function(_InsufficientPermission value)? insufficientPermission,
+    TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_UserNotExist value)? userNotExist,
+  }) {
+    return userNotExist?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ServerError value)? serverError,
+    TResult Function(_InsufficientPermission value)? insufficientPermission,
+    TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_UserNotExist value)? userNotExist,
+    required TResult orElse(),
+  }) {
+    if (userNotExist != null) {
+      return userNotExist(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UserNotExist implements ChatFailure {
+  const factory _UserNotExist() = _$_UserNotExist;
 }

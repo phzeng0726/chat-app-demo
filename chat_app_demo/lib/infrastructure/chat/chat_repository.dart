@@ -5,7 +5,6 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart'; // 為了使用 onErrorReturnWith
 
-import '../../domain/auth/auth_failure.dart';
 import '../../domain/auth/user.dart';
 import '../../domain/chat/chat_failure.dart';
 import '../../domain/chat/chat_message.dart';
@@ -23,24 +22,10 @@ class ChatRepository implements IChatRepository {
   ChatRepository(
     this._firestore,
   );
-  @override
-  Stream<Either<ChatFailure, User>> watchUser() async* {
-    final userDoc = await _firestore.userDocument();
-
-    yield* userDoc.snapshots().map((snapshot) =>
-        right<ChatFailure, User>(UserDto.fromFirestore(snapshot).toDomain()))
-      ..onErrorReturnWith((e, stackTrace) {
-        LoggerService.simple.i(e);
-        if (e is FirebaseException && e.code == 'permission-denied') {
-          return left(const ChatFailure.insufficientPermission());
-        } else {
-          return left(const ChatFailure.unexpected());
-        }
-      });
-  }
 
   @override
-  Future<Either<ChatFailure, List<User>>> fetchFriendList({required User user}) async {
+  Future<Either<ChatFailure, List<User>>> fetchFriendList(
+      {required User user}) async {
     final userListCollection = _firestore.userListCollection;
 
     try {
@@ -52,6 +37,32 @@ class ChatRepository implements IChatRepository {
                 UserListDto.fromFirestore(value).toDomain()));
       } else {
         return right<ChatFailure, List<User>>(<User>[]);
+      }
+    } catch (e) {
+      LoggerService.simple.i(e);
+      if (e is FirebaseException && e.code == 'permission-denied') {
+        return left(const ChatFailure.insufficientPermission());
+      } else {
+        return left(const ChatFailure.unexpected());
+      }
+    }
+  }
+
+  @override
+  Future<Either<ChatFailure, List<User>>> searchUserEmailAddress({
+    required String emailAddress,
+  }) async {
+    final userListCollection = _firestore.userListCollection;
+    final QuerySnapshot<Object?> query = await userListCollection
+        .where('emailAddress', isEqualTo: emailAddress)
+        .get();
+
+    try {
+      if (query.size >= 1) {
+        return right<ChatFailure, List<User>>(
+            UserListDto.fromFirestore(query).toDomain());
+      } else {
+        return left(const ChatFailure.userNotExist());
       }
     } catch (e) {
       LoggerService.simple.i(e);
@@ -157,33 +168,6 @@ class ChatRepository implements IChatRepository {
         .snapshots()
         .map((snapshot) =>
             right<ChatFailure, List<String>>([snapshot.toString()]))
-      ..onErrorReturnWith((e, stackTrace) {
-        LoggerService.simple.i(e);
-        if (e is FirebaseException && e.code == 'permission-denied') {
-          return left(const ChatFailure.insufficientPermission());
-        } else {
-          return left(const ChatFailure.unexpected());
-        }
-      });
-  }
-
-  @override
-  Stream<Either<ChatFailure, List<User>>> searchUsers({
-    required String emailAddress,
-  }) async* {
-    final userListCollection = _firestore.userListCollection;
-
-    yield* userListCollection
-        .where('emailAddress', isEqualTo: emailAddress)
-        .snapshots()
-        .map((snapshot) {
-      if (snapshot.docs.isNotEmpty) {
-        return right<ChatFailure, List<User>>(
-            UserListDto.fromFirestore(snapshot).toDomain());
-      } else {
-        return left(const ChatFailure.unexpected());
-      }
-    })
       ..onErrorReturnWith((e, stackTrace) {
         LoggerService.simple.i(e);
         if (e is FirebaseException && e.code == 'permission-denied') {
