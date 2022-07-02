@@ -28,7 +28,6 @@ class UserListDto with _$UserListDto {
 
   factory UserListDto.fromFirestore(QuerySnapshot snapshot) {
     final list = snapshot.docs.map((doc) => doc.data()).toList();
-    print(list);
     return UserListDto.fromJson({'list': list});
   }
 }
@@ -41,6 +40,8 @@ class UserDto with _$UserDto {
     required String emailAddress,
     required String userName,
     required String phoneNumber,
+    required String aboutMe,
+    required String photoUrl,
     required int createdTimeStamp,
     required int lastSignInTimeStamp,
     required List<String> friendIdList,
@@ -52,6 +53,8 @@ class UserDto with _$UserDto {
       emailAddress: user.emailAddress,
       userName: user.userName,
       phoneNumber: user.phoneNumber,
+      aboutMe: user.aboutMe,
+      photoUrl: user.photoUrl,
       createdTimeStamp: user.createdTimeStamp.value.microsecondsSinceEpoch,
       lastSignInTimeStamp:
           user.lastSignInTimeStamp.value.microsecondsSinceEpoch,
@@ -64,6 +67,8 @@ class UserDto with _$UserDto {
         emailAddress: emailAddress,
         userName: userName,
         phoneNumber: phoneNumber,
+        aboutMe: aboutMe,
+        photoUrl: photoUrl,
         createdTimeStamp: DeviceTimeStamp.fromInt(createdTimeStamp),
         lastSignInTimeStamp: DeviceTimeStamp.fromInt(lastSignInTimeStamp),
         friendIdList: friendIdList,

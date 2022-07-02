@@ -16,22 +16,23 @@ class RegisterPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => RegisterFormCubit(getIt<IAuthFacade>()),
       child: BlocBuilder<AuthCubit, AuthState>(builder: ((context, state) {
-        return WillPopScope(
-          onWillPop: () async => false,
-          child: Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: kDefaultPadding,
-                vertical: kDefaultPadding * 4,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const <Widget>[
-                  RegisterForm(),
-                ],
-              ),
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('註冊'),
+            centerTitle: true,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: kDefaultPadding,
+              vertical: kDefaultPadding * 4,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const <Widget>[
+                RegisterForm(),
+              ],
             ),
           ),
         );

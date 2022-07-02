@@ -24,6 +24,7 @@ class ChatRepository implements IChatRepository {
     this._firestore,
   );
 
+  // TODO 加了好友後要重新fetch
   @override
   Stream<Either<ChatFailure, List<User>>> watchFriendList() async* {
     final userDoc = await _firestore.userDocument();
@@ -61,7 +62,7 @@ class ChatRepository implements IChatRepository {
   }
 
   @override
-  Stream<Either<ChatFailure, List<ChatMessage>>> watchChatMessageList({
+  Stream<Either<ChatFailure, List<ChatMessage>>> watchMessageList({
     required String fromId,
     required String toId,
   }) async* {

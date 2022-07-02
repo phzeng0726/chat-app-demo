@@ -23,6 +23,8 @@ _$_UserDto _$$_UserDtoFromJson(Map<String, dynamic> json) => _$_UserDto(
       emailAddress: json['emailAddress'] as String,
       userName: json['userName'] as String,
       phoneNumber: json['phoneNumber'] as String,
+      aboutMe: json['aboutMe'] as String,
+      photoUrl: json['photoUrl'] as String,
       createdTimeStamp: json['createdTimeStamp'] as int,
       lastSignInTimeStamp: json['lastSignInTimeStamp'] as int,
       friendIdList: (json['friendIdList'] as List<dynamic>)
@@ -36,6 +38,8 @@ Map<String, dynamic> _$$_UserDtoToJson(_$_UserDto instance) =>
       'emailAddress': instance.emailAddress,
       'userName': instance.userName,
       'phoneNumber': instance.phoneNumber,
+      'aboutMe': instance.aboutMe,
+      'photoUrl': instance.photoUrl,
       'createdTimeStamp': instance.createdTimeStamp,
       'lastSignInTimeStamp': instance.lastSignInTimeStamp,
       'friendIdList': instance.friendIdList,

@@ -175,6 +175,8 @@ class _$UserDtoTearOff {
       required String emailAddress,
       required String userName,
       required String phoneNumber,
+      required String aboutMe,
+      required String photoUrl,
       required int createdTimeStamp,
       required int lastSignInTimeStamp,
       required List<String> friendIdList}) {
@@ -183,6 +185,8 @@ class _$UserDtoTearOff {
       emailAddress: emailAddress,
       userName: userName,
       phoneNumber: phoneNumber,
+      aboutMe: aboutMe,
+      photoUrl: photoUrl,
       createdTimeStamp: createdTimeStamp,
       lastSignInTimeStamp: lastSignInTimeStamp,
       friendIdList: friendIdList,
@@ -203,6 +207,8 @@ mixin _$UserDto {
   String get emailAddress => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
+  String get aboutMe => throw _privateConstructorUsedError;
+  String get photoUrl => throw _privateConstructorUsedError;
   int get createdTimeStamp => throw _privateConstructorUsedError;
   int get lastSignInTimeStamp => throw _privateConstructorUsedError;
   List<String> get friendIdList => throw _privateConstructorUsedError;
@@ -221,6 +227,8 @@ abstract class $UserDtoCopyWith<$Res> {
       String emailAddress,
       String userName,
       String phoneNumber,
+      String aboutMe,
+      String photoUrl,
       int createdTimeStamp,
       int lastSignInTimeStamp,
       List<String> friendIdList});
@@ -240,6 +248,8 @@ class _$UserDtoCopyWithImpl<$Res> implements $UserDtoCopyWith<$Res> {
     Object? emailAddress = freezed,
     Object? userName = freezed,
     Object? phoneNumber = freezed,
+    Object? aboutMe = freezed,
+    Object? photoUrl = freezed,
     Object? createdTimeStamp = freezed,
     Object? lastSignInTimeStamp = freezed,
     Object? friendIdList = freezed,
@@ -260,6 +270,14 @@ class _$UserDtoCopyWithImpl<$Res> implements $UserDtoCopyWith<$Res> {
       phoneNumber: phoneNumber == freezed
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      aboutMe: aboutMe == freezed
+          ? _value.aboutMe
+          : aboutMe // ignore: cast_nullable_to_non_nullable
+              as String,
+      photoUrl: photoUrl == freezed
+          ? _value.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
               as String,
       createdTimeStamp: createdTimeStamp == freezed
           ? _value.createdTimeStamp
@@ -287,6 +305,8 @@ abstract class _$UserDtoCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
       String emailAddress,
       String userName,
       String phoneNumber,
+      String aboutMe,
+      String photoUrl,
       int createdTimeStamp,
       int lastSignInTimeStamp,
       List<String> friendIdList});
@@ -307,6 +327,8 @@ class __$UserDtoCopyWithImpl<$Res> extends _$UserDtoCopyWithImpl<$Res>
     Object? emailAddress = freezed,
     Object? userName = freezed,
     Object? phoneNumber = freezed,
+    Object? aboutMe = freezed,
+    Object? photoUrl = freezed,
     Object? createdTimeStamp = freezed,
     Object? lastSignInTimeStamp = freezed,
     Object? friendIdList = freezed,
@@ -327,6 +349,14 @@ class __$UserDtoCopyWithImpl<$Res> extends _$UserDtoCopyWithImpl<$Res>
       phoneNumber: phoneNumber == freezed
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      aboutMe: aboutMe == freezed
+          ? _value.aboutMe
+          : aboutMe // ignore: cast_nullable_to_non_nullable
+              as String,
+      photoUrl: photoUrl == freezed
+          ? _value.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
               as String,
       createdTimeStamp: createdTimeStamp == freezed
           ? _value.createdTimeStamp
@@ -352,6 +382,8 @@ class _$_UserDto extends _UserDto {
       required this.emailAddress,
       required this.userName,
       required this.phoneNumber,
+      required this.aboutMe,
+      required this.photoUrl,
       required this.createdTimeStamp,
       required this.lastSignInTimeStamp,
       required this.friendIdList})
@@ -369,6 +401,10 @@ class _$_UserDto extends _UserDto {
   @override
   final String phoneNumber;
   @override
+  final String aboutMe;
+  @override
+  final String photoUrl;
+  @override
   final int createdTimeStamp;
   @override
   final int lastSignInTimeStamp;
@@ -377,7 +413,7 @@ class _$_UserDto extends _UserDto {
 
   @override
   String toString() {
-    return 'UserDto(userId: $userId, emailAddress: $emailAddress, userName: $userName, phoneNumber: $phoneNumber, createdTimeStamp: $createdTimeStamp, lastSignInTimeStamp: $lastSignInTimeStamp, friendIdList: $friendIdList)';
+    return 'UserDto(userId: $userId, emailAddress: $emailAddress, userName: $userName, phoneNumber: $phoneNumber, aboutMe: $aboutMe, photoUrl: $photoUrl, createdTimeStamp: $createdTimeStamp, lastSignInTimeStamp: $lastSignInTimeStamp, friendIdList: $friendIdList)';
   }
 
   @override
@@ -391,6 +427,8 @@ class _$_UserDto extends _UserDto {
             const DeepCollectionEquality().equals(other.userName, userName) &&
             const DeepCollectionEquality()
                 .equals(other.phoneNumber, phoneNumber) &&
+            const DeepCollectionEquality().equals(other.aboutMe, aboutMe) &&
+            const DeepCollectionEquality().equals(other.photoUrl, photoUrl) &&
             const DeepCollectionEquality()
                 .equals(other.createdTimeStamp, createdTimeStamp) &&
             const DeepCollectionEquality()
@@ -406,6 +444,8 @@ class _$_UserDto extends _UserDto {
       const DeepCollectionEquality().hash(emailAddress),
       const DeepCollectionEquality().hash(userName),
       const DeepCollectionEquality().hash(phoneNumber),
+      const DeepCollectionEquality().hash(aboutMe),
+      const DeepCollectionEquality().hash(photoUrl),
       const DeepCollectionEquality().hash(createdTimeStamp),
       const DeepCollectionEquality().hash(lastSignInTimeStamp),
       const DeepCollectionEquality().hash(friendIdList));
@@ -427,6 +467,8 @@ abstract class _UserDto extends UserDto {
       required String emailAddress,
       required String userName,
       required String phoneNumber,
+      required String aboutMe,
+      required String photoUrl,
       required int createdTimeStamp,
       required int lastSignInTimeStamp,
       required List<String> friendIdList}) = _$_UserDto;
@@ -442,6 +484,10 @@ abstract class _UserDto extends UserDto {
   String get userName;
   @override
   String get phoneNumber;
+  @override
+  String get aboutMe;
+  @override
+  String get photoUrl;
   @override
   int get createdTimeStamp;
   @override

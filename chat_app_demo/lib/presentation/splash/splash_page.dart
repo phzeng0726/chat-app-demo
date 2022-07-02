@@ -19,7 +19,7 @@ class SplashPage extends StatelessWidget {
           initial: (_) {},
           inProgress: (_) {},
           authenticated: (_) => getIt<RootRouter>().pushNamed('/home'),
-          unauthenticated: (_) => getIt<RootRouter>().pushNamed('/sign-in'),
+          unauthenticated: (_) => getIt<RootRouter>().pushNamed('/auth'),
         );
       },
       child: const Scaffold(

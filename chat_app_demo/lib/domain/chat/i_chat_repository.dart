@@ -1,11 +1,10 @@
 import 'dart:async';
 
-import 'package:chat_app_demo/domain/auth/user.dart';
-import 'package:chat_app_demo/domain/chat/chat_failure.dart';
-import 'package:chat_app_demo/domain/chat/chat_message.dart';
 import 'package:dartz/dartz.dart';
 
-import '../auth/auth_failure.dart';
+import '../auth/user.dart';
+import 'chat_failure.dart';
+import 'chat_message.dart';
 
 // NOTE: 抽象定義 auth 的資料動作
 abstract class IChatRepository {
@@ -14,7 +13,7 @@ abstract class IChatRepository {
   Stream<Either<ChatFailure, List<User>>> searchUsers({
     required String emailAddress,
   });
-  Stream<Either<ChatFailure, List<ChatMessage>>> watchChatMessageList({
+  Stream<Either<ChatFailure, List<ChatMessage>>> watchMessageList({
     required String fromId,
     required String toId,
   });

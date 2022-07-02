@@ -45,6 +45,8 @@ class AuthFacade implements IAuthFacade {
         emailAddress: emailAddress,
         userName: credential.user!.displayName ?? emailAddress,
         phoneNumber: credential.user!.phoneNumber ?? '',
+        aboutMe: '',
+        photoUrl: credential.user!.photoURL ?? '',
         createdTimeStamp:
             DeviceTimeStamp(credential.user!.metadata.creationTime!),
         lastSignInTimeStamp:

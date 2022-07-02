@@ -16,9 +16,16 @@ import '../splash/splash_page.dart';
       // initial: true,
       children: [
         AutoRoute(page: SplashPage, path: '', initial: true),
-        // AutoRoute(page: SignInPage, path: '', initial: true),
-        AutoRoute(page: SignInPage, path: 'sign-in'),
-        AutoRoute(page: RegisterPage, path: 'register'),
+        AutoRoute(
+          page: EmptyRouterPage,
+          path: 'auth',
+          name: 'AuthRouter',
+          children: [
+            AutoRoute(page: SignInPage, path: ''),
+            AutoRoute(page: RegisterPage, path: 'register'),
+          ],
+        ),
+
         AutoRoute(page: HomePage, path: 'home'),
         AutoRoute(page: ChatPage, path: 'chat'),
 

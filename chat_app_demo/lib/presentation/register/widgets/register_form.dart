@@ -44,9 +44,8 @@ class RegisterForm extends StatelessWidget {
                     content: const Text("您已成功註冊用戶"),
                     actions: <Widget>[
                       ElevatedButton(
-                        onPressed: () async {
-                          getIt<RootRouter>().pop();
-                          getIt<RootRouter>().push(const SignInRoute());
+                        onPressed: () {
+                          getIt<RootRouter>().pushNamed('/auth');
                         },
                         child: const Text("OK"),
                       ),

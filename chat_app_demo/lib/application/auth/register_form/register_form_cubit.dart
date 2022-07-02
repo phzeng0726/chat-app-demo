@@ -62,7 +62,6 @@ class RegisterFormCubit extends Cubit<RegisterFormState> {
     emit(
       state.copyWith(
         isSubmitting: false,
-        // showErrorMessages: true,
         authFailureOrSuccessOption: optionOf(failureOrSuccess),
       ),
     );

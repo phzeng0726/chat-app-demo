@@ -17,7 +17,7 @@ class SignInPage extends StatelessWidget {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Chat App Demo'),
+          title: const Text('登入'),
           centerTitle: true,
         ),
         body: Padding(
@@ -35,8 +35,8 @@ class SignInPage extends StatelessWidget {
                 child: const SignInForm(),
               ),
               ElevatedButton(
-                onPressed: () async {
-                  await getIt<RootRouter>().push(const RegisterRoute());
+                onPressed: () {
+                  getIt<RootRouter>().push(const RegisterRoute());
                 },
                 child: const Text('前往註冊'),
               ),

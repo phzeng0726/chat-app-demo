@@ -57,7 +57,6 @@ class HomeCubit extends Cubit<HomeState> {
         ),
       ),
     );
-    print(state.friendList);
   }
 
   Future<void> searchUserStarted() async {

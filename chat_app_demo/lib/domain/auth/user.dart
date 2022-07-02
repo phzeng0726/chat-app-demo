@@ -12,6 +12,8 @@ class User with _$User {
       required String emailAddress, // 電子信箱
       required String userName,
       required String phoneNumber,
+      required String aboutMe,
+      required String photoUrl,
       required DeviceTimeStamp createdTimeStamp,
       required DeviceTimeStamp lastSignInTimeStamp,
       required List<String> friendIdList}) = _User;
@@ -23,6 +25,8 @@ class User with _$User {
       emailAddress: '',
       userName: '',
       phoneNumber: '',
+      aboutMe: '',
+      photoUrl: '',
       createdTimeStamp: initTimeStamp,
       lastSignInTimeStamp: initTimeStamp,
       friendIdList: <String>[],

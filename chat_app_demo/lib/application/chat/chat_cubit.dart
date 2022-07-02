@@ -33,7 +33,7 @@ class ChatCubit extends Cubit<ChatState> {
     );
     await _messageListSubscription?.cancel();
     _messageListSubscription = _chatRepository
-        .watchChatMessageList(
+        .watchMessageList(
           fromId: fromId,
           toId: toId,
         )

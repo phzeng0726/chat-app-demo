@@ -19,9 +19,16 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          HomeCubit(getIt<IChatRepository>())..watchFriendListStarted(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              HomeCubit(getIt<IChatRepository>())..watchFriendListStarted(),
+        ),
+        // BlocProvider(
+        //   create: (context) => SubjectBloc(),
+        // ),
+      ],
       child: SafeArea(
         child: DefaultTabController(
           length: 2,
@@ -37,11 +44,15 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            body: const TabBarView(
-              children: [
-                FriendsOverviewBody(),
-                SearchUserOverviewBody(),
-              ],
+            body:  BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                return const TabBarView(
+                  children: [
+                    FriendsOverviewBody(),
+                    SearchUserOverviewBody(),
+                  ],
+                );
+              },
             ),
           ),
         ),

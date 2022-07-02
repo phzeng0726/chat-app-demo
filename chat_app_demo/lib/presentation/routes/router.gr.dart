@@ -14,10 +14,10 @@ import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i7;
 
 import '../../domain/auth/user.dart' as _i8;
-import '../chat/chat_page.dart' as _i6;
-import '../home/home.dart' as _i5;
-import '../register/register_page.dart' as _i4;
-import '../sign_in/sign_in_page.dart' as _i3;
+import '../chat/chat_page.dart' as _i4;
+import '../home/home.dart' as _i3;
+import '../register/register_page.dart' as _i6;
+import '../sign_in/sign_in_page.dart' as _i5;
 import '../splash/splash_page.dart' as _i2;
 
 class RootRouter extends _i1.RootStackRouter {
@@ -34,23 +34,27 @@ class RootRouter extends _i1.RootStackRouter {
       return _i1.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i2.SplashPage());
     },
-    SignInRoute.name: (routeData) {
+    AuthRouter.name: (routeData) {
       return _i1.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i3.SignInPage());
-    },
-    RegisterRoute.name: (routeData) {
-      return _i1.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i4.RegisterPage());
+          routeData: routeData, child: const _i1.EmptyRouterPage());
     },
     HomeRoute.name: (routeData) {
       return _i1.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i5.HomePage());
+          routeData: routeData, child: const _i3.HomePage());
     },
     ChatRoute.name: (routeData) {
       final args = routeData.argsAs<ChatRouteArgs>();
       return _i1.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i6.ChatPage(key: args.key, otherUser: args.otherUser));
+          child: _i4.ChatPage(key: args.key, otherUser: args.otherUser));
+    },
+    SignInRoute.name: (routeData) {
+      return _i1.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i5.SignInPage());
+    },
+    RegisterRoute.name: (routeData) {
+      return _i1.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i6.RegisterPage());
     }
   };
 
@@ -59,10 +63,15 @@ class RootRouter extends _i1.RootStackRouter {
         _i1.RouteConfig(EmptyRouterRoute.name, path: '/', children: [
           _i1.RouteConfig(SplashRoute.name,
               path: '', parent: EmptyRouterRoute.name),
-          _i1.RouteConfig(SignInRoute.name,
-              path: 'sign-in', parent: EmptyRouterRoute.name),
-          _i1.RouteConfig(RegisterRoute.name,
-              path: 'register', parent: EmptyRouterRoute.name),
+          _i1.RouteConfig(AuthRouter.name,
+              path: 'auth',
+              parent: EmptyRouterRoute.name,
+              children: [
+                _i1.RouteConfig(SignInRoute.name,
+                    path: '', parent: AuthRouter.name),
+                _i1.RouteConfig(RegisterRoute.name,
+                    path: 'register', parent: AuthRouter.name)
+              ]),
           _i1.RouteConfig(HomeRoute.name,
               path: 'home', parent: EmptyRouterRoute.name),
           _i1.RouteConfig(ChatRoute.name,
@@ -89,23 +98,16 @@ class SplashRoute extends _i1.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.SignInPage]
-class SignInRoute extends _i1.PageRouteInfo<void> {
-  const SignInRoute() : super(SignInRoute.name, path: 'sign-in');
+/// [_i1.EmptyRouterPage]
+class AuthRouter extends _i1.PageRouteInfo<void> {
+  const AuthRouter({List<_i1.PageRouteInfo>? children})
+      : super(AuthRouter.name, path: 'auth', initialChildren: children);
 
-  static const String name = 'SignInRoute';
+  static const String name = 'AuthRouter';
 }
 
 /// generated route for
-/// [_i4.RegisterPage]
-class RegisterRoute extends _i1.PageRouteInfo<void> {
-  const RegisterRoute() : super(RegisterRoute.name, path: 'register');
-
-  static const String name = 'RegisterRoute';
-}
-
-/// generated route for
-/// [_i5.HomePage]
+/// [_i3.HomePage]
 class HomeRoute extends _i1.PageRouteInfo<void> {
   const HomeRoute() : super(HomeRoute.name, path: 'home');
 
@@ -113,7 +115,7 @@ class HomeRoute extends _i1.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.ChatPage]
+/// [_i4.ChatPage]
 class ChatRoute extends _i1.PageRouteInfo<ChatRouteArgs> {
   ChatRoute({_i7.Key? key, required _i8.User otherUser})
       : super(ChatRoute.name,
@@ -133,4 +135,20 @@ class ChatRouteArgs {
   String toString() {
     return 'ChatRouteArgs{key: $key, otherUser: $otherUser}';
   }
+}
+
+/// generated route for
+/// [_i5.SignInPage]
+class SignInRoute extends _i1.PageRouteInfo<void> {
+  const SignInRoute() : super(SignInRoute.name, path: '');
+
+  static const String name = 'SignInRoute';
+}
+
+/// generated route for
+/// [_i6.RegisterPage]
+class RegisterRoute extends _i1.PageRouteInfo<void> {
+  const RegisterRoute() : super(RegisterRoute.name, path: 'register');
+
+  static const String name = 'RegisterRoute';
 }
