@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:chat_app_demo/domain/core/device_time_stamp.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
@@ -10,6 +9,7 @@ import 'package:rxdart/rxdart.dart'; // 為了使用 onErrorReturnWith
 import '../../domain/auth/auth_failure.dart';
 import '../../domain/auth/i_auth_facade.dart';
 import '../../domain/auth/user.dart';
+import '../../domain/core/device_time_stamp.dart';
 import '../../domain/core/logger.dart';
 import '../core/firebase_helper.dart';
 import 'user_dtos.dart';
@@ -122,19 +122,17 @@ class AuthFacade implements IAuthFacade {
     required String userId,
   }) async* {
     final userDoc = await _firestore.userDocument();
-    yield* userDoc
-        .snapshots()
-        .map(
-          (doc) =>
-              right<AuthFailure, User>(UserDto.fromFirestore(doc).toDomain()),
-        )
-        .onErrorReturnWith((e, stackTrace) {
-      LoggerService.simple.i(e);
-      if (e is FirebaseException && e.code == 'permission-denied') {
-        return left(const AuthFailure.insufficientPermission());
-      } else {
-        return left(const AuthFailure.unexpected());
-      }
-    });
+    yield* userDoc.snapshots().map(
+          (snapshot) => right<AuthFailure, User>(
+            UserDto.fromFirestore(snapshot).toDomain(),
+          ),
+        )..onErrorReturnWith((e, stackTrace) {
+        LoggerService.simple.i(e);
+        if (e is FirebaseException && e.code == 'permission-denied') {
+          return left(const AuthFailure.insufficientPermission());
+        } else {
+          return left(const AuthFailure.unexpected());
+        }
+      });
   }
 }

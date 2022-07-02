@@ -18,27 +18,53 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this._chatRepository) : super(HomeState.initial());
 
   StreamSubscription<Either<ChatFailure, List<User>>>? _userListSubscription;
-  StreamSubscription<Either<ChatFailure, List<User>>>? _friendListSubscription;
+  StreamSubscription<Either<ChatFailure, User>>? _userSubscription;
+  
+  Future<void> watchUserStarted() async {
+    await _userSubscription?.cancel();
+    _userSubscription = _chatRepository
+        .watchUser()
+        .listen((failureOrUser) => uesrReceived(failureOrUser));
+  }
 
-  void searchUserChanged(String emailAddress) {
-    emit(
-      state.copyWith(
-        emailAddress: emailAddress,
-      ),
+  void uesrReceived(
+    Either<ChatFailure, User> failureOrUser,
+  ) async {
+    failureOrUser.fold(
+      (f) => null,
+      (user) => fetchFriendListStarted(user: user),
     );
   }
 
-  Future<void> watchFriendListStarted() async {
+  Future<void> fetchFriendListStarted({
+    required User user,
+  }) async {
+    Either<ChatFailure, List<User>> failureOrUserList;
     emit(
       state.copyWith(
         friendListLoadStatus: const LoadStatus.inProgress(),
       ),
     );
+    failureOrUserList = await _chatRepository.fetchFriendList(user: user);
 
-    await _friendListSubscription?.cancel();
-    _friendListSubscription = _chatRepository
-        .watchFriendList()
-        .listen((failureOrUserList) => friendListReceived(failureOrUserList));
+    failureOrUserList.fold(
+      (f) => emit(
+        state.copyWith(
+          friendListLoadStatus: const LoadStatus.failed(),
+        ),
+      ),
+      (userList) => emit(
+        state.copyWith(
+          friendListLoadStatus: const LoadStatus.succeed(),
+          friendList: userList,
+        ),
+      ),
+    );
+    // print(1);
+    // await _friendListSubscription?.cancel();
+    // _friendListSubscription = _chatRepository
+    //     .fetchFriendList()
+    //     .listen((failureOrUserList) => friendListReceived(failureOrUserList));
   }
 
   void friendListReceived(
@@ -55,6 +81,14 @@ class HomeCubit extends Cubit<HomeState> {
           friendListLoadStatus: const LoadStatus.succeed(),
           friendList: userList,
         ),
+      ),
+    );
+  }
+
+  void searchUserChanged(String emailAddress) {
+    emit(
+      state.copyWith(
+        emailAddress: emailAddress,
       ),
     );
   }

@@ -8,7 +8,9 @@ import 'chat_message.dart';
 
 // NOTE: 抽象定義 auth 的資料動作
 abstract class IChatRepository {
-  Stream<Either<ChatFailure, List<User>>> watchFriendList();
+  Stream<Either<ChatFailure, User>> watchUser();
+
+  Future<Either<ChatFailure, List<User>>> fetchFriendList({required User user});
 
   Stream<Either<ChatFailure, List<User>>> searchUsers({
     required String emailAddress,

@@ -23,41 +23,43 @@ class ChatRepository implements IChatRepository {
   ChatRepository(
     this._firestore,
   );
-
-  // TODO 加了好友後要重新fetch
   @override
-  Stream<Either<ChatFailure, List<User>>> watchFriendList() async* {
+  Stream<Either<ChatFailure, User>> watchUser() async* {
     final userDoc = await _firestore.userDocument();
+
+    yield* userDoc.snapshots().map((snapshot) =>
+        right<ChatFailure, User>(UserDto.fromFirestore(snapshot).toDomain()))
+      ..onErrorReturnWith((e, stackTrace) {
+        LoggerService.simple.i(e);
+        if (e is FirebaseException && e.code == 'permission-denied') {
+          return left(const ChatFailure.insufficientPermission());
+        } else {
+          return left(const ChatFailure.unexpected());
+        }
+      });
+  }
+
+  @override
+  Future<Either<ChatFailure, List<User>>> fetchFriendList({required User user}) async {
     final userListCollection = _firestore.userListCollection;
-    final user = await userDoc.get().then(
-          (doc) => UserDto.fromFirestore(doc).toDomain(),
-        );
-    if (user.friendIdList.isNotEmpty) {
-      yield* userListCollection
-          .where('userId', whereIn: user.friendIdList)
-          .snapshots()
-          .map((snapshot) => right<ChatFailure, List<User>>(
-              UserListDto.fromFirestore(snapshot).toDomain()))
-        ..onErrorReturnWith((e, stackTrace) {
-          LoggerService.simple.i(e);
-          if (e is FirebaseException && e.code == 'permission-denied') {
-            return left(const ChatFailure.insufficientPermission());
-          } else {
-            return left(const ChatFailure.unexpected());
-          }
-        });
-    } else {
-      yield* userListCollection
-          .snapshots()
-          .map((snapshot) => right<ChatFailure, List<User>>(<User>[]))
-        ..onErrorReturnWith((e, stackTrace) {
-          LoggerService.simple.i(e);
-          if (e is FirebaseException && e.code == 'permission-denied') {
-            return left(const ChatFailure.insufficientPermission());
-          } else {
-            return left(const ChatFailure.unexpected());
-          }
-        });
+
+    try {
+      if (user.friendIdList != <String>[]) {
+        return userListCollection
+            .where('userId', whereIn: user.friendIdList)
+            .get()
+            .then((value) => right<ChatFailure, List<User>>(
+                UserListDto.fromFirestore(value).toDomain()));
+      } else {
+        return right<ChatFailure, List<User>>(<User>[]);
+      }
+    } catch (e) {
+      LoggerService.simple.i(e);
+      if (e is FirebaseException && e.code == 'permission-denied') {
+        return left(const ChatFailure.insufficientPermission());
+      } else {
+        return left(const ChatFailure.unexpected());
+      }
     }
   }
 
@@ -96,12 +98,12 @@ class ChatRepository implements IChatRepository {
 
     final messageDoc = groupChatDoc.messageListCollection.doc();
     await messageDoc.set(
-          ChatMessageDto.fromDomain(
-            chatMessage.copyWith(
-              createdTimeStamp: DeviceTimeStamp.now(),
-            ),
-          ).toJson(),
-        );
+      ChatMessageDto.fromDomain(
+        chatMessage.copyWith(
+          createdTimeStamp: DeviceTimeStamp.now(),
+        ),
+      ).toJson(),
+    );
 
     return messageDoc.id;
   }

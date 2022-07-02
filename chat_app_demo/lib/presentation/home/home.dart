@@ -1,17 +1,13 @@
-import 'package:chat_app_demo/application/theme/theme_cubit.dart';
-import 'package:chat_app_demo/constants.dart';
-import 'package:chat_app_demo/presentation/home/widgets/friends_overview_body.dart';
-import 'package:chat_app_demo/presentation/home/widgets/home_drawer.dart';
-import 'package:chat_app_demo/presentation/home/widgets/theme_switch_button.dart';
+import 'package:chat_app_demo/application/auth/auth_cubit.dart';
+import 'package:chat_app_demo/application/chat/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../application/auth/auth_cubit.dart';
 import '../../application/home/home_cubit.dart';
 import '../../domain/chat/i_chat_repository.dart';
-import '../../domain/core/load_status.dart';
 import '../../injection.dart';
-import 'widgets/search_user_box.dart';
+import 'widgets/friends_overview_body.dart';
+import 'widgets/home_drawer.dart';
 import 'widgets/search_user_overview_body.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,12 +18,11 @@ class HomePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) =>
-              HomeCubit(getIt<IChatRepository>())..watchFriendListStarted(),
+          create: (context) => HomeCubit(getIt<IChatRepository>())
+            ..fetchFriendListStarted(
+              user: context.read<AuthCubit>().state.user,
+            ),
         ),
-        // BlocProvider(
-        //   create: (context) => SubjectBloc(),
-        // ),
       ],
       child: SafeArea(
         child: DefaultTabController(
@@ -44,13 +39,23 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            body:  BlocBuilder<HomeCubit, HomeState>(
+            body: BlocConsumer<AuthCubit, AuthState>(
+              listenWhen: (p, c) => p.user != c.user,
+              listener: (context, state) {
+                context
+                    .read<HomeCubit>()
+                    .fetchFriendListStarted(user: state.user);
+              },
               builder: (context, state) {
-                return const TabBarView(
-                  children: [
-                    FriendsOverviewBody(),
-                    SearchUserOverviewBody(),
-                  ],
+                return BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    return const TabBarView(
+                      children: [
+                        FriendsOverviewBody(),
+                        SearchUserOverviewBody(),
+                      ],
+                    );
+                  },
                 );
               },
             ),
