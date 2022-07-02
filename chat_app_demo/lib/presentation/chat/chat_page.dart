@@ -36,9 +36,11 @@ class ChatPage extends StatelessWidget {
               inProgress: (_) => const CircularProgressIndicator(),
               succeed: (_) {
                 return Column(
-                  children:  [
+                  children: [
                     Expanded(
-                      child: MessageOverviewBody(),
+                      child: MessageOverviewBody(
+                        otherUser: otherUser,
+                      ),
                     ),
                     const Align(
                       alignment: Alignment.bottomCenter,

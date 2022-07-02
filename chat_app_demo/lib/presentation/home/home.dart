@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/home/home_cubit.dart';
+import '../../domain/auth/user.dart';
 import '../../domain/chat/i_chat_repository.dart';
 import '../../injection.dart';
 import 'widgets/friends_overview_body.dart';
@@ -15,12 +16,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final User currentUser = context.read<AuthCubit>().state.user;
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => HomeCubit(getIt<IChatRepository>())
             ..fetchFriendListStarted(
-              user: context.read<AuthCubit>().state.user,
+              user: currentUser,
             ),
         ),
       ],
@@ -28,7 +31,9 @@ class HomePage extends StatelessWidget {
         child: DefaultTabController(
           length: 2,
           child: Scaffold(
-            drawer: const HomeDrawer(),
+            drawer: HomeDrawer(
+              currentUser: currentUser,
+            ),
             appBar: AppBar(
               title: const Text('Chat App Demo'),
               centerTitle: true,

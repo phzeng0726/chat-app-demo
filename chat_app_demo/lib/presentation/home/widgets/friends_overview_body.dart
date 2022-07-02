@@ -1,9 +1,10 @@
 import 'package:another_flushbar/flushbar_helper.dart';
-import 'package:chat_app_demo/constants.dart';
+import 'package:chat_app_demo/presentation/core/widgets/uesr_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/home/home_cubit.dart';
+import '../../../constants.dart';
 import '../../../domain/auth/user.dart';
 import '../../../domain/core/logger.dart';
 import '../../../injection.dart';
@@ -57,12 +58,7 @@ class FriendsOverviewBody extends StatelessWidget {
                                 otherUser: user,
                               ),
                             ),
-                            leading: const CircleAvatar(
-                              radius: 30.0,
-                              backgroundImage: NetworkImage(
-                                  'https://post.greatist.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg'),
-                              backgroundColor: Colors.transparent,
-                            ),
+                            leading: UserProfileAvater(user: user),
                             title: Text(user.userName),
                           ),
                         );

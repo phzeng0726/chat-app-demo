@@ -1,3 +1,5 @@
+import 'package:chat_app_demo/domain/auth/user.dart';
+import 'package:chat_app_demo/presentation/core/widgets/uesr_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,7 +10,11 @@ import '../../../domain/chat/chat_message.dart';
 import 'message_bubble.dart';
 
 class MessageOverviewBody extends StatelessWidget {
-  MessageOverviewBody({Key? key}) : super(key: key);
+  final User otherUser;
+  MessageOverviewBody({
+    Key? key,
+    required this.otherUser,
+  }) : super(key: key);
 
   final scrollController = ScrollController();
 
@@ -48,17 +54,12 @@ class MessageOverviewBody extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(
+        Padding(
+          padding: const EdgeInsets.only(
             left: kDefaultPadding / 2,
             bottom: kDefaultPadding / 2,
           ),
-          child: CircleAvatar(
-            radius: 30.0,
-            backgroundImage: NetworkImage(
-                'https://post.greatist.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg'),
-            backgroundColor: Colors.transparent,
-          ),
+          child: UserProfileAvater(user: otherUser),
         ),
         MessageBubble(
           chatMessage: chatMessage,

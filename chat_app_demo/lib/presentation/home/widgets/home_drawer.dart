@@ -1,14 +1,18 @@
-import 'package:chat_app_demo/presentation/home/widgets/theme_switch_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/auth/auth_cubit.dart';
 import '../../../constants.dart';
+import '../../../domain/auth/user.dart';
+import '../../core/widgets/uesr_profile_avatar.dart';
+import 'theme_switch_button.dart';
 
 class HomeDrawer extends StatelessWidget {
-  const HomeDrawer({Key? key}) : super(key: key);
+  final User currentUser;
+  const HomeDrawer({
+    Key? key,
+    required this.currentUser,
+  }) : super(key: key);
 
   Widget _drawerHeader(BuildContext context) {
     return DrawerHeader(
@@ -17,14 +21,9 @@ class HomeDrawer extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              CircleAvatar(
-                radius: 30.0,
-                backgroundImage: NetworkImage(
-                    'https://post.greatist.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg'),
-                backgroundColor: Colors.transparent,
-              ),
-              ThemeSwitchButton(),
+            children: [
+              UserProfileAvater(user: currentUser),
+              const ThemeSwitchButton(),
             ],
           ),
           const SizedBox(height: kDefaultHeightSize),
@@ -33,8 +32,8 @@ class HomeDrawer extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(context.read<AuthCubit>().state.user.userName),
-                Text(context.read<AuthCubit>().state.user.emailAddress),
+                Text(currentUser.userName),
+                Text(currentUser.emailAddress),
               ],
             ),
           )
