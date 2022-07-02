@@ -24,7 +24,8 @@ class _$UserTearOff {
       required String userName,
       required String phoneNumber,
       required DeviceTimeStamp createdTimeStamp,
-      required DeviceTimeStamp lastSignInTimeStamp}) {
+      required DeviceTimeStamp lastSignInTimeStamp,
+      required List<String> friendIdList}) {
     return _User(
       userId: userId,
       emailAddress: emailAddress,
@@ -32,6 +33,7 @@ class _$UserTearOff {
       phoneNumber: phoneNumber,
       createdTimeStamp: createdTimeStamp,
       lastSignInTimeStamp: lastSignInTimeStamp,
+      friendIdList: friendIdList,
     );
   }
 }
@@ -47,6 +49,7 @@ mixin _$User {
   String get phoneNumber => throw _privateConstructorUsedError;
   DeviceTimeStamp get createdTimeStamp => throw _privateConstructorUsedError;
   DeviceTimeStamp get lastSignInTimeStamp => throw _privateConstructorUsedError;
+  List<String> get friendIdList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
@@ -62,7 +65,8 @@ abstract class $UserCopyWith<$Res> {
       String userName,
       String phoneNumber,
       DeviceTimeStamp createdTimeStamp,
-      DeviceTimeStamp lastSignInTimeStamp});
+      DeviceTimeStamp lastSignInTimeStamp,
+      List<String> friendIdList});
 
   $DeviceTimeStampCopyWith<$Res> get createdTimeStamp;
   $DeviceTimeStampCopyWith<$Res> get lastSignInTimeStamp;
@@ -84,6 +88,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object? phoneNumber = freezed,
     Object? createdTimeStamp = freezed,
     Object? lastSignInTimeStamp = freezed,
+    Object? friendIdList = freezed,
   }) {
     return _then(_value.copyWith(
       userId: userId == freezed
@@ -110,6 +115,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.lastSignInTimeStamp
           : lastSignInTimeStamp // ignore: cast_nullable_to_non_nullable
               as DeviceTimeStamp,
+      friendIdList: friendIdList == freezed
+          ? _value.friendIdList
+          : friendIdList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 
@@ -139,7 +148,8 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String userName,
       String phoneNumber,
       DeviceTimeStamp createdTimeStamp,
-      DeviceTimeStamp lastSignInTimeStamp});
+      DeviceTimeStamp lastSignInTimeStamp,
+      List<String> friendIdList});
 
   @override
   $DeviceTimeStampCopyWith<$Res> get createdTimeStamp;
@@ -164,6 +174,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? phoneNumber = freezed,
     Object? createdTimeStamp = freezed,
     Object? lastSignInTimeStamp = freezed,
+    Object? friendIdList = freezed,
   }) {
     return _then(_User(
       userId: userId == freezed
@@ -190,6 +201,10 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.lastSignInTimeStamp
           : lastSignInTimeStamp // ignore: cast_nullable_to_non_nullable
               as DeviceTimeStamp,
+      friendIdList: friendIdList == freezed
+          ? _value.friendIdList
+          : friendIdList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -203,7 +218,8 @@ class _$_User extends _User {
       required this.userName,
       required this.phoneNumber,
       required this.createdTimeStamp,
-      required this.lastSignInTimeStamp})
+      required this.lastSignInTimeStamp,
+      required this.friendIdList})
       : super._();
 
   @override
@@ -218,10 +234,12 @@ class _$_User extends _User {
   final DeviceTimeStamp createdTimeStamp;
   @override
   final DeviceTimeStamp lastSignInTimeStamp;
+  @override
+  final List<String> friendIdList;
 
   @override
   String toString() {
-    return 'User(userId: $userId, emailAddress: $emailAddress, userName: $userName, phoneNumber: $phoneNumber, createdTimeStamp: $createdTimeStamp, lastSignInTimeStamp: $lastSignInTimeStamp)';
+    return 'User(userId: $userId, emailAddress: $emailAddress, userName: $userName, phoneNumber: $phoneNumber, createdTimeStamp: $createdTimeStamp, lastSignInTimeStamp: $lastSignInTimeStamp, friendIdList: $friendIdList)';
   }
 
   @override
@@ -238,7 +256,9 @@ class _$_User extends _User {
             const DeepCollectionEquality()
                 .equals(other.createdTimeStamp, createdTimeStamp) &&
             const DeepCollectionEquality()
-                .equals(other.lastSignInTimeStamp, lastSignInTimeStamp));
+                .equals(other.lastSignInTimeStamp, lastSignInTimeStamp) &&
+            const DeepCollectionEquality()
+                .equals(other.friendIdList, friendIdList));
   }
 
   @override
@@ -249,7 +269,8 @@ class _$_User extends _User {
       const DeepCollectionEquality().hash(userName),
       const DeepCollectionEquality().hash(phoneNumber),
       const DeepCollectionEquality().hash(createdTimeStamp),
-      const DeepCollectionEquality().hash(lastSignInTimeStamp));
+      const DeepCollectionEquality().hash(lastSignInTimeStamp),
+      const DeepCollectionEquality().hash(friendIdList));
 
   @JsonKey(ignore: true)
   @override
@@ -264,7 +285,8 @@ abstract class _User extends User {
       required String userName,
       required String phoneNumber,
       required DeviceTimeStamp createdTimeStamp,
-      required DeviceTimeStamp lastSignInTimeStamp}) = _$_User;
+      required DeviceTimeStamp lastSignInTimeStamp,
+      required List<String> friendIdList}) = _$_User;
   const _User._() : super._();
 
   @override
@@ -279,6 +301,8 @@ abstract class _User extends User {
   DeviceTimeStamp get createdTimeStamp;
   @override
   DeviceTimeStamp get lastSignInTimeStamp;
+  @override
+  List<String> get friendIdList;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;

@@ -16,6 +16,10 @@ class SignInPage extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Chat App Demo'),
+          centerTitle: true,
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: kDefaultPadding,

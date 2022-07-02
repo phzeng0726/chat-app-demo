@@ -7,4 +7,6 @@ const kGrayColor = Color(0xFFC1C1C1);
 const kBlackColor = Color(0xFF101010);
 
 const double kDefaultPadding = 20.0;
+const double kDefaultHeightSize = 20.0;
+
 

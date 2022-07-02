@@ -41,4 +41,5 @@ extension FirestoreX on FirebaseFirestore {
 // NOTE: 隸屬於doc支線以下的，用這個，才不用一直傳遞companyId
 extension DocumentReferenceX on DocumentReference {
   CollectionReference get messageListCollection => collection('messageList');
+  CollectionReference get friendListCollection => collection('friendList');
 }

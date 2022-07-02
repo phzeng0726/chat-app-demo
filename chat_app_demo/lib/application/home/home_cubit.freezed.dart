@@ -21,11 +21,15 @@ class _$HomeStateTearOff {
   _HomeState call(
       {required String emailAddress,
       required List<User> searchUserList,
-      required LoadStatus searchStatus}) {
+      required LoadStatus searchStatus,
+      required List<User> friendList,
+      required LoadStatus friendListLoadStatus}) {
     return _HomeState(
       emailAddress: emailAddress,
       searchUserList: searchUserList,
       searchStatus: searchStatus,
+      friendList: friendList,
+      friendListLoadStatus: friendListLoadStatus,
     );
   }
 }
@@ -39,6 +43,8 @@ mixin _$HomeState {
   String get emailAddress => throw _privateConstructorUsedError;
   List<User> get searchUserList => throw _privateConstructorUsedError;
   LoadStatus get searchStatus => throw _privateConstructorUsedError;
+  List<User> get friendList => throw _privateConstructorUsedError;
+  LoadStatus get friendListLoadStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -52,9 +58,12 @@ abstract class $HomeStateCopyWith<$Res> {
   $Res call(
       {String emailAddress,
       List<User> searchUserList,
-      LoadStatus searchStatus});
+      LoadStatus searchStatus,
+      List<User> friendList,
+      LoadStatus friendListLoadStatus});
 
   $LoadStatusCopyWith<$Res> get searchStatus;
+  $LoadStatusCopyWith<$Res> get friendListLoadStatus;
 }
 
 /// @nodoc
@@ -70,6 +79,8 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
     Object? emailAddress = freezed,
     Object? searchUserList = freezed,
     Object? searchStatus = freezed,
+    Object? friendList = freezed,
+    Object? friendListLoadStatus = freezed,
   }) {
     return _then(_value.copyWith(
       emailAddress: emailAddress == freezed
@@ -84,6 +95,14 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
           ? _value.searchStatus
           : searchStatus // ignore: cast_nullable_to_non_nullable
               as LoadStatus,
+      friendList: friendList == freezed
+          ? _value.friendList
+          : friendList // ignore: cast_nullable_to_non_nullable
+              as List<User>,
+      friendListLoadStatus: friendListLoadStatus == freezed
+          ? _value.friendListLoadStatus
+          : friendListLoadStatus // ignore: cast_nullable_to_non_nullable
+              as LoadStatus,
     ));
   }
 
@@ -91,6 +110,13 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
   $LoadStatusCopyWith<$Res> get searchStatus {
     return $LoadStatusCopyWith<$Res>(_value.searchStatus, (value) {
       return _then(_value.copyWith(searchStatus: value));
+    });
+  }
+
+  @override
+  $LoadStatusCopyWith<$Res> get friendListLoadStatus {
+    return $LoadStatusCopyWith<$Res>(_value.friendListLoadStatus, (value) {
+      return _then(_value.copyWith(friendListLoadStatus: value));
     });
   }
 }
@@ -104,10 +130,14 @@ abstract class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
   $Res call(
       {String emailAddress,
       List<User> searchUserList,
-      LoadStatus searchStatus});
+      LoadStatus searchStatus,
+      List<User> friendList,
+      LoadStatus friendListLoadStatus});
 
   @override
   $LoadStatusCopyWith<$Res> get searchStatus;
+  @override
+  $LoadStatusCopyWith<$Res> get friendListLoadStatus;
 }
 
 /// @nodoc
@@ -124,6 +154,8 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
     Object? emailAddress = freezed,
     Object? searchUserList = freezed,
     Object? searchStatus = freezed,
+    Object? friendList = freezed,
+    Object? friendListLoadStatus = freezed,
   }) {
     return _then(_HomeState(
       emailAddress: emailAddress == freezed
@@ -138,6 +170,14 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
           ? _value.searchStatus
           : searchStatus // ignore: cast_nullable_to_non_nullable
               as LoadStatus,
+      friendList: friendList == freezed
+          ? _value.friendList
+          : friendList // ignore: cast_nullable_to_non_nullable
+              as List<User>,
+      friendListLoadStatus: friendListLoadStatus == freezed
+          ? _value.friendListLoadStatus
+          : friendListLoadStatus // ignore: cast_nullable_to_non_nullable
+              as LoadStatus,
     ));
   }
 }
@@ -148,7 +188,9 @@ class _$_HomeState extends _HomeState {
   const _$_HomeState(
       {required this.emailAddress,
       required this.searchUserList,
-      required this.searchStatus})
+      required this.searchStatus,
+      required this.friendList,
+      required this.friendListLoadStatus})
       : super._();
 
   @override // required CompanyInfo companyInfo,
@@ -157,10 +199,14 @@ class _$_HomeState extends _HomeState {
   final List<User> searchUserList;
   @override
   final LoadStatus searchStatus;
+  @override
+  final List<User> friendList;
+  @override
+  final LoadStatus friendListLoadStatus;
 
   @override
   String toString() {
-    return 'HomeState(emailAddress: $emailAddress, searchUserList: $searchUserList, searchStatus: $searchStatus)';
+    return 'HomeState(emailAddress: $emailAddress, searchUserList: $searchUserList, searchStatus: $searchStatus, friendList: $friendList, friendListLoadStatus: $friendListLoadStatus)';
   }
 
   @override
@@ -173,7 +219,11 @@ class _$_HomeState extends _HomeState {
             const DeepCollectionEquality()
                 .equals(other.searchUserList, searchUserList) &&
             const DeepCollectionEquality()
-                .equals(other.searchStatus, searchStatus));
+                .equals(other.searchStatus, searchStatus) &&
+            const DeepCollectionEquality()
+                .equals(other.friendList, friendList) &&
+            const DeepCollectionEquality()
+                .equals(other.friendListLoadStatus, friendListLoadStatus));
   }
 
   @override
@@ -181,7 +231,9 @@ class _$_HomeState extends _HomeState {
       runtimeType,
       const DeepCollectionEquality().hash(emailAddress),
       const DeepCollectionEquality().hash(searchUserList),
-      const DeepCollectionEquality().hash(searchStatus));
+      const DeepCollectionEquality().hash(searchStatus),
+      const DeepCollectionEquality().hash(friendList),
+      const DeepCollectionEquality().hash(friendListLoadStatus));
 
   @JsonKey(ignore: true)
   @override
@@ -193,7 +245,9 @@ abstract class _HomeState extends HomeState {
   const factory _HomeState(
       {required String emailAddress,
       required List<User> searchUserList,
-      required LoadStatus searchStatus}) = _$_HomeState;
+      required LoadStatus searchStatus,
+      required List<User> friendList,
+      required LoadStatus friendListLoadStatus}) = _$_HomeState;
   const _HomeState._() : super._();
 
   @override // required CompanyInfo companyInfo,
@@ -202,6 +256,10 @@ abstract class _HomeState extends HomeState {
   List<User> get searchUserList;
   @override
   LoadStatus get searchStatus;
+  @override
+  List<User> get friendList;
+  @override
+  LoadStatus get friendListLoadStatus;
   @override
   @JsonKey(ignore: true)
   _$HomeStateCopyWith<_HomeState> get copyWith =>

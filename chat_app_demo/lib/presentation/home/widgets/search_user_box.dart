@@ -2,6 +2,8 @@ import 'package:chat_app_demo/application/home/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/auth/auth_cubit.dart';
+
 class SearchUserBox extends StatelessWidget {
   const SearchUserBox({Key? key}) : super(key: key);
 

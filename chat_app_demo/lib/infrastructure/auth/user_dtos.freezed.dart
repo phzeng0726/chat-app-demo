@@ -176,7 +176,8 @@ class _$UserDtoTearOff {
       required String userName,
       required String phoneNumber,
       required int createdTimeStamp,
-      required int lastSignInTimeStamp}) {
+      required int lastSignInTimeStamp,
+      required List<String> friendIdList}) {
     return _UserDto(
       userId: userId,
       emailAddress: emailAddress,
@@ -184,6 +185,7 @@ class _$UserDtoTearOff {
       phoneNumber: phoneNumber,
       createdTimeStamp: createdTimeStamp,
       lastSignInTimeStamp: lastSignInTimeStamp,
+      friendIdList: friendIdList,
     );
   }
 
@@ -203,6 +205,7 @@ mixin _$UserDto {
   String get phoneNumber => throw _privateConstructorUsedError;
   int get createdTimeStamp => throw _privateConstructorUsedError;
   int get lastSignInTimeStamp => throw _privateConstructorUsedError;
+  List<String> get friendIdList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -219,7 +222,8 @@ abstract class $UserDtoCopyWith<$Res> {
       String userName,
       String phoneNumber,
       int createdTimeStamp,
-      int lastSignInTimeStamp});
+      int lastSignInTimeStamp,
+      List<String> friendIdList});
 }
 
 /// @nodoc
@@ -238,6 +242,7 @@ class _$UserDtoCopyWithImpl<$Res> implements $UserDtoCopyWith<$Res> {
     Object? phoneNumber = freezed,
     Object? createdTimeStamp = freezed,
     Object? lastSignInTimeStamp = freezed,
+    Object? friendIdList = freezed,
   }) {
     return _then(_value.copyWith(
       userId: userId == freezed
@@ -264,6 +269,10 @@ class _$UserDtoCopyWithImpl<$Res> implements $UserDtoCopyWith<$Res> {
           ? _value.lastSignInTimeStamp
           : lastSignInTimeStamp // ignore: cast_nullable_to_non_nullable
               as int,
+      friendIdList: friendIdList == freezed
+          ? _value.friendIdList
+          : friendIdList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -279,7 +288,8 @@ abstract class _$UserDtoCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
       String userName,
       String phoneNumber,
       int createdTimeStamp,
-      int lastSignInTimeStamp});
+      int lastSignInTimeStamp,
+      List<String> friendIdList});
 }
 
 /// @nodoc
@@ -299,6 +309,7 @@ class __$UserDtoCopyWithImpl<$Res> extends _$UserDtoCopyWithImpl<$Res>
     Object? phoneNumber = freezed,
     Object? createdTimeStamp = freezed,
     Object? lastSignInTimeStamp = freezed,
+    Object? friendIdList = freezed,
   }) {
     return _then(_UserDto(
       userId: userId == freezed
@@ -325,6 +336,10 @@ class __$UserDtoCopyWithImpl<$Res> extends _$UserDtoCopyWithImpl<$Res>
           ? _value.lastSignInTimeStamp
           : lastSignInTimeStamp // ignore: cast_nullable_to_non_nullable
               as int,
+      friendIdList: friendIdList == freezed
+          ? _value.friendIdList
+          : friendIdList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -338,7 +353,8 @@ class _$_UserDto extends _UserDto {
       required this.userName,
       required this.phoneNumber,
       required this.createdTimeStamp,
-      required this.lastSignInTimeStamp})
+      required this.lastSignInTimeStamp,
+      required this.friendIdList})
       : super._();
 
   factory _$_UserDto.fromJson(Map<String, dynamic> json) =>
@@ -356,10 +372,12 @@ class _$_UserDto extends _UserDto {
   final int createdTimeStamp;
   @override
   final int lastSignInTimeStamp;
+  @override
+  final List<String> friendIdList;
 
   @override
   String toString() {
-    return 'UserDto(userId: $userId, emailAddress: $emailAddress, userName: $userName, phoneNumber: $phoneNumber, createdTimeStamp: $createdTimeStamp, lastSignInTimeStamp: $lastSignInTimeStamp)';
+    return 'UserDto(userId: $userId, emailAddress: $emailAddress, userName: $userName, phoneNumber: $phoneNumber, createdTimeStamp: $createdTimeStamp, lastSignInTimeStamp: $lastSignInTimeStamp, friendIdList: $friendIdList)';
   }
 
   @override
@@ -376,7 +394,9 @@ class _$_UserDto extends _UserDto {
             const DeepCollectionEquality()
                 .equals(other.createdTimeStamp, createdTimeStamp) &&
             const DeepCollectionEquality()
-                .equals(other.lastSignInTimeStamp, lastSignInTimeStamp));
+                .equals(other.lastSignInTimeStamp, lastSignInTimeStamp) &&
+            const DeepCollectionEquality()
+                .equals(other.friendIdList, friendIdList));
   }
 
   @override
@@ -387,7 +407,8 @@ class _$_UserDto extends _UserDto {
       const DeepCollectionEquality().hash(userName),
       const DeepCollectionEquality().hash(phoneNumber),
       const DeepCollectionEquality().hash(createdTimeStamp),
-      const DeepCollectionEquality().hash(lastSignInTimeStamp));
+      const DeepCollectionEquality().hash(lastSignInTimeStamp),
+      const DeepCollectionEquality().hash(friendIdList));
 
   @JsonKey(ignore: true)
   @override
@@ -407,7 +428,8 @@ abstract class _UserDto extends UserDto {
       required String userName,
       required String phoneNumber,
       required int createdTimeStamp,
-      required int lastSignInTimeStamp}) = _$_UserDto;
+      required int lastSignInTimeStamp,
+      required List<String> friendIdList}) = _$_UserDto;
   const _UserDto._() : super._();
 
   factory _UserDto.fromJson(Map<String, dynamic> json) = _$_UserDto.fromJson;
@@ -424,6 +446,8 @@ abstract class _UserDto extends UserDto {
   int get createdTimeStamp;
   @override
   int get lastSignInTimeStamp;
+  @override
+  List<String> get friendIdList;
   @override
   @JsonKey(ignore: true)
   _$UserDtoCopyWith<_UserDto> get copyWith =>

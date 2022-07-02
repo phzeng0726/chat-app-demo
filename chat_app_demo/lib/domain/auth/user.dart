@@ -7,14 +7,14 @@ part 'user.freezed.dart';
 class User with _$User {
   const User._();
 
-  const factory User({
-    required String userId, // unique key
-    required String emailAddress, // 電子信箱
-    required String userName,
-    required String phoneNumber,
-    required DeviceTimeStamp createdTimeStamp,
-    required DeviceTimeStamp lastSignInTimeStamp,
-  }) = _User;
+  const factory User(
+      {required String userId, // unique key
+      required String emailAddress, // 電子信箱
+      required String userName,
+      required String phoneNumber,
+      required DeviceTimeStamp createdTimeStamp,
+      required DeviceTimeStamp lastSignInTimeStamp,
+      required List<String> friendIdList}) = _User;
 
   factory User.empty() {
     final initTimeStamp = DeviceTimeStamp.initial();
@@ -25,6 +25,7 @@ class User with _$User {
       phoneNumber: '',
       createdTimeStamp: initTimeStamp,
       lastSignInTimeStamp: initTimeStamp,
+      friendIdList: <String>[],
     );
   }
 }

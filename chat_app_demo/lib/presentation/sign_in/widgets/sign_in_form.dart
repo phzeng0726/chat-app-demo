@@ -1,3 +1,4 @@
+import 'package:chat_app_demo/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:another_flushbar/flushbar_helper.dart';
@@ -23,7 +24,7 @@ class SignInForm extends StatelessWidget {
             either.fold(
               (failure) {
                 LoggerService.simple.i(failure);
-                
+
                 FlushbarHelper.createError(
                     message: failure.map(
                   serverError: (_) => '伺服器有問題，請稍候再試',
@@ -47,6 +48,7 @@ class SignInForm extends StatelessWidget {
           children: [
             const EmailAddressBox(),
             const PasswordBox(),
+            const SizedBox(height: kDefaultHeightSize),
             ElevatedButton(
               child: const Text('登入'),
               onPressed: () => context

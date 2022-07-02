@@ -9,8 +9,9 @@ import '../auth/auth_failure.dart';
 
 // NOTE: 抽象定義 auth 的資料動作
 abstract class IChatRepository {
-  // // NOTE: Firestore 區
-  Stream<Either<AuthFailure, List<User>>> searchUsers({
+  Stream<Either<ChatFailure, List<User>>> watchFriendList();
+
+  Stream<Either<ChatFailure, List<User>>> searchUsers({
     required String emailAddress,
   });
   Stream<Either<ChatFailure, List<ChatMessage>>> watchChatMessageList({
@@ -21,7 +22,9 @@ abstract class IChatRepository {
   Stream<Either<ChatFailure, List<String>>> watchGroupChat({
     required String userId,
   });
-  
+  Future<void> inviteFriend({
+    required String otherUserId,
+  });
   Future<void> create({
     required ChatMessage chatMessage,
   });

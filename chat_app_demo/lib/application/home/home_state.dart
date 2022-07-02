@@ -9,6 +9,9 @@ class HomeState with _$HomeState {
     required String emailAddress,
     required List<User> searchUserList,
     required LoadStatus searchStatus,
+    required List<User> friendList,
+    required LoadStatus friendListLoadStatus,
+
     // required Option<ChatWatcherFailure> ChatWatcherFailureOption,
     // required LoadStatus loadStatus,
   }) = _HomeState;
@@ -17,5 +20,7 @@ class HomeState with _$HomeState {
         emailAddress: 'testEmail2@gmail.com',
         searchUserList: <User>[],
         searchStatus: LoadStatus.initial(),
+        friendList: <User>[],
+        friendListLoadStatus: LoadStatus.initial(),
       );
 }

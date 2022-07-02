@@ -29,8 +29,6 @@ class MessageOverviewBody extends StatelessWidget {
         MessageBubble(
           chatMessage: chatMessage,
           isMyMessage: false,
-
-          // nip: BubbleNip.leftTop,
         ),
       ],
     );
@@ -40,8 +38,6 @@ class MessageOverviewBody extends StatelessWidget {
     return MessageBubble(
       chatMessage: chatMessage,
       isMyMessage: true,
-      // nip: BubbleNip.rightTop,
-      // contentColor: Colors.green[50],
     );
   }
 

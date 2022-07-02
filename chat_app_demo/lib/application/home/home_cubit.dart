@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:chat_app_demo/domain/chat/chat_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -16,7 +17,8 @@ class HomeCubit extends Cubit<HomeState> {
   final IChatRepository _chatRepository;
   HomeCubit(this._chatRepository) : super(HomeState.initial());
 
-  StreamSubscription<Either<AuthFailure, List<User>>>? _userListSubscription;
+  StreamSubscription<Either<ChatFailure, List<User>>>? _userListSubscription;
+  StreamSubscription<Either<ChatFailure, List<User>>>? _friendListSubscription;
 
   void searchUserChanged(String emailAddress) {
     emit(
@@ -24,6 +26,38 @@ class HomeCubit extends Cubit<HomeState> {
         emailAddress: emailAddress,
       ),
     );
+  }
+
+  Future<void> watchFriendListStarted() async {
+    emit(
+      state.copyWith(
+        friendListLoadStatus: const LoadStatus.inProgress(),
+      ),
+    );
+
+    await _friendListSubscription?.cancel();
+    _friendListSubscription = _chatRepository
+        .watchFriendList()
+        .listen((failureOrUserList) => friendListReceived(failureOrUserList));
+  }
+
+  void friendListReceived(
+    Either<ChatFailure, List<User>> failureOrUserList,
+  ) async {
+    failureOrUserList.fold(
+      (f) => emit(
+        state.copyWith(
+          friendListLoadStatus: const LoadStatus.failed(),
+        ),
+      ),
+      (userList) => emit(
+        state.copyWith(
+          friendListLoadStatus: const LoadStatus.succeed(),
+          friendList: userList,
+        ),
+      ),
+    );
+    print(state.friendList);
   }
 
   Future<void> searchUserStarted() async {
@@ -41,7 +75,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void userListReceived(
-    Either<AuthFailure, List<User>> failureOrUserList,
+    Either<ChatFailure, List<User>> failureOrUserList,
   ) async {
     failureOrUserList.fold(
       (f) => emit(
@@ -56,6 +90,10 @@ class HomeCubit extends Cubit<HomeState> {
         ),
       ),
     );
+  }
+
+  void inviteFriendPressed({required String otherUserId}) {
+    _chatRepository.inviteFriend(otherUserId: otherUserId);
   }
 
   @override

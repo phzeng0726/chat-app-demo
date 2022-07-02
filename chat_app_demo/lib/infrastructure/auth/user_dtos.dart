@@ -18,7 +18,7 @@ class UserListDto with _$UserListDto {
     return UserListDto(
         list: userList.map((user) => UserDto.fromDomain(user)).toList());
   }
-  
+
   List<User> toDomain() {
     return list.map((dto) => dto.toDomain()).toList();
   }
@@ -28,6 +28,7 @@ class UserListDto with _$UserListDto {
 
   factory UserListDto.fromFirestore(QuerySnapshot snapshot) {
     final list = snapshot.docs.map((doc) => doc.data()).toList();
+    print(list);
     return UserListDto.fromJson({'list': list});
   }
 }
@@ -42,6 +43,7 @@ class UserDto with _$UserDto {
     required String phoneNumber,
     required int createdTimeStamp,
     required int lastSignInTimeStamp,
+    required List<String> friendIdList,
   }) = _UserDto;
 
   factory UserDto.fromDomain(User user) {
@@ -53,6 +55,7 @@ class UserDto with _$UserDto {
       createdTimeStamp: user.createdTimeStamp.value.microsecondsSinceEpoch,
       lastSignInTimeStamp:
           user.lastSignInTimeStamp.value.microsecondsSinceEpoch,
+      friendIdList: user.friendIdList,
     );
   }
 
@@ -63,6 +66,7 @@ class UserDto with _$UserDto {
         phoneNumber: phoneNumber,
         createdTimeStamp: DeviceTimeStamp.fromInt(createdTimeStamp),
         lastSignInTimeStamp: DeviceTimeStamp.fromInt(lastSignInTimeStamp),
+        friendIdList: friendIdList,
       );
 
   factory UserDto.fromJson(Map<String, dynamic> json) =>

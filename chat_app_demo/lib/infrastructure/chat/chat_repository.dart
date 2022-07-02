@@ -24,7 +24,41 @@ class ChatRepository implements IChatRepository {
     this._firestore,
   );
 
-  // Stream<Either<ChatFailure, List<ChatMessage>>> watchChatMessageList();
+  @override
+  Stream<Either<ChatFailure, List<User>>> watchFriendList() async* {
+    final userDoc = await _firestore.userDocument();
+    final userListCollection = _firestore.userListCollection;
+    final user = await userDoc.get().then(
+          (doc) => UserDto.fromFirestore(doc).toDomain(),
+        );
+    if (user.friendIdList.isNotEmpty) {
+      yield* userListCollection
+          .where('userId', whereIn: user.friendIdList)
+          .snapshots()
+          .map((snapshot) => right<ChatFailure, List<User>>(
+              UserListDto.fromFirestore(snapshot).toDomain()))
+        ..onErrorReturnWith((e, stackTrace) {
+          LoggerService.simple.i(e);
+          if (e is FirebaseException && e.code == 'permission-denied') {
+            return left(const ChatFailure.insufficientPermission());
+          } else {
+            return left(const ChatFailure.unexpected());
+          }
+        });
+    } else {
+      yield* userListCollection
+          .snapshots()
+          .map((snapshot) => right<ChatFailure, List<User>>(<User>[]))
+        ..onErrorReturnWith((e, stackTrace) {
+          LoggerService.simple.i(e);
+          if (e is FirebaseException && e.code == 'permission-denied') {
+            return left(const ChatFailure.insufficientPermission());
+          } else {
+            return left(const ChatFailure.unexpected());
+          }
+        });
+    }
+  }
 
   @override
   Stream<Either<ChatFailure, List<ChatMessage>>> watchChatMessageList({
@@ -65,6 +99,22 @@ class ChatRepository implements IChatRepository {
             ),
           ).toJson(),
         );
+
+    return;
+  }
+
+  @override
+  Future<void> inviteFriend({
+    required String otherUserId,
+  }) async {
+    final userDoc = await _firestore.userDocument();
+    final user = await userDoc.get().then(
+          (doc) => UserDto.fromFirestore(doc).toDomain(),
+        );
+    final friendIdList = user.friendIdList;
+    friendIdList.add(otherUserId);
+    await userDoc.update(
+        UserDto.fromDomain(user.copyWith(friendIdList: friendIdList)).toJson());
 
     return;
   }
@@ -113,27 +163,28 @@ class ChatRepository implements IChatRepository {
   }
 
   @override
-  Stream<Either<AuthFailure, List<User>>> searchUsers({
+  Stream<Either<ChatFailure, List<User>>> searchUsers({
     required String emailAddress,
   }) async* {
     final userListCollection = _firestore.userListCollection;
+
     yield* userListCollection
         .where('emailAddress', isEqualTo: emailAddress)
         .snapshots()
         .map((snapshot) {
       if (snapshot.docs.isNotEmpty) {
-        return right<AuthFailure, List<User>>(
+        return right<ChatFailure, List<User>>(
             UserListDto.fromFirestore(snapshot).toDomain());
       } else {
-        return left(const AuthFailure.unexpected());
+        return left(const ChatFailure.unexpected());
       }
     })
       ..onErrorReturnWith((e, stackTrace) {
         LoggerService.simple.i(e);
         if (e is FirebaseException && e.code == 'permission-denied') {
-          return left(const AuthFailure.insufficientPermission());
+          return left(const ChatFailure.insufficientPermission());
         } else {
-          return left(const AuthFailure.unexpected());
+          return left(const ChatFailure.unexpected());
         }
       });
   }

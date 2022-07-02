@@ -14,7 +14,8 @@ class MessageEnterBox extends StatefulWidget {
 
 class _MessageEnterBoxState extends State<MessageEnterBox> {
   late FocusNode focusNode;
-  TextEditingController controller = TextEditingController();
+  late bool isBoxEmpty = true;
+  final TextEditingController _inputController = TextEditingController();
 
   @override
   void initState() {
@@ -26,30 +27,37 @@ class _MessageEnterBoxState extends State<MessageEnterBox> {
   Widget build(BuildContext context) {
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
-        return TextField(
-          controller: controller,
-          // autofocus: true,
-          autocorrect: false,
-          minLines: 1,
-          maxLines: 5,
-          focusNode: focusNode,
-          onSubmitted: (value) async {
-            await context.read<ChatCubit>().sendMessage(value);
-            controller.clear();
-            focusNode.requestFocus();
-          },
-          decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.chat),
-            suffixIcon: IconButton(
-              onPressed: () async {
-                await context.read<ChatCubit>().sendMessage(controller.text);
-                controller.clear();
-                focusNode.requestFocus();
-              },
-              icon: const Icon(Icons.send),
+        return Column(
+          children: [
+            TextField(
+              controller: _inputController,
+              autocorrect: false,
+              minLines: 1,
+              maxLines: 5,
+              focusNode: focusNode,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.chat),
+                suffixIcon: ValueListenableBuilder<TextEditingValue>(
+                  valueListenable: _inputController,
+                  builder: (context, value, child) {
+                    return IconButton(
+                      onPressed: value.text.isNotEmpty
+                          ? () async {
+                              await context
+                                  .read<ChatCubit>()
+                                  .sendMessage(_inputController.text);
+                              focusNode.requestFocus();
+                              _inputController.clear();
+                            }
+                          : null,
+                      icon: const Icon(Icons.send),
+                    );
+                  },
+                ),
+                hintText: 'Message',
+              ),
             ),
-            hintText: '訊息',
-          ),
+          ],
         );
       },
     );
@@ -57,7 +65,7 @@ class _MessageEnterBoxState extends State<MessageEnterBox> {
 
   @override
   void dispose() {
-    controller.dispose();
+    _inputController.dispose();
     super.dispose();
   }
 }

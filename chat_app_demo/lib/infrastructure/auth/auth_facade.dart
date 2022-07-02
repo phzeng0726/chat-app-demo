@@ -41,16 +41,17 @@ class AuthFacade implements IAuthFacade {
       );
 
       final user = User(
-          userId: credential.user!.uid,
-          emailAddress: emailAddress,
-          userName: credential.user!.displayName ?? '',
-          phoneNumber: credential.user!.phoneNumber ?? '',
-          createdTimeStamp:
-              DeviceTimeStamp(credential.user!.metadata.creationTime!),
-          lastSignInTimeStamp:
-              DeviceTimeStamp(credential.user!.metadata.lastSignInTime!),
-        );
-  
+        userId: credential.user!.uid,
+        emailAddress: emailAddress,
+        userName: credential.user!.displayName ?? emailAddress,
+        phoneNumber: credential.user!.phoneNumber ?? '',
+        createdTimeStamp:
+            DeviceTimeStamp(credential.user!.metadata.creationTime!),
+        lastSignInTimeStamp:
+            DeviceTimeStamp(credential.user!.metadata.lastSignInTime!),
+        friendIdList: <String>[],
+      );
+
       await createUserDoc(
         user: user,
       );
