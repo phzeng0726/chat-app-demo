@@ -1,14 +1,48 @@
-import 'package:bubble/bubble.dart';
-import 'package:chat_app_demo/application/auth/auth_cubit.dart';
-import 'package:chat_app_demo/application/chat/chat_cubit.dart';
-import 'package:chat_app_demo/constants.dart';
-import 'package:chat_app_demo/domain/chat/chat_message.dart';
-import 'package:chat_app_demo/presentation/chat/widgets/message_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/auth/auth_cubit.dart';
+import '../../../application/chat/chat_cubit.dart';
+import '../../../constants.dart';
+import '../../../domain/chat/chat_message.dart';
+import 'message_bubble.dart';
+
 class MessageOverviewBody extends StatelessWidget {
-  const MessageOverviewBody({Key? key}) : super(key: key);
+  MessageOverviewBody({Key? key}) : super(key: key);
+
+  final scrollController = ScrollController();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<ChatCubit, ChatState>(
+      listenWhen: (p, c) => p.sendedMessageId != c.sendedMessageId,
+      listener: (context, state) {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 10),
+          curve: Curves.easeOut,
+        );
+      },
+      builder: (context, state) {
+        return BlocBuilder<ChatCubit, ChatState>(
+          builder: (context, state) {
+            return ListView.builder(
+              controller: scrollController,
+              itemCount: state.messageList.length,
+              itemBuilder: ((context, index) {
+                ChatMessage chatMessage = state.messageList[index];
+
+                return chatMessage.fromId ==
+                        context.read<AuthCubit>().state.user.userId
+                    ? myMessage(chatMessage)
+                    : otherMessage(chatMessage);
+              }),
+            );
+          },
+        );
+      },
+    );
+  }
 
   Widget otherMessage(ChatMessage chatMessage) {
     return Row(
@@ -38,24 +72,6 @@ class MessageOverviewBody extends StatelessWidget {
     return MessageBubble(
       chatMessage: chatMessage,
       isMyMessage: true,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<ChatCubit, ChatState>(
-      builder: (context, state) {
-        return ListView.builder(
-          itemCount: state.messageList.length,
-          itemBuilder: ((context, index) {
-            ChatMessage chatMessage = state.messageList[index];
-            return chatMessage.fromId ==
-                    context.read<AuthCubit>().state.user.userId
-                ? myMessage(chatMessage)
-                : otherMessage(chatMessage);
-          }),
-        );
-      },
     );
   }
 }

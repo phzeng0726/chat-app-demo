@@ -85,14 +85,16 @@ class ChatRepository implements IChatRepository {
   }
 
   @override
-  Future<void> create({
+  Future<String> create({
     required ChatMessage chatMessage,
   }) async {
     final groupChatDoc = await _firestore.groupChatDocument(
       fromId: chatMessage.fromId,
       toId: chatMessage.toId,
     );
-    await groupChatDoc.messageListCollection.doc().set(
+
+    final messageDoc = groupChatDoc.messageListCollection.doc();
+    await messageDoc.set(
           ChatMessageDto.fromDomain(
             chatMessage.copyWith(
               createdTimeStamp: DeviceTimeStamp.now(),
@@ -100,7 +102,7 @@ class ChatRepository implements IChatRepository {
           ).toJson(),
         );
 
-    return;
+    return messageDoc.id;
   }
 
   @override

@@ -59,7 +59,6 @@ class MessageBubble extends StatelessWidget {
           final changeLine =
               reservePainter.width > originalPainter.width + 0.001 ||
                   reservePainter.height > originalPainter.height + 0.001;
-
           return Text(
             changeLine ? '$text\n' : text,
             style: style,
@@ -76,7 +75,9 @@ class MessageBubble extends StatelessWidget {
     final MessageTheme messageTheme = isDarkTheme
         ? BubbleTheme().darkThemeBubble
         : BubbleTheme().lightThemeBubble;
-
+    // return TextSized(
+    //   text: chatMessage.content,
+    // );
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment:
@@ -135,3 +136,44 @@ class MessageBubble extends StatelessWidget {
     );
   }
 }
+
+// class TextSized extends StatelessWidget {
+//   final String text;
+//   const TextSized({
+//     Key? key,
+//     required this.text,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final TextStyle textStyle = TextStyle(
+//       fontSize: 30,
+//       color: Colors.white,
+//     );
+//     final Size txtSize = _textSize(text, textStyle);
+
+//     // This kind of use - meaningless. It's just an example.
+//     return Container(
+//       color: Colors.blueGrey,
+//       width: txtSize.width,
+//       height: txtSize.height,
+//       child: Text(
+//         text,
+//         style: textStyle,
+//         softWrap: false,
+//         overflow: TextOverflow.clip,
+//         // maxLines: 1,
+//       ),
+//     );
+//   }
+
+//   // Here it is!
+//   Size _textSize(String text, TextStyle style) {
+//     final TextPainter textPainter = TextPainter(
+//         text: TextSpan(text: text, style: style),
+//         maxLines: 1,
+//         textDirection: TextDirection.ltr)
+//       ..layout(minWidth: 0, maxWidth: double.infinity);
+//     return textPainter.size;
+//   }
+// }

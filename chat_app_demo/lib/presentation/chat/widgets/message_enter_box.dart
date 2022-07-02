@@ -48,6 +48,7 @@ class _MessageEnterBoxState extends State<MessageEnterBox> {
                                   .sendMessage(_inputController.text);
                               focusNode.requestFocus();
                               _inputController.clear();
+                              
                             }
                           : null,
                       icon: const Icon(Icons.send),

@@ -25,7 +25,7 @@ abstract class IChatRepository {
   Future<void> inviteFriend({
     required String otherUserId,
   });
-  Future<void> create({
+  Future<String> create({
     required ChatMessage chatMessage,
   });
   Future<void> update({

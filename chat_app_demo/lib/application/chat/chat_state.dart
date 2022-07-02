@@ -11,6 +11,7 @@ class ChatState with _$ChatState {
     required List<ChatMessage> messageList,
     required LoadStatus loadStatus,
     required LoadStatus writingStatus,
+    required String sendedMessageId,
   }) = _ChatState;
 
   factory ChatState.initial() => ChatState(
@@ -20,5 +21,6 @@ class ChatState with _$ChatState {
         messageList: <ChatMessage>[],
         loadStatus: const LoadStatus.initial(),
         writingStatus: const LoadStatus.initial(),
+        sendedMessageId: '',
       );
 }

@@ -92,12 +92,23 @@ class ChatCubit extends Cubit<ChatState> {
   // }
 
   Future<void> sendMessage(String content) async {
-    await _chatRepository.create(
+    final String messageDocId = await _chatRepository.create(
       chatMessage: state.chatMessage.copyWith(
         content: content,
       ),
     );
+    emit(
+      state.copyWith(
+        sendedMessageId: messageDocId,
+      ),
+    );
   }
+
+  // Future<void> getMessageBubbleSize(double messageBubbleHeight) async {
+  //   emit(state.copyWith(
+  //     messageBubbleHeight: messageBubbleHeight,
+  //   ));
+  // }
 
   @override
   Future<void> close() async {
