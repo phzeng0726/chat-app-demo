@@ -59,7 +59,7 @@ class MessageOverviewBody extends StatelessWidget {
             left: kDefaultPadding / 2,
             bottom: kDefaultPadding / 2,
           ),
-          child: UserProfileAvater(user: otherUser),
+          child: UserProfileAvatar(user: otherUser),
         ),
         MessageBubble(
           chatMessage: chatMessage,

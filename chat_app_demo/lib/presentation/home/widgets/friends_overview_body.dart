@@ -58,7 +58,7 @@ class FriendsOverviewBody extends StatelessWidget {
                                 otherUser: user,
                               ),
                             ),
-                            leading: UserProfileAvater(user: user),
+                            leading: UserProfileAvatar(user: user),
                             title: Text(user.userName),
                           ),
                         );

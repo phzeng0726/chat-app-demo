@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -14,6 +13,7 @@ class ThemeCubit extends Cubit<ThemeState> {
       state.copyWith(
           themeData: (state.themeData == darkTheme) ? lightTheme : darkTheme),
     );
+    print(state.themeData);
   }
 
   @override

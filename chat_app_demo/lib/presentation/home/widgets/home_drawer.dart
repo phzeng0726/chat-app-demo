@@ -22,7 +22,7 @@ class HomeDrawer extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              UserProfileAvater(user: currentUser),
+              UserProfileAvatar(user: currentUser),
               const ThemeSwitchButton(),
             ],
           ),
@@ -36,7 +36,7 @@ class HomeDrawer extends StatelessWidget {
                 Text(currentUser.emailAddress),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

@@ -7,41 +7,29 @@ class ThemeState with _$ThemeState {
     required ThemeData themeData,
   }) = _ThemeState;
 
-  factory ThemeState.initial() => ThemeState(themeData: darkTheme);
+  factory ThemeState.initial() => ThemeState(themeData: lightTheme);
 }
 
 ThemeData get darkTheme => ThemeData(
-      // brightness: Brightness.dark,
-      // indicatorColor: const Color(0xFF6553D9),
-      // snackBarTheme: const SnackBarThemeData(
-      //   backgroundColor: Color(0xFF676767),
-      //   actionTextColor: Colors.redAccent,
-      // ),
-      // textTheme: _textTheme,
+      indicatorColor: const ColorScheme.dark().primary,
       colorScheme: const ColorScheme.dark(),
-      // pageTransitionsTheme: const PageTransitionsTheme(
-      //   builders: {
-      //     TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
-      //     TargetPlatform.iOS: OpenUpwardsPageTransitionsBuilder(),
-      //   },
-      // ),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
+          TargetPlatform.iOS: OpenUpwardsPageTransitionsBuilder(),
+        },
+      ),
     );
 
 ThemeData get lightTheme => ThemeData(
-      // indicatorColor: const Color(0xFF6553D9),
-      // snackBarTheme: const SnackBarThemeData(
-      //   backgroundColor: Color(0xFF676767),
-      //   actionTextColor: Colors.redAccent,
-      // ),
-      // textTheme: _textTheme,
+      indicatorColor: const ColorScheme.light().primary,
       colorScheme: const ColorScheme.light(),
-
-      // pageTransitionsTheme: const PageTransitionsTheme(
-      //   builders: {
-      //     TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
-      //     TargetPlatform.iOS: OpenUpwardsPageTransitionsBuilder(),
-      //   },
-      // ),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
+          TargetPlatform.iOS: OpenUpwardsPageTransitionsBuilder(),
+        },
+      ),
     );
 
 const TextTheme _textTheme = TextTheme(
@@ -135,3 +123,10 @@ class MessageTheme {
     required this.otherContentTextStyle,
   });
 }
+
+      // indicatorColor: const Color(0xFF6553D9),
+      // snackBarTheme: const SnackBarThemeData(
+      //   backgroundColor: Color(0xFF676767),
+      //   actionTextColor: Colors.redAccent,
+      // ),
+      // textTheme: _textTheme,

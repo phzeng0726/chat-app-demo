@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../domain/auth/user.dart';
 
-class UserProfileAvater extends StatelessWidget {
+class UserProfileAvatar extends StatelessWidget {
   final User user;
-  const UserProfileAvater({
+  const UserProfileAvatar({
     Key? key,
     required this.user,
   }) : super(key: key);
