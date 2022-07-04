@@ -6,7 +6,6 @@ import '../auth/user.dart';
 import 'chat_failure.dart';
 import 'chat_message.dart';
 
-// NOTE: 抽象定義 auth 的資料動作
 abstract class IChatRepository {
   Future<Either<ChatFailure, List<User>>> fetchFriendList({required User user});
 
@@ -14,18 +13,20 @@ abstract class IChatRepository {
     required String emailAddress,
   });
 
+  Stream<Either<ChatFailure, List<String>>> watchGroupChat({
+    required String userId,
+  });
 
+  Future<void> inviteFriend({
+    required String otherUserId,
+  });
+
+  // message
   Stream<Either<ChatFailure, List<ChatMessage>>> watchMessageList({
     required String fromId,
     required String toId,
   });
 
-  Stream<Either<ChatFailure, List<String>>> watchGroupChat({
-    required String userId,
-  });
-  Future<void> inviteFriend({
-    required String otherUserId,
-  });
   Future<String> create({
     required ChatMessage chatMessage,
   });

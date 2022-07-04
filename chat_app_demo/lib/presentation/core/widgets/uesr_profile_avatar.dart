@@ -22,15 +22,7 @@ class UserProfileAvatar extends StatelessWidget {
             : const NetworkImage(defaultUserProfileImage),
         backgroundColor: Colors.transparent,
       ),
-      onTap: () => getIt<RootRouter>().push(
-        UserProfileRouter(
-          children: [
-            UserProfileRoute(
-              user: user,
-            ),
-          ],
-        ),
-      ),
+      onTap: () => getIt<RootRouter>().push(UserProfileRoute(user: user)),
     );
   }
 }

@@ -30,15 +30,17 @@ import '../user_profile/user_profile_page.dart';
 
         AutoRoute(page: HomePage, path: 'home'),
         AutoRoute(page: ChatPage, path: 'chat'),
-        AutoRoute(
-          page: EmptyRouterPage,
-          path: 'user-profile',
-          name: 'UserProfileRouter',
-          children: [
-            AutoRoute(page: UserProfilePage, path: ''),
-            AutoRoute(page: UserProfileEditPage, path: 'edit'),
-          ],
-        ),
+        AutoRoute(page: UserProfilePage, path: 'profile'),
+        AutoRoute(page: UserProfileEditPage, path: 'edit'),
+        // AutoRoute(
+        //   page: EmptyRouterPage,
+        //   path: 'user-profile',
+        //   name: 'UserProfileRouter',
+        //   children: [
+        //     AutoRoute(page: UserProfilePage, path: ''),
+        //     AutoRoute(page: UserProfileEditPage, path: 'edit'),
+        //   ],
+        // ),
         // AutoRoute(page: UnauthHomePage, path: 'unauth-home', initial: true),
         // AutoRoute(page: SignInPage, path: 'sign-in'),
         // AutoRoute(page: RegisterPage, path: 'sign-up'),

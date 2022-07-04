@@ -1,8 +1,7 @@
-import 'package:chat_app_demo/application/auth/auth_cubit.dart';
-import 'package:chat_app_demo/application/chat/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../application/auth/auth_cubit.dart';
 import '../../application/home/home_cubit.dart';
 import '../../domain/auth/user.dart';
 import '../../domain/chat/i_chat_repository.dart';
@@ -16,7 +15,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final User currentUser = context.read<AuthCubit>().state.user;
+    // 記得用watch而不是read
+    final User currentUser = context.watch<AuthCubit>().state.user;
 
     return MultiBlocProvider(
       providers: [
