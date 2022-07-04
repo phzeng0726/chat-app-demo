@@ -1,3 +1,5 @@
+import 'package:chat_app_demo/injection.dart';
+import 'package:chat_app_demo/presentation/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -12,12 +14,23 @@ class UserProfileAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: 30.0,
-      backgroundImage: user.photoUrl != ''
-          ? NetworkImage(user.photoUrl)
-          : const NetworkImage(defaultUserProfileImage),
-      backgroundColor: Colors.transparent,
+    return InkWell(
+      child: CircleAvatar(
+        radius: 30.0,
+        backgroundImage: user.photoUrl != ''
+            ? NetworkImage(user.photoUrl)
+            : const NetworkImage(defaultUserProfileImage),
+        backgroundColor: Colors.transparent,
+      ),
+      onTap: () => getIt<RootRouter>().push(
+        UserProfileRouter(
+          children: [
+            UserProfileRoute(
+              user: user,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
