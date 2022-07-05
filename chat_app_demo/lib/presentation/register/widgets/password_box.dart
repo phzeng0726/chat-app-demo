@@ -19,7 +19,7 @@ class PasswordBox extends StatelessWidget {
           autovalidateMode: state.validate
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
-          validator: (input) => input!.isValidPassword(),
+          validator: (input) => input!.isValidPassword(context),
           obscureText: state.isPWObscure,
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.vpn_key),

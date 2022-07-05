@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../application/auth/auth_cubit.dart';
 import '../../application/home/home_cubit.dart';
@@ -35,12 +36,16 @@ class HomePage extends StatelessWidget {
               currentUser: currentUser,
             ),
             appBar: AppBar(
-              title: const Text('Chat App Demo'),
+              title: Text(FlutterI18n.translate(context, "home.title")),
               centerTitle: true,
-              bottom: const TabBar(
+              bottom: TabBar(
                 tabs: [
-                  Tab(icon: Icon(Icons.face), text: '我的好友'),
-                  Tab(icon: Icon(Icons.search), text: '搜尋')
+                  Tab(
+                      icon: const Icon(Icons.face),
+                      text: FlutterI18n.translate(context, "home.myFriends")),
+                  Tab(
+                      icon: const Icon(Icons.search),
+                      text: FlutterI18n.translate(context, "home.search"))
                 ],
               ),
             ),

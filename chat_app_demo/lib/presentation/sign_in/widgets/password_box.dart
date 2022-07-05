@@ -1,7 +1,9 @@
-import 'package:chat_app_demo/application/auth/sign_in_form/sign_in_form_cubit.dart';
-import 'package:chat_app_demo/domain/auth/auth_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+
+import '../../../application/auth/sign_in_form/sign_in_form_cubit.dart';
+import '../../../domain/auth/auth_validator.dart';
 
 class PasswordBox extends StatelessWidget {
   const PasswordBox({Key? key}) : super(key: key);
@@ -18,7 +20,7 @@ class PasswordBox extends StatelessWidget {
           autovalidateMode: state.validate
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
-          validator: (input) => input!.isValidPassword(),
+          validator: (input) => input!.isValidPassword(context),
           obscureText: state.isPWObscure,
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.vpn_key),
@@ -29,8 +31,8 @@ class PasswordBox extends StatelessWidget {
                   ? const Icon(Icons.visibility)
                   : const Icon(Icons.visibility_off),
             ),
-            labelText: '密碼',
-            hintText: '6 - 20 個英數字',
+            labelText: FlutterI18n.translate(context, "login.password"),
+            hintText: FlutterI18n.translate(context, "login.passwordHint"),
           ),
         );
       },

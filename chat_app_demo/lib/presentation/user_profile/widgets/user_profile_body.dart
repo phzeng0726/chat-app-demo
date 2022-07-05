@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../application/user_profile/user_profile_cubit.dart';
 import '../../../constants.dart';
@@ -32,14 +33,15 @@ class UserProfileBody extends StatelessWidget {
     );
   }
 
-  Widget _buildUserNameListTile() {
+  Widget _buildUserNameListTile(BuildContext context) {
     return ListTile(
       title: Text(user.userName),
-      subtitle: const Text('暱稱'),
+      subtitle: Text(FlutterI18n.translate(context, "userProfile.userName")),
       onTap: isEditable
           ? () => getIt<RootRouter>().push(
                 UserProfileEditRoute(
-                  editItemTitle: '暱稱',
+                  editItemTitle: FlutterI18n.translate(
+                      context, "userProfile.userNameTitle"),
                   itemString: user.userName,
                   textFormFieldWidget: const UserNameBox(),
                 ),
@@ -48,14 +50,15 @@ class UserProfileBody extends StatelessWidget {
     );
   }
 
-  Widget _buildAboutMeListTile() {
+  Widget _buildAboutMeListTile(BuildContext context) {
     return ListTile(
       title: Text(user.aboutMe == '' ? 'Bio' : user.aboutMe),
-      subtitle: const Text('關於我'),
+      subtitle: Text(FlutterI18n.translate(context, "userProfile.aboutMe")),
       onTap: isEditable
           ? () => getIt<RootRouter>().push(
                 UserProfileEditRoute(
-                  editItemTitle: '關於我',
+                  editItemTitle: FlutterI18n.translate(
+                      context, "userProfile.aboutMeTitle"),
                   itemString: user.aboutMe,
                   textFormFieldWidget: const AboutMeBox(),
                 ),
@@ -72,7 +75,8 @@ class UserProfileBody extends StatelessWidget {
         children: [
           ListTile(
             leading: const Icon(Icons.photo),
-            title: const Text('從相簿選取'),
+            title:
+                Text(FlutterI18n.translate(context, "userProfile.openGallery")),
             onTap: () {
               context.read<UserProfileCubit>().galleryButtonPressed(
                     userId: user.userId,
@@ -82,7 +86,8 @@ class UserProfileBody extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.camera_alt),
-            title: const Text('開啟相機'),
+            title:
+                Text(FlutterI18n.translate(context, "userProfile.openCamera")),
             onTap: () {
               context.read<UserProfileCubit>().cameraButtonPressed(
                     userId: user.userId,
@@ -107,8 +112,8 @@ class UserProfileBody extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      _buildUserNameListTile(),
-                      _buildAboutMeListTile(),
+                      _buildUserNameListTile(context),
+                      _buildAboutMeListTile(context),
                     ],
                   ),
                   Positioned(

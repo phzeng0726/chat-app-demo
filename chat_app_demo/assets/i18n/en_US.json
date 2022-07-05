@@ -1,12 +1,53 @@
 {
     "login": {
         "login": "Login",
-        "username": "Username",
-        "password": "password"
+        "submitting": "Submitting...",
+        "emailAddress": "Email",
+        "emailAddressHint": "Enter your email address",
+        "password": "password",
+        "passwordHint": "6 - 20 words",
+        "notRegistered": "Not registered yet?",
+        "createAnAccount": "Create an Account",
+        "authError": {
+            "serverError": "Server error",
+            "unexpected": "Unexpected error",
+            "insufficientPermission": "Insufficient permission",
+            "invalidEmailAndPassword": "Invalid email",
+            "emailAddressAlreadyInUse": "Email already in use",
+            "invalidEmail": "Invalid email",
+            "weakPassword": "Weak password"
+        },
+        "validator": {
+            "passwordNotEmpty": "Password is not empty",
+            "passwordLengthNotice": "Wrong password length",
+            "emailNotEmpty": "Email is not empty",
+            "emailFormalError": "Wrong email format"
+        }
     },
-    "setting": {
-        "theme": "Theme",
-        "language": "Language",
-        "switchLangMsg": "Switch language to {lang}"
+    "home": {
+        "title": "Chat App",
+        "myFriends": "Friends",
+        "search": "Search",
+        "drawer": {
+            "setting": {
+                "title": "Setting",
+                "language": "Language",
+                "switchLangMsg": "Switch language to {lang}"
+            },
+            "introduction": "Introduction",
+            "logout": "Log out"
+        },
+        "searchUserOverview": {
+            "addFriend": "Add friend",
+            "alreadyFriend": "Already friend"
+        }
+    },
+    "userProfile": {
+        "aboutMe": "Add a few words about yourself",
+        "aboutMeTitle": "About me",
+        "userName": "Username",
+        "userNameTitle": "Username",
+        "openGallery": "From gallery",
+        "openCamera": "From camera"
     }
 }

@@ -19,7 +19,7 @@ class EmailAddressBox extends StatelessWidget {
           autovalidateMode: state.validate
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
-          validator: (input) => input!.isValidEmail(),
+          validator: (input) => input!.isValidEmail(context),
           // obscureText: state.isPWObscure,
           decoration: const InputDecoration(
             prefixIcon: Icon(Icons.assignment_ind),

@@ -1,6 +1,7 @@
 import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../application/auth/auth_cubit.dart';
 import '../../../application/home/home_cubit.dart';
@@ -66,7 +67,11 @@ class SearchUserOverviewBody extends StatelessWidget {
                                   .read<HomeCubit>()
                                   .inviteFriendPressed(
                                       otherUserId: user.userId),
-                          label: Text(isFriend ? '已成為好友' : '成為好友'),
+                          label: Text(isFriend
+                              ? FlutterI18n.translate(context,
+                                  "home.searchUserOverview.alreadyFriend")
+                              : FlutterI18n.translate(context,
+                                  "home.searchUserOverview.addFriend")),
                           icon: const Icon(Icons.add),
                         ),
                       ),
