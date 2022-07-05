@@ -1,4 +1,3 @@
-import 'package:chat_app_demo/application/user_profile/user_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,26 +37,12 @@ class UserProfilePage extends StatelessWidget {
 class UserProfileBody extends StatelessWidget {
   final User user;
   final bool isEditable;
+
   const UserProfileBody({
     Key? key,
     required this.user,
     required this.isEditable,
   }) : super(key: key);
-
-  Widget _buildUserProfilePhoto(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.width,
-      ),
-      width: MediaQuery.of(context).size.width,
-      child: Image(
-        fit: BoxFit.contain,
-        image: user.photoUrl != ''
-            ? NetworkImage(user.photoUrl)
-            : const NetworkImage(defaultUserProfileImage),
-      ),
-    );
-  }
 
   Widget _buildUserNameListTile() {
     // Text(user.photoUrl),
@@ -93,18 +78,52 @@ class UserProfileBody extends StatelessWidget {
     );
   }
 
+  Widget _buildUserProfilePhoto(BuildContext context, double imageHeight) {
+    return SizedBox(
+      height: imageHeight,
+      width: MediaQuery.of(context).size.width,
+      child: Image(
+        fit: BoxFit.cover,
+        image: user.photoUrl != ''
+            ? NetworkImage(user.photoUrl)
+            : const NetworkImage(defaultUserProfileImage),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _buildUserProfilePhoto(context),
-        _buildUserNameListTile(),
-        _buildAboutMeListTile(),
-        // ListTile(
-        //   title: Text(user.phoneNumber),
-        //   subtitle: const Text('手機號碼'),
-        // ),
-      ],
-    );
+    return LayoutBuilder(builder: (context, constraints) {
+      final double imageHeight = constraints.maxHeight * .5;
+
+      debugPrint(imageHeight.toString());
+      return Column(
+        children: [
+          _buildUserProfilePhoto(context, imageHeight),
+          SizedBox(
+            height: constraints.maxHeight - imageHeight,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Positioned(
+                  top: -(64 / 2), // 64 is default fab size
+                  right: 24,
+                  child: FloatingActionButton(
+                    onPressed: () {},
+                    child: const Icon(Icons.photo_camera),
+                  ),
+                ),
+                Column(
+                  children: [
+                    _buildUserNameListTile(),
+                    _buildAboutMeListTile(),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
