@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../application/chat/chat_cubit.dart';
 
@@ -48,14 +49,13 @@ class _MessageEnterBoxState extends State<MessageEnterBox> {
                                   .sendMessage(_inputController.text);
                               focusNode.requestFocus();
                               _inputController.clear();
-                              
                             }
                           : null,
                       icon: const Icon(Icons.send),
                     );
                   },
                 ),
-                hintText: 'Message',
+                hintText: FlutterI18n.translate(context, "chat.messageBoxHint"),
               ),
             ),
           ],

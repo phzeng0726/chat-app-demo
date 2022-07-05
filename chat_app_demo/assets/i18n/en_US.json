@@ -38,8 +38,12 @@
             "logout": "Log out"
         },
         "searchUserOverview": {
+            "searchBoxHint": "Type the user's email.",
             "addFriend": "Add friend",
             "alreadyFriend": "Already friend"
+        },
+        "friendsOverview": {
+            "emptyFriends": "Opps...! Friend list is empty. That's join a friend!"
         }
     },
     "userProfile": {
@@ -49,5 +53,13 @@
         "userNameTitle": "Username",
         "openGallery": "From gallery",
         "openCamera": "From camera"
+    },
+    "chat": {
+        "messageBoxHint": "Message"
+    },
+    "loadStatus": {
+        "initial": "Load initial",
+        "inProgress": "Load in progress...",
+        "failed": "Load failed"
     }
 }

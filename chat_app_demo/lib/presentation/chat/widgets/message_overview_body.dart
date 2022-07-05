@@ -1,12 +1,12 @@
-import 'package:chat_app_demo/domain/auth/user.dart';
-import 'package:chat_app_demo/presentation/core/widgets/uesr_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/auth/auth_cubit.dart';
 import '../../../application/chat/chat_cubit.dart';
 import '../../../constants.dart';
+import '../../../domain/auth/user.dart';
 import '../../../domain/chat/chat_message.dart';
+import '../../core/widgets/uesr_profile_avatar.dart';
 import 'message_bubble.dart';
 
 class MessageOverviewBody extends StatelessWidget {

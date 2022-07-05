@@ -1,8 +1,8 @@
-import 'package:chat_app_demo/application/home/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
-import '../../../application/auth/auth_cubit.dart';
+import '../../../application/home/home_cubit.dart';
 
 class SearchUserBox extends StatelessWidget {
   const SearchUserBox({Key? key}) : super(key: key);
@@ -16,10 +16,10 @@ class SearchUserBox extends StatelessWidget {
           onChanged: (value) =>
               context.read<HomeCubit>().searchUserChanged(value),
           autocorrect: false,
-          autofocus: true,
-          decoration: const InputDecoration(
-            prefixIcon: Icon(Icons.search),
-            hintText: '請輸入要搜尋用戶的 Email 地址',
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.search),
+            hintText: FlutterI18n.translate(
+                context, "home.searchUserOverview.searchBoxHint"),
           ),
           onEditingComplete: () =>
               context.read<HomeCubit>().searchUserStarted(),

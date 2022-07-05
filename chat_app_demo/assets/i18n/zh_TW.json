@@ -38,8 +38,12 @@
             "logout": "登出"
         },
         "searchUserOverview": {
+            "searchBox": "請輸入要搜尋用戶的 Email 地址",
             "addFriend": "加入好友",
             "alreadyFriend": "已成為好友"
+        },
+        "friendsOverview": {
+            "emptyFriends": "您還沒有好友，快點加入好友吧！"
         }
     },
     "userProfile": {
@@ -49,5 +53,13 @@
         "userNameTitle": "暱稱",
         "openGallery": "從相簿獲取",
         "openCamera": "開啟相機"
+    },
+    "chat": {
+        "messageBoxHint": "訊息"
+    },
+    "loadStatus": {
+        "initial": "初始化",
+        "inProgress": "載入中...",
+        "failed": "加載失敗"
     }
 }

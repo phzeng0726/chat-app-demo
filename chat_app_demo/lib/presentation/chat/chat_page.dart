@@ -1,5 +1,6 @@
 import 'package:chat_app_demo/domain/auth/user.dart';
 import 'package:chat_app_demo/presentation/chat/widgets/message_overview_body.dart';
+import 'package:chat_app_demo/presentation/core/widgets/load_status_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,28 +32,42 @@ class ChatPage extends StatelessWidget {
         ),
         body: BlocBuilder<ChatCubit, ChatState>(
           builder: (context, state) {
-            return state.loadStatus.map(
-              initial: (_) => const Center(),
-              inProgress: (_) => const CircularProgressIndicator(),
-              succeed: (_) {
-                return Column(
-                  children: [
-                    Expanded(
-                      child: MessageOverviewBody(
-                        otherUser: otherUser,
-                      ),
+            return LoadStatusScreen(
+              loadStatus: state.loadStatus,
+              succeedScreen: Column(
+                children: [
+                  Expanded(
+                    child: MessageOverviewBody(
+                      otherUser: otherUser,
                     ),
-                    const Align(
-                      alignment: Alignment.bottomCenter,
-                      child: MessageEnterBox(),
-                    )
-                  ],
-                );
-              },
-              failed: (_) => const Center(
-                child: Text('加載失敗'),
+                  ),
+                  const Align(
+                    alignment: Alignment.bottomCenter,
+                    child: MessageEnterBox(),
+                  )
+                ],
               ),
             );
+            // return state.loadStatus.map(
+            //   initial: (_) => const Center(),
+            //   inProgress: (_) => const CircularProgressIndicator(),
+            //   succeed: (_) {
+            //     return Column(
+            //       children: [
+            //         Expanded(
+            //           child: MessageOverviewBody(
+            //             otherUser: otherUser,
+            //           ),
+            //         ),
+            //         const Align(
+            //           alignment: Alignment.bottomCenter,
+            //           child: MessageEnterBox(),
+            //         )
+            //       ],
+            //     );
+            //   },
+            //   failed: (_) => LoadStatusScreen(),
+            // );
           },
         ),
       ),
