@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/auth/i_user_profile_repository.dart';
+import '../../domain/user_profile/i_user_profile_repository.dart';
 import '../../domain/auth/user.dart';
 import '../core/firebase_helper.dart';
-import 'user_dtos.dart';
+import '../auth/user_dtos.dart';
 
 @LazySingleton(as: IUserProfileRepository)
 class UserProfileRepository implements IUserProfileRepository {

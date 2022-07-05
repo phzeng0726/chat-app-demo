@@ -24,7 +24,7 @@ class _$UserTearOff {
       required String userName,
       required String phoneNumber,
       required String aboutMe,
-      required String photoUrl,
+      required String imageUrl,
       required DeviceTimeStamp createdTimeStamp,
       required DeviceTimeStamp lastSignInTimeStamp,
       required List<String> friendIdList}) {
@@ -34,7 +34,7 @@ class _$UserTearOff {
       userName: userName,
       phoneNumber: phoneNumber,
       aboutMe: aboutMe,
-      photoUrl: photoUrl,
+      imageUrl: imageUrl,
       createdTimeStamp: createdTimeStamp,
       lastSignInTimeStamp: lastSignInTimeStamp,
       friendIdList: friendIdList,
@@ -52,7 +52,7 @@ mixin _$User {
   String get userName => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
   String get aboutMe => throw _privateConstructorUsedError;
-  String get photoUrl => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
   DeviceTimeStamp get createdTimeStamp => throw _privateConstructorUsedError;
   DeviceTimeStamp get lastSignInTimeStamp => throw _privateConstructorUsedError;
   List<String> get friendIdList => throw _privateConstructorUsedError;
@@ -71,7 +71,7 @@ abstract class $UserCopyWith<$Res> {
       String userName,
       String phoneNumber,
       String aboutMe,
-      String photoUrl,
+      String imageUrl,
       DeviceTimeStamp createdTimeStamp,
       DeviceTimeStamp lastSignInTimeStamp,
       List<String> friendIdList});
@@ -95,7 +95,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object? userName = freezed,
     Object? phoneNumber = freezed,
     Object? aboutMe = freezed,
-    Object? photoUrl = freezed,
+    Object? imageUrl = freezed,
     Object? createdTimeStamp = freezed,
     Object? lastSignInTimeStamp = freezed,
     Object? friendIdList = freezed,
@@ -121,9 +121,9 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.aboutMe
           : aboutMe // ignore: cast_nullable_to_non_nullable
               as String,
-      photoUrl: photoUrl == freezed
-          ? _value.photoUrl
-          : photoUrl // ignore: cast_nullable_to_non_nullable
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       createdTimeStamp: createdTimeStamp == freezed
           ? _value.createdTimeStamp
@@ -166,7 +166,7 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String userName,
       String phoneNumber,
       String aboutMe,
-      String photoUrl,
+      String imageUrl,
       DeviceTimeStamp createdTimeStamp,
       DeviceTimeStamp lastSignInTimeStamp,
       List<String> friendIdList});
@@ -193,7 +193,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? userName = freezed,
     Object? phoneNumber = freezed,
     Object? aboutMe = freezed,
-    Object? photoUrl = freezed,
+    Object? imageUrl = freezed,
     Object? createdTimeStamp = freezed,
     Object? lastSignInTimeStamp = freezed,
     Object? friendIdList = freezed,
@@ -219,9 +219,9 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.aboutMe
           : aboutMe // ignore: cast_nullable_to_non_nullable
               as String,
-      photoUrl: photoUrl == freezed
-          ? _value.photoUrl
-          : photoUrl // ignore: cast_nullable_to_non_nullable
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       createdTimeStamp: createdTimeStamp == freezed
           ? _value.createdTimeStamp
@@ -248,7 +248,7 @@ class _$_User extends _User {
       required this.userName,
       required this.phoneNumber,
       required this.aboutMe,
-      required this.photoUrl,
+      required this.imageUrl,
       required this.createdTimeStamp,
       required this.lastSignInTimeStamp,
       required this.friendIdList})
@@ -265,7 +265,7 @@ class _$_User extends _User {
   @override
   final String aboutMe;
   @override
-  final String photoUrl;
+  final String imageUrl;
   @override
   final DeviceTimeStamp createdTimeStamp;
   @override
@@ -275,7 +275,7 @@ class _$_User extends _User {
 
   @override
   String toString() {
-    return 'User(userId: $userId, emailAddress: $emailAddress, userName: $userName, phoneNumber: $phoneNumber, aboutMe: $aboutMe, photoUrl: $photoUrl, createdTimeStamp: $createdTimeStamp, lastSignInTimeStamp: $lastSignInTimeStamp, friendIdList: $friendIdList)';
+    return 'User(userId: $userId, emailAddress: $emailAddress, userName: $userName, phoneNumber: $phoneNumber, aboutMe: $aboutMe, imageUrl: $imageUrl, createdTimeStamp: $createdTimeStamp, lastSignInTimeStamp: $lastSignInTimeStamp, friendIdList: $friendIdList)';
   }
 
   @override
@@ -290,7 +290,7 @@ class _$_User extends _User {
             const DeepCollectionEquality()
                 .equals(other.phoneNumber, phoneNumber) &&
             const DeepCollectionEquality().equals(other.aboutMe, aboutMe) &&
-            const DeepCollectionEquality().equals(other.photoUrl, photoUrl) &&
+            const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
             const DeepCollectionEquality()
                 .equals(other.createdTimeStamp, createdTimeStamp) &&
             const DeepCollectionEquality()
@@ -307,7 +307,7 @@ class _$_User extends _User {
       const DeepCollectionEquality().hash(userName),
       const DeepCollectionEquality().hash(phoneNumber),
       const DeepCollectionEquality().hash(aboutMe),
-      const DeepCollectionEquality().hash(photoUrl),
+      const DeepCollectionEquality().hash(imageUrl),
       const DeepCollectionEquality().hash(createdTimeStamp),
       const DeepCollectionEquality().hash(lastSignInTimeStamp),
       const DeepCollectionEquality().hash(friendIdList));
@@ -325,7 +325,7 @@ abstract class _User extends User {
       required String userName,
       required String phoneNumber,
       required String aboutMe,
-      required String photoUrl,
+      required String imageUrl,
       required DeviceTimeStamp createdTimeStamp,
       required DeviceTimeStamp lastSignInTimeStamp,
       required List<String> friendIdList}) = _$_User;
@@ -342,7 +342,7 @@ abstract class _User extends User {
   @override
   String get aboutMe;
   @override
-  String get photoUrl;
+  String get imageUrl;
   @override
   DeviceTimeStamp get createdTimeStamp;
   @override

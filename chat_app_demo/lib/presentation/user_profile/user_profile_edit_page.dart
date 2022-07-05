@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/auth/auth_cubit.dart';
 import '../../application/user_profile/user_profile_cubit.dart';
-import '../../domain/auth/i_user_profile_repository.dart';
+import '../../domain/user_profile/i_user_profile_repository.dart';
 import '../../domain/auth/user.dart';
 import '../../injection.dart';
 

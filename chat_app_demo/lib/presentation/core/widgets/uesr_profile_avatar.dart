@@ -17,8 +17,8 @@ class UserProfileAvatar extends StatelessWidget {
     return InkWell(
       child: CircleAvatar(
         radius: 30.0,
-        backgroundImage: user.photoUrl != ''
-            ? NetworkImage(user.photoUrl)
+        backgroundImage: user.imageUrl != ''
+            ? NetworkImage(user.imageUrl)
             : const NetworkImage(defaultUserProfileImage),
         backgroundColor: Colors.transparent,
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/auth/i_user_profile_repository.dart';
+import '../../domain/user_profile/i_user_profile_repository.dart';
 import '../../domain/auth/user.dart';
 import '../../domain/core/load_status.dart';
 
@@ -15,7 +15,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
   ) : super(UserProfileState.initial());
 
   // init user profile
-  // edit photoUrl
+  // edit imageUrl
   void init({
     required User user,
   }) {
@@ -26,7 +26,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     );
   }
 
-  void photoUrlChanged() {}
+  void imageUrlChanged() {}
   // edit userName
 
   void userNameChanged(String userName) {

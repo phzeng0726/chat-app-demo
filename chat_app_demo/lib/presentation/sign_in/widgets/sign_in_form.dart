@@ -1,4 +1,6 @@
 import 'package:chat_app_demo/constants.dart';
+import 'package:chat_app_demo/presentation/routes/router.gr.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:another_flushbar/flushbar_helper.dart';
@@ -6,6 +8,7 @@ import 'package:another_flushbar/flushbar_helper.dart';
 import '../../../application/auth/auth_cubit.dart';
 import '../../../application/auth/sign_in_form/sign_in_form_cubit.dart';
 import '../../../domain/core/logger.dart';
+import '../../../injection.dart';
 import 'email_address_box.dart';
 import 'password_box.dart';
 
@@ -49,11 +52,39 @@ class SignInForm extends StatelessWidget {
             const EmailAddressBox(),
             const PasswordBox(),
             const SizedBox(height: kDefaultHeightSize),
-            ElevatedButton(
-              child: const Text('登入'),
-              onPressed: () => context
-                  .read<SignInFormCubit>()
-                  .signInWithEmailAndPasswordPressed(),
+            SizedBox(
+              width: double.infinity, // <-- match_parent
+              child: ElevatedButton(
+                child: const Text('登入'),
+                onPressed: () => context
+                    .read<SignInFormCubit>()
+                    .signInWithEmailAndPasswordPressed(),
+              ),
+            ),
+            const SizedBox(
+              height: kDefaultHeightSize,
+            ),
+            RichText(
+              text: TextSpan(
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyText1?.color,
+                ),
+                children: [
+                  const TextSpan(
+                    text: '還沒有帳號？ ',
+                  ),
+                  TextSpan(
+                    text: '立即前往註冊',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        getIt<RootRouter>().push(const RegisterRoute());
+                      },
+                  ),
+                ],
+              ),
             ),
             if (state.isSubmitting) ...const [
               Text('登入中'),

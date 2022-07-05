@@ -13,7 +13,7 @@ class User with _$User {
       required String userName,
       required String phoneNumber,
       required String aboutMe,
-      required String photoUrl,
+      required String imageUrl,
       required DeviceTimeStamp createdTimeStamp,
       required DeviceTimeStamp lastSignInTimeStamp,
       required List<String> friendIdList}) = _User;
@@ -26,7 +26,7 @@ class User with _$User {
       userName: '',
       phoneNumber: '',
       aboutMe: '',
-      photoUrl: '',
+      imageUrl: '',
       createdTimeStamp: initTimeStamp,
       lastSignInTimeStamp: initTimeStamp,
       friendIdList: <String>[],

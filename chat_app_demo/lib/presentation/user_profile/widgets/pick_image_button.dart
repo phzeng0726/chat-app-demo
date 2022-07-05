@@ -5,14 +5,14 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
 
-class PickPhotoButton extends StatefulWidget {
-  const PickPhotoButton({Key? key}) : super(key: key);
+class PickImageButton extends StatefulWidget {
+  const PickImageButton({Key? key}) : super(key: key);
 
   @override
-  State<PickPhotoButton> createState() => _PickPhotoButtonState();
+  State<PickImageButton> createState() => _PickImageButtonState();
 }
 
-class _PickPhotoButtonState extends State<PickPhotoButton> {
+class _PickImageButtonState extends State<PickImageButton> {
   // Image Picker
   List<File> _images = [];
   File? _image; // Used only if you need a single picture
@@ -20,13 +20,13 @@ class _PickPhotoButtonState extends State<PickPhotoButton> {
   Future getImage(bool gallery) async {
     ImagePicker picker = ImagePicker();
     PickedFile? pickedFile;
-    // Let user select photo from gallery
+    // Let user select image from gallery
     if (gallery) {
       pickedFile = await picker.getImage(
         source: ImageSource.gallery,
       );
     }
-    // Otherwise open camera to get new photo
+    // Otherwise open camera to get new image
     else {
       pickedFile = await picker.getImage(
         source: ImageSource.camera,
@@ -47,7 +47,7 @@ class _PickPhotoButtonState extends State<PickPhotoButton> {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       child: const Icon(
-        Icons.add_photo_alternate_rounded,
+        Icons.add_a_photo,
         color: Colors.white,
       ),
       onPressed: () async {

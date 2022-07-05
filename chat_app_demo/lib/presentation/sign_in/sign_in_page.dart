@@ -26,20 +26,13 @@ class SignInPage extends StatelessWidget {
             vertical: kDefaultPadding * 4,
           ),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               BlocProvider(
                 create: (context) => SignInFormCubit(getIt<IAuthFacade>()),
                 child: const SignInForm(),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  getIt<RootRouter>().push(const RegisterRoute());
-                },
-                child: const Text('前往註冊'),
-              ),
+              
             ],
           ),
         ),

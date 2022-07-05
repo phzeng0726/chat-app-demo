@@ -27,9 +27,8 @@ class ChatRepository implements IChatRepository {
   Future<Either<ChatFailure, List<User>>> fetchFriendList(
       {required User user}) async {
     final userListCollection = _firestore.userListCollection;
-
     try {
-      if (user.friendIdList != <String>[]) {
+      if (user.friendIdList.isNotEmpty) {
         return userListCollection
             .where('userId', whereIn: user.friendIdList)
             .get()

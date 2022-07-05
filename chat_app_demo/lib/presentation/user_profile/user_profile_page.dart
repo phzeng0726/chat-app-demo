@@ -1,4 +1,4 @@
-import 'package:chat_app_demo/presentation/user_profile/widgets/pick_photo_button.dart';
+import 'package:chat_app_demo/presentation/user_profile/widgets/pick_image_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,7 +46,7 @@ class UserProfileBody extends StatelessWidget {
   }) : super(key: key);
 
   Widget _buildUserNameListTile() {
-    // Text(user.photoUrl),
+    // Text(user.imageUrl),
     return ListTile(
       title: Text(user.userName),
       subtitle: const Text('使用者名稱'),
@@ -63,7 +63,7 @@ class UserProfileBody extends StatelessWidget {
   }
 
   Widget _buildAboutMeListTile() {
-    // Text(user.photoUrl),
+    // Text(user.imageUrl),
     return ListTile(
       title: Text(user.aboutMe == '' ? 'Bio' : user.aboutMe),
       subtitle: const Text('關於我'),
@@ -79,14 +79,14 @@ class UserProfileBody extends StatelessWidget {
     );
   }
 
-  Widget _buildUserProfilePhoto(BuildContext context, double imageHeight) {
+  Widget _buildUserProfileImage(BuildContext context, double imageHeight) {
     return SizedBox(
       height: imageHeight,
       width: MediaQuery.of(context).size.width,
       child: Image(
         fit: BoxFit.cover,
-        image: user.photoUrl != ''
-            ? NetworkImage(user.photoUrl)
+        image: user.imageUrl != ''
+            ? NetworkImage(user.imageUrl)
             : const NetworkImage(defaultUserProfileImage),
       ),
     );
@@ -98,7 +98,7 @@ class UserProfileBody extends StatelessWidget {
       final double imageHeight = constraints.maxHeight * .5;
       return Column(
         children: [
-          _buildUserProfilePhoto(context, imageHeight),
+          _buildUserProfileImage(context, imageHeight),
           SizedBox(
             height: constraints.maxHeight - imageHeight,
             child: Stack(
@@ -107,7 +107,7 @@ class UserProfileBody extends StatelessWidget {
                 const Positioned(
                   top: -(64 / 2), // 64 is default fab size
                   right: 24,
-                  child: PickPhotoButton(),
+                  child: PickImageButton(),
                 ),
                 Column(
                   children: [

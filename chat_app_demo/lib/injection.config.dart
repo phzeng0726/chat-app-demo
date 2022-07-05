@@ -10,13 +10,13 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
 import 'domain/auth/i_auth_facade.dart' as _i5;
-import 'domain/auth/i_user_profile_repository.dart' as _i9;
 import 'domain/chat/i_chat_repository.dart' as _i7;
+import 'domain/user_profile/i_user_profile_repository.dart' as _i9;
 import 'infrastructure/auth/auth_facade.dart' as _i6;
-import 'infrastructure/auth/user_profile_repository.dart' as _i10;
 import 'infrastructure/chat/chat_repository.dart' as _i8;
-import 'infrastructure/core/firebase_injectable_module.dart'
-    as _i11; // ignore_for_file: unnecessary_lambdas
+import 'infrastructure/core/firebase_injectable_module.dart' as _i11;
+import 'infrastructure/user_profile/user_profile_repository.dart'
+    as _i10; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
