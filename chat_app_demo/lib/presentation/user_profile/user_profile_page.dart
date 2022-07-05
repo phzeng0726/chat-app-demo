@@ -1,10 +1,11 @@
-import 'package:chat_app_demo/presentation/user_profile/widgets/pick_image_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/auth/auth_cubit.dart';
+import '../../application/user_profile/user_profile_cubit.dart';
 import '../../constants.dart';
 import '../../domain/auth/user.dart';
+import '../../domain/user_profile/i_user_profile_repository.dart';
 import '../../injection.dart';
 import '../routes/router.gr.dart';
 import 'widgets/about_me_box.dart';
@@ -22,14 +23,17 @@ class UserProfilePage extends StatelessWidget {
     final User currentUser = context.watch<AuthCubit>().state.user;
     final bool isEditable = currentUser.userId == user.userId;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(user.emailAddress),
-        centerTitle: true,
-      ),
-      body: UserProfileBody(
-        user: isEditable ? currentUser : user,
-        isEditable: isEditable,
+    return BlocProvider(
+      create: (context) => UserProfileCubit(getIt<IUserProfileRepository>()),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(user.emailAddress),
+          centerTitle: true,
+        ),
+        body: UserProfileBody(
+          user: isEditable ? currentUser : user,
+          isEditable: isEditable,
+        ),
       ),
     );
   }
@@ -83,11 +87,9 @@ class UserProfileBody extends StatelessWidget {
     return SizedBox(
       height: imageHeight,
       width: MediaQuery.of(context).size.width,
-      child: Image(
+      child: Image.network(
+        user.imageUrl != '' ? user.imageUrl : defaultUserProfileImage,
         fit: BoxFit.cover,
-        image: user.imageUrl != ''
-            ? NetworkImage(user.imageUrl)
-            : const NetworkImage(defaultUserProfileImage),
       ),
     );
   }
@@ -104,16 +106,25 @@ class UserProfileBody extends StatelessWidget {
             child: Stack(
               clipBehavior: Clip.none,
               children: [
-                const Positioned(
-                  top: -(64 / 2), // 64 is default fab size
-                  right: 24,
-                  child: PickImageButton(),
-                ),
                 Column(
                   children: [
                     _buildUserNameListTile(),
                     _buildAboutMeListTile(),
                   ],
+                ),
+                Positioned(
+                  top: -(64 / 2), // 64 is default fab size
+                  right: 24,
+                  child: FloatingActionButton(
+                    child: const Icon(
+                      Icons.add_a_photo,
+                      color: Colors.white,
+                    ),
+                    onPressed: () =>
+                        context.read<UserProfileCubit>().cameraButtonPressed(
+                              userId: user.userId,
+                            ),
+                  ),
                 )
               ],
             ),

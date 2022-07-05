@@ -5,12 +5,14 @@ import 'package:dartz/dartz.dart';
 
 import '../auth/auth_failure.dart';
 
-// NOTE: 抽象定義 auth 的資料動作
 abstract class IUserProfileRepository {
-// upload image
-  // Future<void> uploadImage(String inputSource);
-  // Future<List<Map<String, dynamic>>> loadImageList();
-  // Future<void> deleteImage(String ref);
+  // NOTE: upload image
+  Future<String> uploadImage({
+    required String userId,
+    required String inputSource,
+  });
+  Future<List<Map<String, dynamic>>> loadImageList();
+  Future<void> deleteImage(String ref);
 
   // NOTE: Firestore 區
   Future<void> update({

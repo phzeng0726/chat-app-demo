@@ -26,7 +26,31 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     );
   }
 
-  void imageUrlChanged() {}
+  void cameraButtonPressed({
+    required String userId,
+  }) async {
+    String fileUrl = await _userProfileRepository.uploadImage(
+      userId: userId,
+      inputSource: 'camera',
+    );
+    emit(state.copyWith(
+        user: state.user.copyWith(
+      imageUrl: fileUrl,
+    )));
+
+    await _userProfileRepository.update(
+      user: state.user,
+    );
+  }
+
+  void galleryButtonPressed({
+    required String userId,
+  }) {
+    _userProfileRepository.uploadImage(
+      userId: userId,
+      inputSource: 'gallery',
+    );
+  }
   // edit userName
 
   void userNameChanged(String userName) {
