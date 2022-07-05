@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/auth/auth_cubit.dart';
-import '../../application/user_profile/user_profile_cubit.dart';
+import '../../application/user_profile_edit/user_profile_edit_cubit.dart';
 import '../../domain/auth/user.dart';
-import '../../domain/user_profile/i_user_profile_repository.dart';
+import '../../domain/home/i_home_repository.dart';
 import '../../injection.dart';
 import 'widgets/user_profile_body.dart';
 
@@ -22,7 +22,7 @@ class UserProfilePage extends StatelessWidget {
 
     return BlocProvider(
       create: (context) =>
-          UserProfileCubit(getIt<IUserProfileRepository>())..init(user: user),
+          UserProfileEditCubit(getIt<IHomeRepository>())..init(user: user),
       child: Scaffold(
         appBar: AppBar(
           title: Text(user.emailAddress),

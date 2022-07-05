@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
-import '../../../application/user_profile/user_profile_cubit.dart';
+import '../../../application/user_profile_edit/user_profile_edit_cubit.dart';
 import '../../../constants.dart';
 import '../../../domain/auth/user.dart';
-import '../../../domain/user_profile/i_user_profile_repository.dart';
 import '../../../injection.dart';
 import '../../routes/router.gr.dart';
 import 'about_me_box.dart';
@@ -78,7 +77,7 @@ class UserProfileBody extends StatelessWidget {
             title:
                 Text(FlutterI18n.translate(context, "userProfile.openGallery")),
             onTap: () {
-              context.read<UserProfileCubit>().galleryButtonPressed(
+              context.read<UserProfileEditCubit>().galleryButtonPressed(
                     userId: user.userId,
                   );
               context.router.pop();
@@ -89,7 +88,7 @@ class UserProfileBody extends StatelessWidget {
             title:
                 Text(FlutterI18n.translate(context, "userProfile.openCamera")),
             onTap: () {
-              context.read<UserProfileCubit>().cameraButtonPressed(
+              context.read<UserProfileEditCubit>().cameraButtonPressed(
                     userId: user.userId,
                   );
               context.router.pop();

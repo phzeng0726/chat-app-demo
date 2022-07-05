@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../../application/auth/auth_cubit.dart';
 import '../../application/theme/theme_cubit.dart';
+import '../../constants.dart';
 import '../../domain/auth/i_auth_facade.dart';
 import '../../injection.dart';
 import '../routes/router.gr.dart';
@@ -30,14 +31,13 @@ class AppWidget extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           return MaterialApp.router(
-            // title: FlutterBlocLocalizations().appTitle,
             debugShowCheckedModeBanner: false,
             theme: state.themeData,
             localizationsDelegates: [
               FlutterI18nDelegate(
                 translationLoader: FileTranslationLoader(
                   useCountryCode: true,
-                  fallbackFile: 'zh_tw',
+                  fallbackFile: localeMapList.first['id'],
                   basePath: 'assets/i18n',
                   forcedLocale: state.currentLang,
                 ),
@@ -45,10 +45,7 @@ class AppWidget extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
             ],
-            supportedLocales: const [Locale('en','US'), Locale('zh', 'TW')],
-            // onGenerateRoute: AppRouter.onGenerateRoute,
-            // initialRoute: SplashScreen.routeName,
-            // builder: ExtendedNavigator.builder(router: app_router.Router()),
+            supportedLocales: localeMapList.map((map) => map['locale']),
             routerDelegate: rootRouter.delegate(),
             routeInformationParser: rootRouter.defaultRouteParser(),
           );

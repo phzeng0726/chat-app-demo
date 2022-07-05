@@ -1,12 +1,10 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:chat_app_demo/domain/auth/user.dart';
-import 'package:chat_app_demo/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../application/auth/auth_cubit.dart';
-import '../../application/user_profile/user_profile_cubit.dart';
-import '../../domain/user_profile/i_user_profile_repository.dart';
+import '../../application/theme/theme_cubit.dart';
+import '../../injection.dart';
 import '../routes/router.gr.dart';
 
 class SplashPage extends StatelessWidget {
@@ -19,7 +17,7 @@ class SplashPage extends StatelessWidget {
         BlocListener<AuthCubit, AuthState>(
           listenWhen: (p, c) =>
               p.status != c.status && c.status != const AuthStatus.inProgress(),
-          listener: (context, state) {
+          listener: (context, state) async {
             state.status.map(
               initial: (_) {},
               inProgress: (_) {},

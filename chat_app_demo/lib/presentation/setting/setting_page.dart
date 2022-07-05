@@ -1,3 +1,4 @@
+import 'package:chat_app_demo/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -14,27 +15,41 @@ class SettingPage extends StatelessWidget {
       listener: (context, state) async {
         await FlutterI18n.refresh(context, state.currentLang);
       },
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text(FlutterI18n.translate(context, "setting.language")),
-            centerTitle: true,
-          ),
-          body: ListView(
-            children: [
-              ListTile(
-                title: const Text('繁體中文 (台灣)'),
-                onTap: () => context.read<ThemeCubit>().changeLanguage(
-                      const Locale('zh', 'TW'),
-                    ),
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(FlutterI18n.translate(
+                  context, "home.drawer.setting.language")),
+              centerTitle: true,
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: localeMapList.length,
+                itemBuilder: ((context, index) {
+                  return ListTile(
+                    title: Text(localeMapList[index]['title']),
+                    trailing:
+                        state.currentLang == localeMapList[index]['locale']
+                            ? Icon(
+                                Icons.check_box,
+                                color: Theme.of(context).colorScheme.primary,
+                              )
+                            : Icon(
+                                Icons.check_box_outline_blank,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                    onTap: () => context
+                        .read<ThemeCubit>()
+                        .changeLanguage(localeMapList[index]['locale']),
+                  );
+                }),
               ),
-              ListTile(
-                title: const Text('English (US)'),
-                onTap: () => context.read<ThemeCubit>().changeLanguage(
-                      const Locale('en', 'US'),
-                    ),
-              ),
-            ],
-          )),
+            ),
+          );
+        },
+      ),
     );
   }
 }

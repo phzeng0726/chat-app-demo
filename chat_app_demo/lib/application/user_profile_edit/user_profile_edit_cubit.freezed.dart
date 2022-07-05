@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'user_profile_cubit.dart';
+part of 'user_profile_edit_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,15 +15,15 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$UserProfileStateTearOff {
-  const _$UserProfileStateTearOff();
+class _$UserProfileEditStateTearOff {
+  const _$UserProfileEditStateTearOff();
 
-  _UserProfileState call(
+  _UserProfileEditState call(
       {required User user,
       required bool isUpdating,
       required bool isUploadingImage,
       required Option<HomeFailure> failureOption}) {
-    return _UserProfileState(
+    return _UserProfileEditState(
       user: user,
       isUpdating: isUpdating,
       isUploadingImage: isUploadingImage,
@@ -33,25 +33,25 @@ class _$UserProfileStateTearOff {
 }
 
 /// @nodoc
-const $UserProfileState = _$UserProfileStateTearOff();
+const $UserProfileEditState = _$UserProfileEditStateTearOff();
 
 /// @nodoc
-mixin _$UserProfileState {
+mixin _$UserProfileEditState {
   User get user => throw _privateConstructorUsedError;
   bool get isUpdating => throw _privateConstructorUsedError;
   bool get isUploadingImage => throw _privateConstructorUsedError;
   Option<HomeFailure> get failureOption => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $UserProfileStateCopyWith<UserProfileState> get copyWith =>
+  $UserProfileEditStateCopyWith<UserProfileEditState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserProfileStateCopyWith<$Res> {
-  factory $UserProfileStateCopyWith(
-          UserProfileState value, $Res Function(UserProfileState) then) =
-      _$UserProfileStateCopyWithImpl<$Res>;
+abstract class $UserProfileEditStateCopyWith<$Res> {
+  factory $UserProfileEditStateCopyWith(UserProfileEditState value,
+          $Res Function(UserProfileEditState) then) =
+      _$UserProfileEditStateCopyWithImpl<$Res>;
   $Res call(
       {User user,
       bool isUpdating,
@@ -62,13 +62,13 @@ abstract class $UserProfileStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserProfileStateCopyWithImpl<$Res>
-    implements $UserProfileStateCopyWith<$Res> {
-  _$UserProfileStateCopyWithImpl(this._value, this._then);
+class _$UserProfileEditStateCopyWithImpl<$Res>
+    implements $UserProfileEditStateCopyWith<$Res> {
+  _$UserProfileEditStateCopyWithImpl(this._value, this._then);
 
-  final UserProfileState _value;
+  final UserProfileEditState _value;
   // ignore: unused_field
-  final $Res Function(UserProfileState) _then;
+  final $Res Function(UserProfileEditState) _then;
 
   @override
   $Res call({
@@ -106,11 +106,11 @@ class _$UserProfileStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$UserProfileStateCopyWith<$Res>
-    implements $UserProfileStateCopyWith<$Res> {
-  factory _$UserProfileStateCopyWith(
-          _UserProfileState value, $Res Function(_UserProfileState) then) =
-      __$UserProfileStateCopyWithImpl<$Res>;
+abstract class _$UserProfileEditStateCopyWith<$Res>
+    implements $UserProfileEditStateCopyWith<$Res> {
+  factory _$UserProfileEditStateCopyWith(_UserProfileEditState value,
+          $Res Function(_UserProfileEditState) then) =
+      __$UserProfileEditStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {User user,
@@ -123,15 +123,15 @@ abstract class _$UserProfileStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$UserProfileStateCopyWithImpl<$Res>
-    extends _$UserProfileStateCopyWithImpl<$Res>
-    implements _$UserProfileStateCopyWith<$Res> {
-  __$UserProfileStateCopyWithImpl(
-      _UserProfileState _value, $Res Function(_UserProfileState) _then)
-      : super(_value, (v) => _then(v as _UserProfileState));
+class __$UserProfileEditStateCopyWithImpl<$Res>
+    extends _$UserProfileEditStateCopyWithImpl<$Res>
+    implements _$UserProfileEditStateCopyWith<$Res> {
+  __$UserProfileEditStateCopyWithImpl(
+      _UserProfileEditState _value, $Res Function(_UserProfileEditState) _then)
+      : super(_value, (v) => _then(v as _UserProfileEditState));
 
   @override
-  _UserProfileState get _value => super._value as _UserProfileState;
+  _UserProfileEditState get _value => super._value as _UserProfileEditState;
 
   @override
   $Res call({
@@ -140,7 +140,7 @@ class __$UserProfileStateCopyWithImpl<$Res>
     Object? isUploadingImage = freezed,
     Object? failureOption = freezed,
   }) {
-    return _then(_UserProfileState(
+    return _then(_UserProfileEditState(
       user: user == freezed
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -163,8 +163,8 @@ class __$UserProfileStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UserProfileState extends _UserProfileState {
-  const _$_UserProfileState(
+class _$_UserProfileEditState extends _UserProfileEditState {
+  const _$_UserProfileEditState(
       {required this.user,
       required this.isUpdating,
       required this.isUploadingImage,
@@ -182,14 +182,14 @@ class _$_UserProfileState extends _UserProfileState {
 
   @override
   String toString() {
-    return 'UserProfileState(user: $user, isUpdating: $isUpdating, isUploadingImage: $isUploadingImage, failureOption: $failureOption)';
+    return 'UserProfileEditState(user: $user, isUpdating: $isUpdating, isUploadingImage: $isUploadingImage, failureOption: $failureOption)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _UserProfileState &&
+            other is _UserProfileEditState &&
             const DeepCollectionEquality().equals(other.user, user) &&
             const DeepCollectionEquality()
                 .equals(other.isUpdating, isUpdating) &&
@@ -209,17 +209,18 @@ class _$_UserProfileState extends _UserProfileState {
 
   @JsonKey(ignore: true)
   @override
-  _$UserProfileStateCopyWith<_UserProfileState> get copyWith =>
-      __$UserProfileStateCopyWithImpl<_UserProfileState>(this, _$identity);
+  _$UserProfileEditStateCopyWith<_UserProfileEditState> get copyWith =>
+      __$UserProfileEditStateCopyWithImpl<_UserProfileEditState>(
+          this, _$identity);
 }
 
-abstract class _UserProfileState extends UserProfileState {
-  const factory _UserProfileState(
+abstract class _UserProfileEditState extends UserProfileEditState {
+  const factory _UserProfileEditState(
       {required User user,
       required bool isUpdating,
       required bool isUploadingImage,
-      required Option<HomeFailure> failureOption}) = _$_UserProfileState;
-  const _UserProfileState._() : super._();
+      required Option<HomeFailure> failureOption}) = _$_UserProfileEditState;
+  const _UserProfileEditState._() : super._();
 
   @override
   User get user;
@@ -231,6 +232,6 @@ abstract class _UserProfileState extends UserProfileState {
   Option<HomeFailure> get failureOption;
   @override
   @JsonKey(ignore: true)
-  _$UserProfileStateCopyWith<_UserProfileState> get copyWith =>
+  _$UserProfileEditStateCopyWith<_UserProfileEditState> get copyWith =>
       throw _privateConstructorUsedError;
 }

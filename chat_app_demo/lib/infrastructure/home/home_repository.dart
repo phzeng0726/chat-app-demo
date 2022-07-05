@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart'; // 為了使用 onErrorReturnWith
-
+import 'package:path/path.dart' as path;
 import '../../domain/auth/user.dart';
 import '../../domain/core/logger.dart';
 import '../../domain/home/home_failure.dart';
@@ -15,9 +18,11 @@ import '../core/firebase_helper.dart';
 @LazySingleton(as: IHomeRepository)
 class HomeRepository implements IHomeRepository {
   final FirebaseFirestore _firestore;
+  final FirebaseStorage _storage;
 
   HomeRepository(
     this._firestore,
+    this._storage,
   );
 
   @override
@@ -105,5 +110,62 @@ class HomeRepository implements IHomeRepository {
         UserDto.fromDomain(user.copyWith(friendIdList: friendIdList)).toJson());
 
     return;
+  }
+
+  @override
+  Future<Either<HomeFailure, String>> uploadImage({
+    required String userId,
+    required String inputSource,
+  }) async {
+    final picker = ImagePicker();
+    XFile? pickedImage;
+    try {
+      pickedImage = await picker.pickImage(
+          source: inputSource == 'camera'
+              ? ImageSource.camera
+              : ImageSource.gallery,
+          maxWidth: 1920);
+
+      final String fileName = path.basename(pickedImage!.path);
+      File imageFile = File(pickedImage.path);
+
+      try {
+        Reference fileRef = _storage.ref(fileName);
+        await fileRef.putFile(
+          imageFile,
+          SettableMetadata(
+            customMetadata: {
+              'userId': userId,
+            },
+          ),
+        );
+        String fileUrl = await fileRef.getDownloadURL();
+        return right(fileUrl);
+      } on FirebaseException catch (e) {
+        LoggerService.simple.i(e);
+        return left(const HomeFailure.insufficientPermission());
+      }
+    } catch (e) {
+      LoggerService.simple.i(e);
+      return left(const HomeFailure.unexpected());
+    }
+  }
+
+  @override
+  Future<Either<HomeFailure, String>> updateUserProfile({
+    required User user,
+  }) async {
+    try {
+      final userDoc = await _firestore.userDocument();
+      await userDoc.update(
+        UserDto.fromDomain(user).toJson(),
+        // SetOptions(merge: true),
+      );
+
+      return right(userDoc.id);
+    } catch (e) {
+      LoggerService.simple.i(e);
+      return left(const HomeFailure.unexpected());
+    }
   }
 }

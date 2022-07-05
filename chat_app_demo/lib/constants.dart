@@ -11,3 +11,16 @@ const double kDefaultHeightSize = 20.0;
 
 const String defaultUserProfileImage =
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+
+const List<Map<String, dynamic>> localeMapList = [
+  {
+    'id': 'zh_TW',
+    'title': '繁體中文 (台灣)',
+    'locale': Locale('zh', 'TW'),
+  },
+  {
+    'id': 'en_US',
+    'title': 'English (US)',
+    'locale': Locale('en', 'US'),
+  }
+];

@@ -10,7 +10,7 @@ class ThemeState with _$ThemeState {
 
   factory ThemeState.initial() => ThemeState(
         themeData: lightTheme,
-        currentLang: const Locale('zh' 'TW'),
+        currentLang: localeMapList.first['locale'],
       );
 }
 

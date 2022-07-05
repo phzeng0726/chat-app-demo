@@ -3,19 +3,20 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/user_profile/user_profile_cubit.dart';
+import '../../../application/user_profile_edit/user_profile_edit_cubit.dart';
+
 
 class AboutMeBox extends StatelessWidget {
   const AboutMeBox({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserProfileCubit, UserProfileState>(
+    return BlocBuilder<UserProfileEditCubit, UserProfileEditState>(
       builder: (context, state) {
         return TextFormField(
           initialValue: state.user.aboutMe,
           onChanged: (value) =>
-              context.read<UserProfileCubit>().aboutMeChanged(value),
+              context.read<UserProfileEditCubit>().aboutMeChanged(value),
           autocorrect: false,
           autofocus: true,
           decoration: const InputDecoration(

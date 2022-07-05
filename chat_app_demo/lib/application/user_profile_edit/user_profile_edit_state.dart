@@ -1,16 +1,16 @@
-part of 'user_profile_cubit.dart';
+part of 'user_profile_edit_cubit.dart';
 
 @freezed
-class UserProfileState with _$UserProfileState {
-  const UserProfileState._();
-  const factory UserProfileState({
+class UserProfileEditState with _$UserProfileEditState {
+  const UserProfileEditState._();
+  const factory UserProfileEditState({
     required User user,
     required bool isUpdating,
     required bool isUploadingImage,
     required Option<HomeFailure> failureOption,
-  }) = _UserProfileState;
+  }) = _UserProfileEditState;
 
-  factory UserProfileState.initial() => UserProfileState(
+  factory UserProfileEditState.initial() => UserProfileEditState(
         user: User.empty(),
         isUpdating: false,
         isUploadingImage: false,

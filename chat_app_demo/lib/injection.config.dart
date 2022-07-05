@@ -34,8 +34,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       _i7.AuthFacade(get<_i3.FirebaseAuth>(), get<_i4.FirebaseFirestore>()));
   gh.lazySingleton<_i8.IChatRepository>(
       () => _i9.ChatRepository(get<_i4.FirebaseFirestore>()));
-  gh.lazySingleton<_i10.IHomeRepository>(
-      () => _i11.HomeRepository(get<_i4.FirebaseFirestore>()));
+  gh.lazySingleton<_i10.IHomeRepository>(() => _i11.HomeRepository(
+      get<_i4.FirebaseFirestore>(), get<_i5.FirebaseStorage>()));
   return get;
 }
 

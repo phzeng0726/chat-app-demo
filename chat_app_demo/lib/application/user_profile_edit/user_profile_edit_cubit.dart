@@ -6,14 +6,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../domain/auth/user.dart';
 import '../../domain/home/home_failure.dart';
 
-part 'user_profile_cubit.freezed.dart';
-part 'user_profile_state.dart';
+part 'user_profile_edit_cubit.freezed.dart';
+part 'user_profile_edit_state.dart';
 
-class UserProfileCubit extends Cubit<UserProfileState> {
+class UserProfileEditCubit extends Cubit<UserProfileEditState> {
   final IHomeRepository _homeRepository;
-  UserProfileCubit(
+  UserProfileEditCubit(
     this._homeRepository,
-  ) : super(UserProfileState.initial());
+  ) : super(UserProfileEditState.initial());
 
   void init({required User user}) {
     emit(
