@@ -5,21 +5,14 @@ part of 'user_profile_cubit.dart';
 class UserProfileState with _$UserProfileState {
   const UserProfileState._();
   const factory UserProfileState({
-    // required CompanyInfo companyInfo,
     required User user,
-    // required LoadStatus loadStatus,
     required bool isUpdating,
-
-    // required Option<AuthFailure> authFailureOption,
-    // required LoadStatus loadStatus,
+    required Option<ChatFailure> chatFailureOption,
   }) = _UserProfileState;
 
   factory UserProfileState.initial() => UserProfileState(
-        // companyInfo: CompanyInfo.empty(),
         user: User.empty(),
-        // loadStatus: const LoadStatus.initial(),
         isUpdating: false,
-        // authFailureOption: none(),
-        // loadStatus: const LoadStatus.initial(),
+        chatFailureOption: none(),
       );
 }

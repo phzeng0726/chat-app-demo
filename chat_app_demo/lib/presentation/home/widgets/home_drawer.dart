@@ -51,18 +51,14 @@ class HomeDrawer extends StatelessWidget {
         children: [
           _drawerHeader(context),
           ListTile(
-            title: const Text('Item 1'),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
+            leading: const Icon(Icons.settings),
+            title: const Text('設定'),
+            onTap: () {},
           ),
           ListTile(
-            title: const Text('Item 2'),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
+            leading: const Icon(Icons.info_outline),
+            title: const Text('介紹'),
+            onTap: () {},
           ),
           ElevatedButton(
             onPressed: () => context.read<AuthCubit>().signedOut(),

@@ -1,9 +1,10 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/user_profile/i_user_profile_repository.dart';
 import '../../domain/auth/user.dart';
-import '../../domain/core/load_status.dart';
+import '../../domain/chat/chat_failure.dart';
+import '../../domain/user_profile/i_user_profile_repository.dart';
 
 part 'user_profile_cubit.freezed.dart';
 part 'user_profile_state.dart';
@@ -14,8 +15,6 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     this._userProfileRepository,
   ) : super(UserProfileState.initial());
 
-  // init user profile
-  // edit imageUrl
   void init({
     required User user,
   }) {
@@ -29,26 +28,64 @@ class UserProfileCubit extends Cubit<UserProfileState> {
   void cameraButtonPressed({
     required String userId,
   }) async {
-    String fileUrl = await _userProfileRepository.uploadImage(
+    Either<ChatFailure, String> failureOrFileUrl;
+
+    failureOrFileUrl = await _userProfileRepository.uploadImage(
       userId: userId,
       inputSource: 'camera',
     );
-    emit(state.copyWith(
-        user: state.user.copyWith(
-      imageUrl: fileUrl,
-    )));
 
-    await _userProfileRepository.update(
-      user: state.user,
+    failureOrFileUrl.fold(
+      (f) => emit(
+        state.copyWith(
+          chatFailureOption: some(f),
+        ),
+      ),
+      (fileUrl) async {
+        emit(
+          state.copyWith(
+              user: state.user.copyWith(
+                imageUrl: fileUrl,
+              ),
+              chatFailureOption: none()),
+        );
+
+        await _userProfileRepository.update(
+          user: state.user,
+        );
+      },
     );
   }
 
   void galleryButtonPressed({
     required String userId,
-  }) {
-    _userProfileRepository.uploadImage(
+  }) async {
+    Either<ChatFailure, String> failureOrFileUrl;
+
+    failureOrFileUrl = await _userProfileRepository.uploadImage(
       userId: userId,
       inputSource: 'gallery',
+    );
+
+    failureOrFileUrl.fold(
+      (f) => emit(
+        state.copyWith(
+          chatFailureOption: some(f),
+        ),
+      ),
+      (fileUrl) async {
+        emit(
+          state.copyWith(
+              user: state.user.copyWith(
+                imageUrl: fileUrl,
+              ),
+              chatFailureOption: none()),
+        );
+
+        await _userProfileRepository.update(
+          user: state.user,
+        );
+      },
     );
   }
   // edit userName

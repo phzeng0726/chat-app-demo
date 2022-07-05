@@ -39,7 +39,7 @@ class RegisterForm extends StatelessWidget {
               (_) {
                 return showDialog(
                   context: context,
-                  builder: (ctx) => AlertDialog(
+                  builder: (context) => AlertDialog(
                     title: const Text("恭喜！"),
                     content: const Text("您已成功註冊用戶"),
                     actions: <Widget>[

@@ -2,12 +2,14 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path/path.dart' as path;
 
 import '../../domain/auth/user.dart';
+import '../../domain/chat/chat_failure.dart';
 import '../../domain/core/logger.dart';
 import '../../domain/user_profile/i_user_profile_repository.dart';
 import '../auth/user_dtos.dart';
@@ -24,7 +26,7 @@ class UserProfileRepository implements IUserProfileRepository {
   );
 
   @override
-  Future<String> uploadImage({
+  Future<Either<ChatFailure, String>> uploadImage({
     required String userId,
     required String inputSource,
   }) async {
@@ -51,49 +53,15 @@ class UserProfileRepository implements IUserProfileRepository {
           ),
         );
         String fileUrl = await fileRef.getDownloadURL();
-        return fileUrl;
+        return right(fileUrl);
       } on FirebaseException catch (e) {
         LoggerService.simple.i(e);
-        return '';
+        return left(const ChatFailure.insufficientPermission());
       }
     } catch (e) {
       LoggerService.simple.i(e);
-      return '';
+      return left(const ChatFailure.unexpected());
     }
-  }
-
-  @override
-  Future<List<Map<String, dynamic>>> loadImageList() async {
-    List<Map<String, dynamic>> files = [];
-
-    final ListResult result = await _storage.ref().list();
-    final List<Reference> allFiles = result.items;
-
-    // List<Map<String, dynamic>> files = allFiles.map((file) async {
-    //   final String fileUrl = await file.getDownloadURL();
-    //   return file.getMetadata().then((value) => {
-    //     "url": fileUrl,
-    //     "path": file.fullPath,
-    //     "userId": value.customMetadata?['userId'] ?? '',
-    //   });
-    // }).toList();
-    await Future.forEach<Reference>(allFiles, (file) async {
-      final String fileUrl = await file.getDownloadURL();
-      final FullMetadata fileMeta = await file.getMetadata();
-      files.add({
-        "url": fileUrl,
-        "path": file.fullPath,
-        "userId": fileMeta.customMetadata?['userId'] ?? '',
-      });
-    });
-
-    return files;
-  }
-
-  @override
-  Future<void> deleteImage(String ref) async {
-    await _storage.ref(ref).delete();
-    return;
   }
 
   @override
@@ -101,7 +69,10 @@ class UserProfileRepository implements IUserProfileRepository {
     required User user,
   }) async {
     final userDoc = await _firestore.userDocument();
-    await userDoc.update(UserDto.fromDomain(user).toJson());
+    await userDoc.set(
+      UserDto.fromDomain(user).toJson(),
+      SetOptions(merge: true),
+    );
 
     return;
   }
