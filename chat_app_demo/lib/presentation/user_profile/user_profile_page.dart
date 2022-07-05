@@ -1,3 +1,4 @@
+import 'package:chat_app_demo/presentation/user_profile/widgets/pick_photo_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -95,8 +96,6 @@ class UserProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final double imageHeight = constraints.maxHeight * .5;
-
-      debugPrint(imageHeight.toString());
       return Column(
         children: [
           _buildUserProfilePhoto(context, imageHeight),
@@ -105,13 +104,10 @@ class UserProfileBody extends StatelessWidget {
             child: Stack(
               clipBehavior: Clip.none,
               children: [
-                Positioned(
+                const Positioned(
                   top: -(64 / 2), // 64 is default fab size
                   right: 24,
-                  child: FloatingActionButton(
-                    onPressed: () {},
-                    child: const Icon(Icons.photo_camera),
-                  ),
+                  child: PickPhotoButton(),
                 ),
                 Column(
                   children: [
