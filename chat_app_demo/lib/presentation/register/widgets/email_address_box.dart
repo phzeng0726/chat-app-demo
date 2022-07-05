@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../application/auth/register_form/register_form_cubit.dart';
 import '../../../domain/auth/auth_validator.dart';
 
+// TODO: [雙語]
 class EmailAddressBox extends StatelessWidget {
   const EmailAddressBox({Key? key}) : super(key: key);
 

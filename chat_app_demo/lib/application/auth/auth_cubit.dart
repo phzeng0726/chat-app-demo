@@ -25,7 +25,7 @@ class AuthCubit extends Cubit<AuthState> {
     );
 
     try {
-      // 獲得signedIn的userId
+      // Get the signed in user's userId.
       final userIdOption = await _authFacade.getSignedInUserId();
 
       userIdOption.fold(

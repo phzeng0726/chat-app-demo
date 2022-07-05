@@ -44,8 +44,7 @@ const $RegisterFormState = _$RegisterFormStateTearOff();
 /// @nodoc
 mixin _$RegisterFormState {
   String get emailAddress => throw _privateConstructorUsedError;
-  String get password =>
-      throw _privateConstructorUsedError; // required bool showErrorMessages,
+  String get password => throw _privateConstructorUsedError;
   String get checkPassword => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, String>> get authFailureOrSuccessOption =>
@@ -212,7 +211,7 @@ class _$_RegisterFormState implements _RegisterFormState {
   final String emailAddress;
   @override
   final String password;
-  @override // required bool showErrorMessages,
+  @override
   final String checkPassword;
   @override
   final bool isSubmitting;
@@ -278,7 +277,7 @@ abstract class _RegisterFormState implements RegisterFormState {
   String get emailAddress;
   @override
   String get password;
-  @override // required bool showErrorMessages,
+  @override
   String get checkPassword;
   @override
   bool get isSubmitting;

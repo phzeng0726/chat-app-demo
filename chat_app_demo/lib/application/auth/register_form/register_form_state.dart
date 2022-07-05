@@ -5,7 +5,6 @@ abstract class RegisterFormState with _$RegisterFormState {
   const factory RegisterFormState({
     required String emailAddress,
     required String password,
-    // required bool showErrorMessages,
     required String checkPassword,
     required bool isSubmitting,
     required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
@@ -17,7 +16,6 @@ abstract class RegisterFormState with _$RegisterFormState {
         emailAddress: '',
         password: '',
         checkPassword: '',
-        // showErrorMessages: false,
         isSubmitting: false,
         authFailureOrSuccessOption: none(),
         isPWObscure: true,

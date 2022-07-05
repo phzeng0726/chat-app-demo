@@ -19,18 +19,22 @@ class _$ChatStateTearOff {
   const _$ChatStateTearOff();
 
   _ChatState call(
-      {required String groupChatId,
-      required ChatMessage chatMessage,
+      {required String currentUserId,
+      required String otherUserId,
       required List<ChatMessage> messageList,
+      required Option<ChatFailure> failureOption,
       required LoadStatus loadStatus,
-      required LoadStatus writingStatus,
+      required ChatMessage chatMessage,
+      required bool isSubmitting,
       required String sendedMessageId}) {
     return _ChatState(
-      groupChatId: groupChatId,
-      chatMessage: chatMessage,
+      currentUserId: currentUserId,
+      otherUserId: otherUserId,
       messageList: messageList,
+      failureOption: failureOption,
       loadStatus: loadStatus,
-      writingStatus: writingStatus,
+      chatMessage: chatMessage,
+      isSubmitting: isSubmitting,
       sendedMessageId: sendedMessageId,
     );
   }
@@ -41,12 +45,14 @@ const $ChatState = _$ChatStateTearOff();
 
 /// @nodoc
 mixin _$ChatState {
-  String get groupChatId =>
-      throw _privateConstructorUsedError; // required String toUserId,
-  ChatMessage get chatMessage => throw _privateConstructorUsedError;
+// init
+  String get currentUserId => throw _privateConstructorUsedError;
+  String get otherUserId => throw _privateConstructorUsedError; // overview
   List<ChatMessage> get messageList => throw _privateConstructorUsedError;
-  LoadStatus get loadStatus => throw _privateConstructorUsedError;
-  LoadStatus get writingStatus => throw _privateConstructorUsedError;
+  Option<ChatFailure> get failureOption => throw _privateConstructorUsedError;
+  LoadStatus get loadStatus => throw _privateConstructorUsedError; // writing
+  ChatMessage get chatMessage => throw _privateConstructorUsedError;
+  bool get isSubmitting => throw _privateConstructorUsedError;
   String get sendedMessageId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -59,16 +65,17 @@ abstract class $ChatStateCopyWith<$Res> {
   factory $ChatStateCopyWith(ChatState value, $Res Function(ChatState) then) =
       _$ChatStateCopyWithImpl<$Res>;
   $Res call(
-      {String groupChatId,
-      ChatMessage chatMessage,
+      {String currentUserId,
+      String otherUserId,
       List<ChatMessage> messageList,
+      Option<ChatFailure> failureOption,
       LoadStatus loadStatus,
-      LoadStatus writingStatus,
+      ChatMessage chatMessage,
+      bool isSubmitting,
       String sendedMessageId});
 
-  $ChatMessageCopyWith<$Res> get chatMessage;
   $LoadStatusCopyWith<$Res> get loadStatus;
-  $LoadStatusCopyWith<$Res> get writingStatus;
+  $ChatMessageCopyWith<$Res> get chatMessage;
 }
 
 /// @nodoc
@@ -81,46 +88,49 @@ class _$ChatStateCopyWithImpl<$Res> implements $ChatStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? groupChatId = freezed,
-    Object? chatMessage = freezed,
+    Object? currentUserId = freezed,
+    Object? otherUserId = freezed,
     Object? messageList = freezed,
+    Object? failureOption = freezed,
     Object? loadStatus = freezed,
-    Object? writingStatus = freezed,
+    Object? chatMessage = freezed,
+    Object? isSubmitting = freezed,
     Object? sendedMessageId = freezed,
   }) {
     return _then(_value.copyWith(
-      groupChatId: groupChatId == freezed
-          ? _value.groupChatId
-          : groupChatId // ignore: cast_nullable_to_non_nullable
+      currentUserId: currentUserId == freezed
+          ? _value.currentUserId
+          : currentUserId // ignore: cast_nullable_to_non_nullable
               as String,
-      chatMessage: chatMessage == freezed
-          ? _value.chatMessage
-          : chatMessage // ignore: cast_nullable_to_non_nullable
-              as ChatMessage,
+      otherUserId: otherUserId == freezed
+          ? _value.otherUserId
+          : otherUserId // ignore: cast_nullable_to_non_nullable
+              as String,
       messageList: messageList == freezed
           ? _value.messageList
           : messageList // ignore: cast_nullable_to_non_nullable
               as List<ChatMessage>,
+      failureOption: failureOption == freezed
+          ? _value.failureOption
+          : failureOption // ignore: cast_nullable_to_non_nullable
+              as Option<ChatFailure>,
       loadStatus: loadStatus == freezed
           ? _value.loadStatus
           : loadStatus // ignore: cast_nullable_to_non_nullable
               as LoadStatus,
-      writingStatus: writingStatus == freezed
-          ? _value.writingStatus
-          : writingStatus // ignore: cast_nullable_to_non_nullable
-              as LoadStatus,
+      chatMessage: chatMessage == freezed
+          ? _value.chatMessage
+          : chatMessage // ignore: cast_nullable_to_non_nullable
+              as ChatMessage,
+      isSubmitting: isSubmitting == freezed
+          ? _value.isSubmitting
+          : isSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
       sendedMessageId: sendedMessageId == freezed
           ? _value.sendedMessageId
           : sendedMessageId // ignore: cast_nullable_to_non_nullable
               as String,
     ));
-  }
-
-  @override
-  $ChatMessageCopyWith<$Res> get chatMessage {
-    return $ChatMessageCopyWith<$Res>(_value.chatMessage, (value) {
-      return _then(_value.copyWith(chatMessage: value));
-    });
   }
 
   @override
@@ -131,9 +141,9 @@ class _$ChatStateCopyWithImpl<$Res> implements $ChatStateCopyWith<$Res> {
   }
 
   @override
-  $LoadStatusCopyWith<$Res> get writingStatus {
-    return $LoadStatusCopyWith<$Res>(_value.writingStatus, (value) {
-      return _then(_value.copyWith(writingStatus: value));
+  $ChatMessageCopyWith<$Res> get chatMessage {
+    return $ChatMessageCopyWith<$Res>(_value.chatMessage, (value) {
+      return _then(_value.copyWith(chatMessage: value));
     });
   }
 }
@@ -145,19 +155,19 @@ abstract class _$ChatStateCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
       __$ChatStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String groupChatId,
-      ChatMessage chatMessage,
+      {String currentUserId,
+      String otherUserId,
       List<ChatMessage> messageList,
+      Option<ChatFailure> failureOption,
       LoadStatus loadStatus,
-      LoadStatus writingStatus,
+      ChatMessage chatMessage,
+      bool isSubmitting,
       String sendedMessageId});
 
   @override
-  $ChatMessageCopyWith<$Res> get chatMessage;
-  @override
   $LoadStatusCopyWith<$Res> get loadStatus;
   @override
-  $LoadStatusCopyWith<$Res> get writingStatus;
+  $ChatMessageCopyWith<$Res> get chatMessage;
 }
 
 /// @nodoc
@@ -171,34 +181,44 @@ class __$ChatStateCopyWithImpl<$Res> extends _$ChatStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? groupChatId = freezed,
-    Object? chatMessage = freezed,
+    Object? currentUserId = freezed,
+    Object? otherUserId = freezed,
     Object? messageList = freezed,
+    Object? failureOption = freezed,
     Object? loadStatus = freezed,
-    Object? writingStatus = freezed,
+    Object? chatMessage = freezed,
+    Object? isSubmitting = freezed,
     Object? sendedMessageId = freezed,
   }) {
     return _then(_ChatState(
-      groupChatId: groupChatId == freezed
-          ? _value.groupChatId
-          : groupChatId // ignore: cast_nullable_to_non_nullable
+      currentUserId: currentUserId == freezed
+          ? _value.currentUserId
+          : currentUserId // ignore: cast_nullable_to_non_nullable
               as String,
-      chatMessage: chatMessage == freezed
-          ? _value.chatMessage
-          : chatMessage // ignore: cast_nullable_to_non_nullable
-              as ChatMessage,
+      otherUserId: otherUserId == freezed
+          ? _value.otherUserId
+          : otherUserId // ignore: cast_nullable_to_non_nullable
+              as String,
       messageList: messageList == freezed
           ? _value.messageList
           : messageList // ignore: cast_nullable_to_non_nullable
               as List<ChatMessage>,
+      failureOption: failureOption == freezed
+          ? _value.failureOption
+          : failureOption // ignore: cast_nullable_to_non_nullable
+              as Option<ChatFailure>,
       loadStatus: loadStatus == freezed
           ? _value.loadStatus
           : loadStatus // ignore: cast_nullable_to_non_nullable
               as LoadStatus,
-      writingStatus: writingStatus == freezed
-          ? _value.writingStatus
-          : writingStatus // ignore: cast_nullable_to_non_nullable
-              as LoadStatus,
+      chatMessage: chatMessage == freezed
+          ? _value.chatMessage
+          : chatMessage // ignore: cast_nullable_to_non_nullable
+              as ChatMessage,
+      isSubmitting: isSubmitting == freezed
+          ? _value.isSubmitting
+          : isSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
       sendedMessageId: sendedMessageId == freezed
           ? _value.sendedMessageId
           : sendedMessageId // ignore: cast_nullable_to_non_nullable
@@ -211,30 +231,36 @@ class __$ChatStateCopyWithImpl<$Res> extends _$ChatStateCopyWithImpl<$Res>
 
 class _$_ChatState extends _ChatState {
   const _$_ChatState(
-      {required this.groupChatId,
-      required this.chatMessage,
+      {required this.currentUserId,
+      required this.otherUserId,
       required this.messageList,
+      required this.failureOption,
       required this.loadStatus,
-      required this.writingStatus,
+      required this.chatMessage,
+      required this.isSubmitting,
       required this.sendedMessageId})
       : super._();
 
+  @override // init
+  final String currentUserId;
   @override
-  final String groupChatId;
-  @override // required String toUserId,
-  final ChatMessage chatMessage;
-  @override
+  final String otherUserId;
+  @override // overview
   final List<ChatMessage> messageList;
   @override
-  final LoadStatus loadStatus;
+  final Option<ChatFailure> failureOption;
   @override
-  final LoadStatus writingStatus;
+  final LoadStatus loadStatus;
+  @override // writing
+  final ChatMessage chatMessage;
+  @override
+  final bool isSubmitting;
   @override
   final String sendedMessageId;
 
   @override
   String toString() {
-    return 'ChatState(groupChatId: $groupChatId, chatMessage: $chatMessage, messageList: $messageList, loadStatus: $loadStatus, writingStatus: $writingStatus, sendedMessageId: $sendedMessageId)';
+    return 'ChatState(currentUserId: $currentUserId, otherUserId: $otherUserId, messageList: $messageList, failureOption: $failureOption, loadStatus: $loadStatus, chatMessage: $chatMessage, isSubmitting: $isSubmitting, sendedMessageId: $sendedMessageId)';
   }
 
   @override
@@ -243,15 +269,19 @@ class _$_ChatState extends _ChatState {
         (other.runtimeType == runtimeType &&
             other is _ChatState &&
             const DeepCollectionEquality()
-                .equals(other.groupChatId, groupChatId) &&
+                .equals(other.currentUserId, currentUserId) &&
             const DeepCollectionEquality()
-                .equals(other.chatMessage, chatMessage) &&
+                .equals(other.otherUserId, otherUserId) &&
             const DeepCollectionEquality()
                 .equals(other.messageList, messageList) &&
             const DeepCollectionEquality()
+                .equals(other.failureOption, failureOption) &&
+            const DeepCollectionEquality()
                 .equals(other.loadStatus, loadStatus) &&
             const DeepCollectionEquality()
-                .equals(other.writingStatus, writingStatus) &&
+                .equals(other.chatMessage, chatMessage) &&
+            const DeepCollectionEquality()
+                .equals(other.isSubmitting, isSubmitting) &&
             const DeepCollectionEquality()
                 .equals(other.sendedMessageId, sendedMessageId));
   }
@@ -259,11 +289,13 @@ class _$_ChatState extends _ChatState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(groupChatId),
-      const DeepCollectionEquality().hash(chatMessage),
+      const DeepCollectionEquality().hash(currentUserId),
+      const DeepCollectionEquality().hash(otherUserId),
       const DeepCollectionEquality().hash(messageList),
+      const DeepCollectionEquality().hash(failureOption),
       const DeepCollectionEquality().hash(loadStatus),
-      const DeepCollectionEquality().hash(writingStatus),
+      const DeepCollectionEquality().hash(chatMessage),
+      const DeepCollectionEquality().hash(isSubmitting),
       const DeepCollectionEquality().hash(sendedMessageId));
 
   @JsonKey(ignore: true)
@@ -274,24 +306,30 @@ class _$_ChatState extends _ChatState {
 
 abstract class _ChatState extends ChatState {
   const factory _ChatState(
-      {required String groupChatId,
-      required ChatMessage chatMessage,
+      {required String currentUserId,
+      required String otherUserId,
       required List<ChatMessage> messageList,
+      required Option<ChatFailure> failureOption,
       required LoadStatus loadStatus,
-      required LoadStatus writingStatus,
+      required ChatMessage chatMessage,
+      required bool isSubmitting,
       required String sendedMessageId}) = _$_ChatState;
   const _ChatState._() : super._();
 
+  @override // init
+  String get currentUserId;
   @override
-  String get groupChatId;
-  @override // required String toUserId,
-  ChatMessage get chatMessage;
-  @override
+  String get otherUserId;
+  @override // overview
   List<ChatMessage> get messageList;
   @override
-  LoadStatus get loadStatus;
+  Option<ChatFailure> get failureOption;
   @override
-  LoadStatus get writingStatus;
+  LoadStatus get loadStatus;
+  @override // writing
+  ChatMessage get chatMessage;
+  @override
+  bool get isSubmitting;
   @override
   String get sendedMessageId;
   @override

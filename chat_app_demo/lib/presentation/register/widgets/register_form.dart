@@ -1,6 +1,7 @@
 import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../../domain/core/logger.dart';
 import '../../../application/auth/register_form/register_form_cubit.dart';
@@ -9,6 +10,7 @@ import '../../routes/router.gr.dart';
 import 'email_address_box.dart';
 import 'password_box.dart';
 
+// TODO: [雙語]
 class RegisterForm extends StatelessWidget {
   const RegisterForm({Key? key}) : super(key: key);
 
@@ -27,13 +29,21 @@ class RegisterForm extends StatelessWidget {
 
                 FlushbarHelper.createError(
                     message: failure.map(
-                  serverError: (_) => '伺服器有問題，請稍候再試',
-                  unexpected: (_) => '未知的錯誤',
-                  insufficientPermission: (_) => '沒有權限',
-                  invalidEmailAndPassword: (_) => '帳號或密碼錯誤', // 只有sign_in才有這個
-                  emailAddressAlreadyInUse: (_) => '帳號密碼已被使用', // 只有register才有這個
-                  invalidEmail: (_) => 'Email格式有誤', // 只有register才有這個
-                  weakPassword: (_) => '密碼強度太弱', // 只有register才有這個
+                  serverError: (_) => FlutterI18n.translate(
+                      context, "login.authError.serverError"),
+                  unexpected: (_) => FlutterI18n.translate(
+                      context, "login.authError.unexpected"),
+                  insufficientPermission: (_) => FlutterI18n.translate(
+                      context, "login.authError.insufficientPermission"),
+                  invalidEmailAndPassword: (_) => FlutterI18n.translate(context,
+                      "login.authError.invalidEmailAndPassword"), // 只有sign_in才有這個
+                  emailAddressAlreadyInUse: (_) => FlutterI18n.translate(
+                      context,
+                      "login.authError.emailAddressAlreadyInUse"), // 只有register才有這個
+                  invalidEmail: (_) => FlutterI18n.translate(context,
+                      "login.authError.invalidEmail"), // 只有register才有這個
+                  weakPassword: (_) => FlutterI18n.translate(context,
+                      "login.authError.weakPassword"), // 只有register才有這個
                 )).show(context);
               },
               (_) {
@@ -62,7 +72,6 @@ class RegisterForm extends StatelessWidget {
           children: [
             const EmailAddressBox(),
             const PasswordBox(),
-            // const CheckPasswordBox(),
             ElevatedButton(
               child: const Text('註冊'),
               onPressed: () {

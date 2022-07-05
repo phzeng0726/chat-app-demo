@@ -61,7 +61,6 @@ class SignInFormCubit extends Cubit<SignInFormState> {
     emit(
       state.copyWith(
         isSubmitting: false,
-        // showErrorMessages: true,
         authFailureOrSuccessOption: optionOf(failureOrSuccess),
       ),
     );

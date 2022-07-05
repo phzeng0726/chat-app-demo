@@ -12,15 +12,16 @@ import '../../../injection.dart';
 import '../../routes/router.gr.dart';
 import 'search_user_box.dart';
 
+// TODO: [雙語]
 class SearchUserOverviewBody extends StatelessWidget {
   const SearchUserOverviewBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listenWhen: (p, c) => p.chatFailureOption != c.chatFailureOption,
+      listenWhen: (p, c) => p.failureOption != c.failureOption,
       listener: (context, state) {
-        state.chatFailureOption.fold(
+        state.failureOption.fold(
           () => null,
           (failure) {
             LoggerService.simple.i(failure);
@@ -86,6 +87,3 @@ class SearchUserOverviewBody extends StatelessWidget {
     );
   }
 }
-// context
-//                                 .read<HomeCubit>()
-//                                 .inviteFriendPressed(otherUserId: user.userId);

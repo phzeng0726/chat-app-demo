@@ -1,6 +1,5 @@
 part of 'user_profile_cubit.dart';
 
-// 登入之後獲取company跟user之類的都在這
 @freezed
 class UserProfileState with _$UserProfileState {
   const UserProfileState._();

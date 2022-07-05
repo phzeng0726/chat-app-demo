@@ -1,14 +1,14 @@
-import 'package:chat_app_demo/domain/auth/user.dart';
-import 'package:chat_app_demo/presentation/chat/widgets/message_overview_body.dart';
-import 'package:chat_app_demo/presentation/core/widgets/load_status_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/auth/auth_cubit.dart';
 import '../../application/chat/chat_cubit.dart';
+import '../../domain/auth/user.dart';
 import '../../domain/chat/i_chat_repository.dart';
 import '../../injection.dart';
+import '../core/widgets/load_status_screen.dart';
 import 'widgets/message_enter_box.dart';
+import 'widgets/message_overview_body.dart';
 
 class ChatPage extends StatelessWidget {
   final User otherUser;
@@ -22,8 +22,8 @@ class ChatPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => ChatCubit(getIt<IChatRepository>())
         ..init(
-          fromId: context.read<AuthCubit>().state.user.userId,
-          toId: otherUser.userId,
+          currentUserId: context.read<AuthCubit>().state.user.userId,
+          otherUserId: otherUser.userId,
         ),
       child: Scaffold(
         appBar: AppBar(
@@ -48,26 +48,6 @@ class ChatPage extends StatelessWidget {
                 ],
               ),
             );
-            // return state.loadStatus.map(
-            //   initial: (_) => const Center(),
-            //   inProgress: (_) => const CircularProgressIndicator(),
-            //   succeed: (_) {
-            //     return Column(
-            //       children: [
-            //         Expanded(
-            //           child: MessageOverviewBody(
-            //             otherUser: otherUser,
-            //           ),
-            //         ),
-            //         const Align(
-            //           alignment: Alignment.bottomCenter,
-            //           child: MessageEnterBox(),
-            //         )
-            //       ],
-            //     );
-            //   },
-            //   failed: (_) => LoadStatusScreen(),
-            // );
           },
         ),
       ),

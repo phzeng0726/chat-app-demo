@@ -12,15 +12,16 @@ import '../../core/widgets/load_status_screen.dart';
 import '../../core/widgets/uesr_profile_avatar.dart';
 import '../../routes/router.gr.dart';
 
+// TODO: [雙語]
 class FriendsOverviewBody extends StatelessWidget {
   const FriendsOverviewBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listenWhen: (p, c) => p.chatFailureOption != c.chatFailureOption,
+      listenWhen: (p, c) => p.failureOption != c.failureOption,
       listener: (context, state) {
-        state.chatFailureOption.fold(
+        state.failureOption.fold(
           () => null,
           (failure) {
             LoggerService.simple.i(failure);
@@ -65,38 +66,6 @@ class FriendsOverviewBody extends StatelessWidget {
                       }),
                     ),
             );
-            // return state.friendListLoadStatus.map(
-            //   initial: (_) => Container(),
-            //   inProgress: (_) => const Center(
-            //     child: CircularProgressIndicator(),
-            //   ),
-            //   succeed: (_) => state.friendList.isEmpty
-            //       ? const Center(
-            //           child: Text('您還沒有好友，快點加入好友吧！'),
-            //         )
-            //       : ListView.builder(
-            //           itemCount: state.friendList.length,
-            //           itemBuilder: ((context, index) {
-            //             User user = state.friendList[index];
-            //             return Padding(
-            //               padding: const EdgeInsets.symmetric(
-            //                   vertical: kDefaultPadding / 2),
-            //               child: ListTile(
-            //                 onTap: () => getIt<RootRouter>().push(
-            //                   ChatRoute(
-            //                     otherUser: user,
-            //                   ),
-            //                 ),
-            //                 leading: UserProfileAvatar(user: user),
-            //                 title: Text(user.userName),
-            //               ),
-            //             );
-            //           }),
-            //         ),
-            //   failed: (_) => const Center(
-            //     child: Text('加載失敗'),
-            //   ),
-            // );
           },
         );
       },

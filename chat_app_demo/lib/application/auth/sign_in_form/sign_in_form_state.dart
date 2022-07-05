@@ -5,7 +5,6 @@ abstract class SignInFormState with _$SignInFormState {
   const factory SignInFormState({
     required String emailAddress,
     required String password,
-    // required bool showErrorMessages,
     String? checkPassword,
     required bool isSubmitting,
     required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
@@ -17,7 +16,6 @@ abstract class SignInFormState with _$SignInFormState {
         emailAddress: 'testEmail@gmail.com',
         password: 'aaaaaa',
         checkPassword: '',
-        // showErrorMessages: false,
         isSubmitting: false,
         authFailureOrSuccessOption: none(),
         isPWObscure: true,

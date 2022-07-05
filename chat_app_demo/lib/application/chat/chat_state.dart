@@ -1,26 +1,30 @@
 part of 'chat_cubit.dart';
 
-// 登入之後獲取company跟user之類的都在這
 @freezed
 class ChatState with _$ChatState {
   const ChatState._();
   const factory ChatState({
-    required String groupChatId,
-    // required String toUserId,
-    required ChatMessage chatMessage,
+    // init
+    required String currentUserId,
+    required String otherUserId,
+    // overview
     required List<ChatMessage> messageList,
+    required Option<ChatFailure> failureOption,
     required LoadStatus loadStatus,
-    required LoadStatus writingStatus,
+    // writing
+    required ChatMessage chatMessage,
+    required bool isSubmitting,
     required String sendedMessageId,
   }) = _ChatState;
 
   factory ChatState.initial() => ChatState(
-        groupChatId: '',
-        // toUserId: '',
-        chatMessage: ChatMessage.empty(),
+        currentUserId: '',
+        otherUserId: '',
         messageList: <ChatMessage>[],
         loadStatus: const LoadStatus.initial(),
-        writingStatus: const LoadStatus.initial(),
+        failureOption: none(),
+        chatMessage: ChatMessage.empty(),
+        isSubmitting: false,
         sendedMessageId: '',
       );
 }

@@ -24,14 +24,14 @@ class _$HomeStateTearOff {
       required LoadStatus searchStatus,
       required List<User> friendList,
       required LoadStatus friendListLoadStatus,
-      required Option<ChatFailure> chatFailureOption}) {
+      required Option<HomeFailure> failureOption}) {
     return _HomeState(
       emailAddress: emailAddress,
       searchedUserList: searchedUserList,
       searchStatus: searchStatus,
       friendList: friendList,
       friendListLoadStatus: friendListLoadStatus,
-      chatFailureOption: chatFailureOption,
+      failureOption: failureOption,
     );
   }
 }
@@ -41,15 +41,13 @@ const $HomeState = _$HomeStateTearOff();
 
 /// @nodoc
 mixin _$HomeState {
-// required CompanyInfo companyInfo,
   String get emailAddress =>
       throw _privateConstructorUsedError; // 可能要改Option，因為有可能為空
   List<User> get searchedUserList => throw _privateConstructorUsedError;
   LoadStatus get searchStatus => throw _privateConstructorUsedError;
   List<User> get friendList => throw _privateConstructorUsedError;
   LoadStatus get friendListLoadStatus => throw _privateConstructorUsedError;
-  Option<ChatFailure> get chatFailureOption =>
-      throw _privateConstructorUsedError;
+  Option<HomeFailure> get failureOption => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -66,7 +64,7 @@ abstract class $HomeStateCopyWith<$Res> {
       LoadStatus searchStatus,
       List<User> friendList,
       LoadStatus friendListLoadStatus,
-      Option<ChatFailure> chatFailureOption});
+      Option<HomeFailure> failureOption});
 
   $LoadStatusCopyWith<$Res> get searchStatus;
   $LoadStatusCopyWith<$Res> get friendListLoadStatus;
@@ -87,7 +85,7 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
     Object? searchStatus = freezed,
     Object? friendList = freezed,
     Object? friendListLoadStatus = freezed,
-    Object? chatFailureOption = freezed,
+    Object? failureOption = freezed,
   }) {
     return _then(_value.copyWith(
       emailAddress: emailAddress == freezed
@@ -110,10 +108,10 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
           ? _value.friendListLoadStatus
           : friendListLoadStatus // ignore: cast_nullable_to_non_nullable
               as LoadStatus,
-      chatFailureOption: chatFailureOption == freezed
-          ? _value.chatFailureOption
-          : chatFailureOption // ignore: cast_nullable_to_non_nullable
-              as Option<ChatFailure>,
+      failureOption: failureOption == freezed
+          ? _value.failureOption
+          : failureOption // ignore: cast_nullable_to_non_nullable
+              as Option<HomeFailure>,
     ));
   }
 
@@ -144,7 +142,7 @@ abstract class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
       LoadStatus searchStatus,
       List<User> friendList,
       LoadStatus friendListLoadStatus,
-      Option<ChatFailure> chatFailureOption});
+      Option<HomeFailure> failureOption});
 
   @override
   $LoadStatusCopyWith<$Res> get searchStatus;
@@ -168,7 +166,7 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
     Object? searchStatus = freezed,
     Object? friendList = freezed,
     Object? friendListLoadStatus = freezed,
-    Object? chatFailureOption = freezed,
+    Object? failureOption = freezed,
   }) {
     return _then(_HomeState(
       emailAddress: emailAddress == freezed
@@ -191,10 +189,10 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
           ? _value.friendListLoadStatus
           : friendListLoadStatus // ignore: cast_nullable_to_non_nullable
               as LoadStatus,
-      chatFailureOption: chatFailureOption == freezed
-          ? _value.chatFailureOption
-          : chatFailureOption // ignore: cast_nullable_to_non_nullable
-              as Option<ChatFailure>,
+      failureOption: failureOption == freezed
+          ? _value.failureOption
+          : failureOption // ignore: cast_nullable_to_non_nullable
+              as Option<HomeFailure>,
     ));
   }
 }
@@ -208,10 +206,10 @@ class _$_HomeState extends _HomeState {
       required this.searchStatus,
       required this.friendList,
       required this.friendListLoadStatus,
-      required this.chatFailureOption})
+      required this.failureOption})
       : super._();
 
-  @override // required CompanyInfo companyInfo,
+  @override
   final String emailAddress;
   @override // 可能要改Option，因為有可能為空
   final List<User> searchedUserList;
@@ -222,11 +220,11 @@ class _$_HomeState extends _HomeState {
   @override
   final LoadStatus friendListLoadStatus;
   @override
-  final Option<ChatFailure> chatFailureOption;
+  final Option<HomeFailure> failureOption;
 
   @override
   String toString() {
-    return 'HomeState(emailAddress: $emailAddress, searchedUserList: $searchedUserList, searchStatus: $searchStatus, friendList: $friendList, friendListLoadStatus: $friendListLoadStatus, chatFailureOption: $chatFailureOption)';
+    return 'HomeState(emailAddress: $emailAddress, searchedUserList: $searchedUserList, searchStatus: $searchStatus, friendList: $friendList, friendListLoadStatus: $friendListLoadStatus, failureOption: $failureOption)';
   }
 
   @override
@@ -245,7 +243,7 @@ class _$_HomeState extends _HomeState {
             const DeepCollectionEquality()
                 .equals(other.friendListLoadStatus, friendListLoadStatus) &&
             const DeepCollectionEquality()
-                .equals(other.chatFailureOption, chatFailureOption));
+                .equals(other.failureOption, failureOption));
   }
 
   @override
@@ -256,7 +254,7 @@ class _$_HomeState extends _HomeState {
       const DeepCollectionEquality().hash(searchStatus),
       const DeepCollectionEquality().hash(friendList),
       const DeepCollectionEquality().hash(friendListLoadStatus),
-      const DeepCollectionEquality().hash(chatFailureOption));
+      const DeepCollectionEquality().hash(failureOption));
 
   @JsonKey(ignore: true)
   @override
@@ -271,10 +269,10 @@ abstract class _HomeState extends HomeState {
       required LoadStatus searchStatus,
       required List<User> friendList,
       required LoadStatus friendListLoadStatus,
-      required Option<ChatFailure> chatFailureOption}) = _$_HomeState;
+      required Option<HomeFailure> failureOption}) = _$_HomeState;
   const _HomeState._() : super._();
 
-  @override // required CompanyInfo companyInfo,
+  @override
   String get emailAddress;
   @override // 可能要改Option，因為有可能為空
   List<User> get searchedUserList;
@@ -285,7 +283,7 @@ abstract class _HomeState extends HomeState {
   @override
   LoadStatus get friendListLoadStatus;
   @override
-  Option<ChatFailure> get chatFailureOption;
+  Option<HomeFailure> get failureOption;
   @override
   @JsonKey(ignore: true)
   _$HomeStateCopyWith<_HomeState> get copyWith =>

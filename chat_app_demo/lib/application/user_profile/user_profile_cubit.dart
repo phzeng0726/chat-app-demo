@@ -88,8 +88,6 @@ class UserProfileCubit extends Cubit<UserProfileState> {
       },
     );
   }
-  // edit userName
-
   void userNameChanged(String userName) {
     emit(
       state.copyWith(
@@ -99,8 +97,6 @@ class UserProfileCubit extends Cubit<UserProfileState> {
       ),
     );
   }
-
-  // edit aboutMe
   void aboutMeChanged(String aboutMe) {
     emit(
       state.copyWith(
@@ -111,7 +107,6 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     );
   }
 
-  // update user profile
   Future<void> updateUserProfilePressed() async {
     emit(
       state.copyWith(

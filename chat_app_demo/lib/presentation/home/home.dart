@@ -6,6 +6,7 @@ import '../../application/auth/auth_cubit.dart';
 import '../../application/home/home_cubit.dart';
 import '../../domain/auth/user.dart';
 import '../../domain/chat/i_chat_repository.dart';
+import '../../domain/home/i_home_repository.dart';
 import '../../injection.dart';
 import 'widgets/friends_overview_body.dart';
 import 'widgets/home_drawer.dart';
@@ -22,7 +23,7 @@ class HomePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => HomeCubit(getIt<IChatRepository>())
+          create: (context) => HomeCubit(getIt<IHomeRepository>())
             ..fetchFriendListStarted(
               user: currentUser,
             ),

@@ -24,10 +24,10 @@ extension FirestoreX on FirebaseFirestore {
   }
 
   Future<DocumentReference> groupChatDocument({
-    required String fromId,
-    required String toId,
+    required String currentUserId,
+    required String otherUserId,
   }) async {
-    List<String> idList = [fromId, toId];
+    List<String> idList = [currentUserId, otherUserId];
     idList.sort();
     final groupChatId = idList.join('');
     return chatListCollection.doc(groupChatId);

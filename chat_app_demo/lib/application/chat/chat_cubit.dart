@@ -19,23 +19,21 @@ class ChatCubit extends Cubit<ChatState> {
       _messageListSubscription;
 
   void init({
-    required String fromId,
-    required String toId,
+    required String currentUserId,
+    required String otherUserId,
   }) async {
     emit(
       state.copyWith(
         loadStatus: const LoadStatus.inProgress(),
-        chatMessage: state.chatMessage.copyWith(
-          fromId: fromId,
-          toId: toId,
-        ),
+        currentUserId: currentUserId,
+        otherUserId: otherUserId,
       ),
     );
     await _messageListSubscription?.cancel();
     _messageListSubscription = _chatRepository
         .watchMessageList(
-          fromId: fromId,
-          toId: toId,
+          currentUserId: currentUserId,
+          otherUserId: otherUserId,
         )
         .listen(
           (failureOrMessageList) => messageListReceived(failureOrMessageList),
@@ -43,72 +41,55 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   void messageListReceived(
-      Either<ChatFailure, List<ChatMessage>> failureOrMessageList) {
+    Either<ChatFailure, List<ChatMessage>> failureOrMessageList,
+  ) {
     failureOrMessageList.fold(
       (f) => emit(
         state.copyWith(
+          failureOption: some(f),
           loadStatus: const LoadStatus.failed(),
         ),
       ),
       (messageList) => emit(
         state.copyWith(
           messageList: messageList,
+          failureOption: none(),
           loadStatus: const LoadStatus.succeed(),
         ),
       ),
     );
   }
 
-  // void chatMessageContentChanged(String chatMessageContent) {
-  //   if (chatMessageContent == '') {
-  //     emit(
-  //       state.copyWith(
-  //         writingStatus: const LoadStatus.initial(),
-  //         chatMessage: state.chatMessage.copyWith(
-  //           content: chatMessageContent,
-  //         ),
-  //       ),
-  //     );
-  //   } else {
-  //     emit(
-  //       state.copyWith(
-  //         writingStatus: const LoadStatus.inProgress(),
-  //         chatMessage: state.chatMessage.copyWith(
-  //           content: chatMessageContent,
-  //         ),
-  //       ),
-  //     );
-  //   }
-  // }
-
-  // void textClear() {
-  //   emit(
-  //     state.copyWith(
-  //       chatMessage: state.chatMessage.copyWith(
-  //         content: '',
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Future<void> sendMessage(String content) async {
-    final String messageDocId = await _chatRepository.create(
+    Either<ChatFailure, String> failureOrMessageId;
+    emit(
+      state.copyWith(
+        isSubmitting: true,
+      ),
+    );
+    failureOrMessageId = await _chatRepository.create(
       chatMessage: state.chatMessage.copyWith(
+        fromId: state.currentUserId,
+        toId: state.otherUserId,
         content: content,
       ),
     );
-    emit(
-      state.copyWith(
-        sendedMessageId: messageDocId,
+    failureOrMessageId.fold(
+      (f) => emit(
+        state.copyWith(
+          failureOption: some(f),
+          isSubmitting: false,
+        ),
+      ),
+      (messageId) => emit(
+        state.copyWith(
+          sendedMessageId: messageId,
+          failureOption: none(),
+          isSubmitting: false,
+        ),
       ),
     );
   }
-
-  // Future<void> getMessageBubbleSize(double messageBubbleHeight) async {
-  //   emit(state.copyWith(
-  //     messageBubbleHeight: messageBubbleHeight,
-  //   ));
-  // }
 
   @override
   Future<void> close() async {

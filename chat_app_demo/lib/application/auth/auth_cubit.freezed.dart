@@ -35,7 +35,6 @@ const $AuthState = _$AuthStateTearOff();
 
 /// @nodoc
 mixin _$AuthState {
-// required CompanyInfo companyInfo,
   User get user => throw _privateConstructorUsedError;
   AuthStatus get status => throw _privateConstructorUsedError;
   Option<AuthFailure> get authFailureOption =>
@@ -158,7 +157,7 @@ class _$_AuthState extends _AuthState {
       required this.authFailureOption})
       : super._();
 
-  @override // required CompanyInfo companyInfo,
+  @override
   final User user;
   @override
   final AuthStatus status;
@@ -201,7 +200,7 @@ abstract class _AuthState extends AuthState {
       required Option<AuthFailure> authFailureOption}) = _$_AuthState;
   const _AuthState._() : super._();
 
-  @override // required CompanyInfo companyInfo,
+  @override
   User get user;
   @override
   AuthStatus get status;
