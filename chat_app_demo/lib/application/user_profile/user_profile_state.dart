@@ -6,12 +6,14 @@ class UserProfileState with _$UserProfileState {
   const factory UserProfileState({
     required User user,
     required bool isUpdating,
-    required Option<ChatFailure> chatFailureOption,
+    required bool isUploadingImage,
+    required Option<HomeFailure> failureOption,
   }) = _UserProfileState;
 
   factory UserProfileState.initial() => UserProfileState(
         user: User.empty(),
         isUpdating: false,
-        chatFailureOption: none(),
+        isUploadingImage: false,
+        failureOption: none(),
       );
 }

@@ -13,13 +13,11 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'domain/auth/i_auth_facade.dart' as _i6;
 import 'domain/chat/i_chat_repository.dart' as _i8;
 import 'domain/home/i_home_repository.dart' as _i10;
-import 'domain/user_profile/i_user_profile_repository.dart' as _i12;
 import 'infrastructure/auth/auth_facade.dart' as _i7;
 import 'infrastructure/chat/chat_repository.dart' as _i9;
-import 'infrastructure/core/firebase_injectable_module.dart' as _i14;
-import 'infrastructure/home/home_repository.dart' as _i11;
-import 'infrastructure/user_profile/user_profile_repository.dart'
-    as _i13; // ignore_for_file: unnecessary_lambdas
+import 'infrastructure/core/firebase_injectable_module.dart' as _i12;
+import 'infrastructure/home/home_repository.dart'
+    as _i11; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -38,10 +36,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i9.ChatRepository(get<_i4.FirebaseFirestore>()));
   gh.lazySingleton<_i10.IHomeRepository>(
       () => _i11.HomeRepository(get<_i4.FirebaseFirestore>()));
-  gh.lazySingleton<_i12.IUserProfileRepository>(() =>
-      _i13.UserProfileRepository(
-          get<_i4.FirebaseFirestore>(), get<_i5.FirebaseStorage>()));
   return get;
 }
 
-class _$FirebaseInjectableModule extends _i14.FirebaseInjectableModule {}
+class _$FirebaseInjectableModule extends _i12.FirebaseInjectableModule {}

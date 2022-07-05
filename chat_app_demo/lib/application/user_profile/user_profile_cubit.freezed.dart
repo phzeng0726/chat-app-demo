@@ -21,11 +21,13 @@ class _$UserProfileStateTearOff {
   _UserProfileState call(
       {required User user,
       required bool isUpdating,
-      required Option<ChatFailure> chatFailureOption}) {
+      required bool isUploadingImage,
+      required Option<HomeFailure> failureOption}) {
     return _UserProfileState(
       user: user,
       isUpdating: isUpdating,
-      chatFailureOption: chatFailureOption,
+      isUploadingImage: isUploadingImage,
+      failureOption: failureOption,
     );
   }
 }
@@ -37,8 +39,8 @@ const $UserProfileState = _$UserProfileStateTearOff();
 mixin _$UserProfileState {
   User get user => throw _privateConstructorUsedError;
   bool get isUpdating => throw _privateConstructorUsedError;
-  Option<ChatFailure> get chatFailureOption =>
-      throw _privateConstructorUsedError;
+  bool get isUploadingImage => throw _privateConstructorUsedError;
+  Option<HomeFailure> get failureOption => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserProfileStateCopyWith<UserProfileState> get copyWith =>
@@ -51,7 +53,10 @@ abstract class $UserProfileStateCopyWith<$Res> {
           UserProfileState value, $Res Function(UserProfileState) then) =
       _$UserProfileStateCopyWithImpl<$Res>;
   $Res call(
-      {User user, bool isUpdating, Option<ChatFailure> chatFailureOption});
+      {User user,
+      bool isUpdating,
+      bool isUploadingImage,
+      Option<HomeFailure> failureOption});
 
   $UserCopyWith<$Res> get user;
 }
@@ -69,7 +74,8 @@ class _$UserProfileStateCopyWithImpl<$Res>
   $Res call({
     Object? user = freezed,
     Object? isUpdating = freezed,
-    Object? chatFailureOption = freezed,
+    Object? isUploadingImage = freezed,
+    Object? failureOption = freezed,
   }) {
     return _then(_value.copyWith(
       user: user == freezed
@@ -80,10 +86,14 @@ class _$UserProfileStateCopyWithImpl<$Res>
           ? _value.isUpdating
           : isUpdating // ignore: cast_nullable_to_non_nullable
               as bool,
-      chatFailureOption: chatFailureOption == freezed
-          ? _value.chatFailureOption
-          : chatFailureOption // ignore: cast_nullable_to_non_nullable
-              as Option<ChatFailure>,
+      isUploadingImage: isUploadingImage == freezed
+          ? _value.isUploadingImage
+          : isUploadingImage // ignore: cast_nullable_to_non_nullable
+              as bool,
+      failureOption: failureOption == freezed
+          ? _value.failureOption
+          : failureOption // ignore: cast_nullable_to_non_nullable
+              as Option<HomeFailure>,
     ));
   }
 
@@ -103,7 +113,10 @@ abstract class _$UserProfileStateCopyWith<$Res>
       __$UserProfileStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {User user, bool isUpdating, Option<ChatFailure> chatFailureOption});
+      {User user,
+      bool isUpdating,
+      bool isUploadingImage,
+      Option<HomeFailure> failureOption});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -124,7 +137,8 @@ class __$UserProfileStateCopyWithImpl<$Res>
   $Res call({
     Object? user = freezed,
     Object? isUpdating = freezed,
-    Object? chatFailureOption = freezed,
+    Object? isUploadingImage = freezed,
+    Object? failureOption = freezed,
   }) {
     return _then(_UserProfileState(
       user: user == freezed
@@ -135,10 +149,14 @@ class __$UserProfileStateCopyWithImpl<$Res>
           ? _value.isUpdating
           : isUpdating // ignore: cast_nullable_to_non_nullable
               as bool,
-      chatFailureOption: chatFailureOption == freezed
-          ? _value.chatFailureOption
-          : chatFailureOption // ignore: cast_nullable_to_non_nullable
-              as Option<ChatFailure>,
+      isUploadingImage: isUploadingImage == freezed
+          ? _value.isUploadingImage
+          : isUploadingImage // ignore: cast_nullable_to_non_nullable
+              as bool,
+      failureOption: failureOption == freezed
+          ? _value.failureOption
+          : failureOption // ignore: cast_nullable_to_non_nullable
+              as Option<HomeFailure>,
     ));
   }
 }
@@ -149,7 +167,8 @@ class _$_UserProfileState extends _UserProfileState {
   const _$_UserProfileState(
       {required this.user,
       required this.isUpdating,
-      required this.chatFailureOption})
+      required this.isUploadingImage,
+      required this.failureOption})
       : super._();
 
   @override
@@ -157,11 +176,13 @@ class _$_UserProfileState extends _UserProfileState {
   @override
   final bool isUpdating;
   @override
-  final Option<ChatFailure> chatFailureOption;
+  final bool isUploadingImage;
+  @override
+  final Option<HomeFailure> failureOption;
 
   @override
   String toString() {
-    return 'UserProfileState(user: $user, isUpdating: $isUpdating, chatFailureOption: $chatFailureOption)';
+    return 'UserProfileState(user: $user, isUpdating: $isUpdating, isUploadingImage: $isUploadingImage, failureOption: $failureOption)';
   }
 
   @override
@@ -173,7 +194,9 @@ class _$_UserProfileState extends _UserProfileState {
             const DeepCollectionEquality()
                 .equals(other.isUpdating, isUpdating) &&
             const DeepCollectionEquality()
-                .equals(other.chatFailureOption, chatFailureOption));
+                .equals(other.isUploadingImage, isUploadingImage) &&
+            const DeepCollectionEquality()
+                .equals(other.failureOption, failureOption));
   }
 
   @override
@@ -181,7 +204,8 @@ class _$_UserProfileState extends _UserProfileState {
       runtimeType,
       const DeepCollectionEquality().hash(user),
       const DeepCollectionEquality().hash(isUpdating),
-      const DeepCollectionEquality().hash(chatFailureOption));
+      const DeepCollectionEquality().hash(isUploadingImage),
+      const DeepCollectionEquality().hash(failureOption));
 
   @JsonKey(ignore: true)
   @override
@@ -193,7 +217,8 @@ abstract class _UserProfileState extends UserProfileState {
   const factory _UserProfileState(
       {required User user,
       required bool isUpdating,
-      required Option<ChatFailure> chatFailureOption}) = _$_UserProfileState;
+      required bool isUploadingImage,
+      required Option<HomeFailure> failureOption}) = _$_UserProfileState;
   const _UserProfileState._() : super._();
 
   @override
@@ -201,7 +226,9 @@ abstract class _UserProfileState extends UserProfileState {
   @override
   bool get isUpdating;
   @override
-  Option<ChatFailure> get chatFailureOption;
+  bool get isUploadingImage;
+  @override
+  Option<HomeFailure> get failureOption;
   @override
   @JsonKey(ignore: true)
   _$UserProfileStateCopyWith<_UserProfileState> get copyWith =>

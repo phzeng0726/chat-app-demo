@@ -71,29 +71,29 @@ class ChatRepository implements IChatRepository {
     }
   }
 
-  @override
-  Future<void> update({
-    required ChatMessage chatMessage,
-  }) async {
-    final userDoc = await _firestore.userDocument();
-    // await userDoc.chatListCollection.doc().set(
-    //       ChatMessageDto.fromDomain(chatMessage).toJson(),
-    //     );
+  // @override
+  // Future<void> update({
+  //   required ChatMessage chatMessage,
+  // }) async {
+  //   final userDoc = await _firestore.userDocument();
+  //   // await userDoc.chatListCollection.doc().set(
+  //   //       ChatMessageDto.fromDomain(chatMessage).toJson(),
+  //   //     );
 
-    return;
-  }
+  //   return;
+  // }
 
-  @override
-  Future<void> delete({
-    required String chatMessageId,
-  }) async {
-    // final groupChatDoc = await _firestore.groupChatDocument(
-    //   fromId: chatMessage.fromId,
-    //   toId: chatMessage.toId,
-    // );
+  // @override
+  // Future<void> delete({
+  //   required String chatMessageId,
+  // }) async {
+  //   // final groupChatDoc = await _firestore.groupChatDocument(
+  //   //   fromId: chatMessage.fromId,
+  //   //   toId: chatMessage.toId,
+  //   // );
 
-    // await groupChatDoc.messageListCollection.doc(chatMessageId).delete();
+  //   // await groupChatDoc.messageListCollection.doc(chatMessageId).delete();
 
-    return;
-  }
+  //   return;
+  // }
 }

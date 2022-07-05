@@ -14,10 +14,10 @@ abstract class IChatRepository {
   Future<Either<ChatFailure, String>> create({
     required ChatMessage chatMessage,
   });
-  Future<void> update({
-    required ChatMessage chatMessage,
-  });
-  Future<void> delete({
-    required String chatMessageId,
-  });
+  // Future<void> update({
+  //   required ChatMessage chatMessage,
+  // });
+  // Future<void> delete({
+  //   required String chatMessageId,
+  // });
 }

@@ -21,4 +21,13 @@ abstract class IHomeRepository {
   Future<void> inviteFriend({
     required String otherUserId,
   });
+
+  Future<Either<HomeFailure, String>> uploadImage({
+    required String userId,
+    required String inputSource,
+  });
+
+  Future<Either<HomeFailure, String>> updateUserProfile({
+    required User user,
+  });
 }

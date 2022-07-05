@@ -74,6 +74,7 @@ class ChatCubit extends Cubit<ChatState> {
         content: content,
       ),
     );
+    
     failureOrMessageId.fold(
       (f) => emit(
         state.copyWith(

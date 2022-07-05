@@ -36,7 +36,7 @@ class UserProfileEditPage extends StatelessWidget {
               actions: [
                 IconButton(
                   onPressed: () {
-                    context.read<UserProfileCubit>().updateUserProfilePressed();
+                    context.read<UserProfileCubit>().updateUserProfile();
                     context.router.pop();
                   },
                   icon: const Icon(Icons.check),

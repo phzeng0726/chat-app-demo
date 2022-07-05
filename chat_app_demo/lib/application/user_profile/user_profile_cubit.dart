@@ -1,23 +1,21 @@
+import 'package:chat_app_demo/domain/home/i_home_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/auth/user.dart';
-import '../../domain/chat/chat_failure.dart';
-import '../../domain/user_profile/i_user_profile_repository.dart';
+import '../../domain/home/home_failure.dart';
 
 part 'user_profile_cubit.freezed.dart';
 part 'user_profile_state.dart';
 
 class UserProfileCubit extends Cubit<UserProfileState> {
-  final IUserProfileRepository _userProfileRepository;
+  final IHomeRepository _homeRepository;
   UserProfileCubit(
-    this._userProfileRepository,
+    this._homeRepository,
   ) : super(UserProfileState.initial());
 
-  void init({
-    required User user,
-  }) {
+  void init({required User user}) {
     emit(
       state.copyWith(
         user: user,
@@ -28,9 +26,13 @@ class UserProfileCubit extends Cubit<UserProfileState> {
   void cameraButtonPressed({
     required String userId,
   }) async {
-    Either<ChatFailure, String> failureOrFileUrl;
-
-    failureOrFileUrl = await _userProfileRepository.uploadImage(
+    Either<HomeFailure, String> failureOrFileUrl;
+    emit(
+      state.copyWith(
+        isUploadingImage: true,
+      ),
+    );
+    failureOrFileUrl = await _homeRepository.uploadImage(
       userId: userId,
       inputSource: 'camera',
     );
@@ -38,21 +40,22 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     failureOrFileUrl.fold(
       (f) => emit(
         state.copyWith(
-          chatFailureOption: some(f),
+          failureOption: some(f),
+          isUploadingImage: false,
         ),
       ),
       (fileUrl) async {
         emit(
           state.copyWith(
-              user: state.user.copyWith(
-                imageUrl: fileUrl,
-              ),
-              chatFailureOption: none()),
+            failureOption: none(),
+            isUploadingImage: false,
+            user: state.user.copyWith(
+              imageUrl: fileUrl,
+            ),
+          ),
         );
 
-        await _userProfileRepository.update(
-          user: state.user,
-        );
+        await updateUserProfile();
       },
     );
   }
@@ -60,9 +63,13 @@ class UserProfileCubit extends Cubit<UserProfileState> {
   void galleryButtonPressed({
     required String userId,
   }) async {
-    Either<ChatFailure, String> failureOrFileUrl;
-
-    failureOrFileUrl = await _userProfileRepository.uploadImage(
+    Either<HomeFailure, String> failureOrFileUrl;
+    emit(
+      state.copyWith(
+        isUploadingImage: true,
+      ),
+    );
+    failureOrFileUrl = await _homeRepository.uploadImage(
       userId: userId,
       inputSource: 'gallery',
     );
@@ -70,24 +77,26 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     failureOrFileUrl.fold(
       (f) => emit(
         state.copyWith(
-          chatFailureOption: some(f),
+          failureOption: some(f),
+          isUploadingImage: false,
         ),
       ),
       (fileUrl) async {
         emit(
           state.copyWith(
-              user: state.user.copyWith(
-                imageUrl: fileUrl,
-              ),
-              chatFailureOption: none()),
+            failureOption: none(),
+            isUploadingImage: false,
+            user: state.user.copyWith(
+              imageUrl: fileUrl,
+            ),
+          ),
         );
 
-        await _userProfileRepository.update(
-          user: state.user,
-        );
+        await updateUserProfile();
       },
     );
   }
+
   void userNameChanged(String userName) {
     emit(
       state.copyWith(
@@ -97,6 +106,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
       ),
     );
   }
+
   void aboutMeChanged(String aboutMe) {
     emit(
       state.copyWith(
@@ -107,18 +117,27 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     );
   }
 
-  Future<void> updateUserProfilePressed() async {
+  Future<void> updateUserProfile() async {
+    Either<HomeFailure, String> failureOrUserIdOption;
     emit(
       state.copyWith(
         isUpdating: true,
       ),
     );
 
-    await _userProfileRepository.update(user: state.user);
-
-    emit(
-      state.copyWith(
+    failureOrUserIdOption = await _homeRepository.updateUserProfile(
+      user: state.user,
+    );
+    failureOrUserIdOption.fold(
+      (f) => state.copyWith(
         isUpdating: false,
+        failureOption: some(f),
+      ),
+      (_) => emit(
+        state.copyWith(
+          isUpdating: false,
+          failureOption: none(),
+        ),
       ),
     );
   }
