@@ -7,14 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "38.0.0"
+    version: "31.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.4.1"
+    version: "2.8.0"
   another_flushbar:
     dependency: "direct main"
     description:
@@ -49,7 +49,7 @@ packages:
       name: auto_route_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.0"
+    version: "4.0.0"
   bloc:
     dependency: transitive
     description:
@@ -105,7 +105,7 @@ packages:
       name: build_resolvers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.9"
+    version: "2.0.6"
   build_runner:
     dependency: "direct dev"
     description:
@@ -155,6 +155,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  cli_util:
+    dependency: transitive
+    description:
+      name: cli_util
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.5"
   clock:
     dependency: transitive
     description:
@@ -245,7 +252,7 @@ packages:
       name: dart_style
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.3"
+    version: "2.2.1"
   dartz:
     dependency: "direct main"
     description:
@@ -370,6 +377,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -393,7 +405,7 @@ packages:
       name: freezed
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.0"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -505,14 +517,21 @@ packages:
       name: injectable_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.3"
+    version: "1.5.2"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.17.0"
+  intl_generator:
+    dependency: "direct dev"
+    description:
+      name: intl_generator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   io:
     dependency: transitive
     description:
@@ -680,7 +699,7 @@ packages:
       name: petitparser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "4.4.0"
   platform:
     dependency: transitive
     description:
@@ -846,7 +865,7 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.21.1"
+    version: "1.20.2"
   test_api:
     dependency: transitive
     description:
@@ -860,7 +879,7 @@ packages:
       name: test_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.13"
+    version: "0.4.11"
   timing:
     dependency: transitive
     description:
@@ -938,13 +957,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0+1"
-  xml:
-    dependency: transitive
-    description:
-      name: xml
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.1.0"
   yaml:
     dependency: transitive
     description:
