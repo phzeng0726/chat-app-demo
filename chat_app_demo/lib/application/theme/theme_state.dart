@@ -5,9 +5,13 @@ class ThemeState with _$ThemeState {
   ThemeState._();
   factory ThemeState({
     required ThemeData themeData,
+    required Locale currentLang,
   }) = _ThemeState;
 
-  factory ThemeState.initial() => ThemeState(themeData: lightTheme);
+  factory ThemeState.initial() => ThemeState(
+        themeData: lightTheme,
+        currentLang: const Locale('zh' 'TW'),
+      );
 }
 
 ThemeData get darkTheme => ThemeData(

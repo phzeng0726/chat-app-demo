@@ -3,6 +3,7 @@ import 'package:chat_app_demo/presentation/chat/chat_page.dart';
 import 'package:chat_app_demo/presentation/register/register_page.dart';
 import 'package:chat_app_demo/presentation/sign_in/sign_in_page.dart';
 import '../home/home.dart';
+import '../setting/setting_page.dart';
 import '../splash/splash_page.dart';
 import '../user_profile/user_profile_edit_page.dart';
 import '../user_profile/user_profile_page.dart';
@@ -32,6 +33,8 @@ import '../user_profile/user_profile_page.dart';
         AutoRoute(page: ChatPage, path: 'chat'),
         AutoRoute(page: UserProfilePage, path: 'profile'),
         AutoRoute(page: UserProfileEditPage, path: 'edit'),
+        AutoRoute(page: SettingPage, path: 'setting'),
+
         // AutoRoute(
         //   page: EmptyRouterPage,
         //   path: 'user-profile',

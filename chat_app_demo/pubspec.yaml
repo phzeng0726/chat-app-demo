@@ -39,11 +39,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_i18n: ^0.32.4
   flutter_localizations:
     sdk: flutter
   freezed_annotation: ^1.0.0
   image_picker: ^0.8.5+3
-  intl: ^0.17.0
   json_serializable: ^6.2.0
   logger: ^1.1.0
   path_provider: ^2.0.11
@@ -58,7 +58,6 @@ dev_dependencies:
     sdk: flutter
   freezed: ^1.1.0
   injectable_generator: null
-  intl_generator : ^0.2.1
   mocktail: ^0.3.0
 
 # For information on the generic Dart part of this file, see the
@@ -68,11 +67,14 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-  generate: true
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/i18n/
+    # - assets/i18n
+    # - assets/i18n/en_US.json
+    # - assets/i18n/en_US.json
+
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

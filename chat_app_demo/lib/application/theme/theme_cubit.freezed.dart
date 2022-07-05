@@ -18,9 +18,11 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ThemeStateTearOff {
   const _$ThemeStateTearOff();
 
-  _ThemeState call({required ThemeData themeData}) {
+  _ThemeState call(
+      {required ThemeData themeData, required Locale currentLang}) {
     return _ThemeState(
       themeData: themeData,
+      currentLang: currentLang,
     );
   }
 }
@@ -31,6 +33,7 @@ const $ThemeState = _$ThemeStateTearOff();
 /// @nodoc
 mixin _$ThemeState {
   ThemeData get themeData => throw _privateConstructorUsedError;
+  Locale get currentLang => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ThemeStateCopyWith<ThemeState> get copyWith =>
@@ -42,7 +45,7 @@ abstract class $ThemeStateCopyWith<$Res> {
   factory $ThemeStateCopyWith(
           ThemeState value, $Res Function(ThemeState) then) =
       _$ThemeStateCopyWithImpl<$Res>;
-  $Res call({ThemeData themeData});
+  $Res call({ThemeData themeData, Locale currentLang});
 }
 
 /// @nodoc
@@ -56,12 +59,17 @@ class _$ThemeStateCopyWithImpl<$Res> implements $ThemeStateCopyWith<$Res> {
   @override
   $Res call({
     Object? themeData = freezed,
+    Object? currentLang = freezed,
   }) {
     return _then(_value.copyWith(
       themeData: themeData == freezed
           ? _value.themeData
           : themeData // ignore: cast_nullable_to_non_nullable
               as ThemeData,
+      currentLang: currentLang == freezed
+          ? _value.currentLang
+          : currentLang // ignore: cast_nullable_to_non_nullable
+              as Locale,
     ));
   }
 }
@@ -72,7 +80,7 @@ abstract class _$ThemeStateCopyWith<$Res> implements $ThemeStateCopyWith<$Res> {
           _ThemeState value, $Res Function(_ThemeState) then) =
       __$ThemeStateCopyWithImpl<$Res>;
   @override
-  $Res call({ThemeData themeData});
+  $Res call({ThemeData themeData, Locale currentLang});
 }
 
 /// @nodoc
@@ -88,12 +96,17 @@ class __$ThemeStateCopyWithImpl<$Res> extends _$ThemeStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? themeData = freezed,
+    Object? currentLang = freezed,
   }) {
     return _then(_ThemeState(
       themeData: themeData == freezed
           ? _value.themeData
           : themeData // ignore: cast_nullable_to_non_nullable
               as ThemeData,
+      currentLang: currentLang == freezed
+          ? _value.currentLang
+          : currentLang // ignore: cast_nullable_to_non_nullable
+              as Locale,
     ));
   }
 }
@@ -101,14 +114,17 @@ class __$ThemeStateCopyWithImpl<$Res> extends _$ThemeStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ThemeState extends _ThemeState {
-  _$_ThemeState({required this.themeData}) : super._();
+  _$_ThemeState({required this.themeData, required this.currentLang})
+      : super._();
 
   @override
   final ThemeData themeData;
+  @override
+  final Locale currentLang;
 
   @override
   String toString() {
-    return 'ThemeState(themeData: $themeData)';
+    return 'ThemeState(themeData: $themeData, currentLang: $currentLang)';
   }
 
   @override
@@ -116,12 +132,16 @@ class _$_ThemeState extends _ThemeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ThemeState &&
-            const DeepCollectionEquality().equals(other.themeData, themeData));
+            const DeepCollectionEquality().equals(other.themeData, themeData) &&
+            const DeepCollectionEquality()
+                .equals(other.currentLang, currentLang));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(themeData));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(themeData),
+      const DeepCollectionEquality().hash(currentLang));
 
   @JsonKey(ignore: true)
   @override
@@ -130,11 +150,15 @@ class _$_ThemeState extends _ThemeState {
 }
 
 abstract class _ThemeState extends ThemeState {
-  factory _ThemeState({required ThemeData themeData}) = _$_ThemeState;
+  factory _ThemeState(
+      {required ThemeData themeData,
+      required Locale currentLang}) = _$_ThemeState;
   _ThemeState._() : super._();
 
   @override
   ThemeData get themeData;
+  @override
+  Locale get currentLang;
   @override
   @JsonKey(ignore: true)
   _$ThemeStateCopyWith<_ThemeState> get copyWith =>

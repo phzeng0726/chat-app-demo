@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../../application/auth/auth_cubit.dart';
 import '../../application/theme/theme_cubit.dart';
@@ -31,8 +33,19 @@ class AppWidget extends StatelessWidget {
             // title: FlutterBlocLocalizations().appTitle,
             debugShowCheckedModeBanner: false,
             theme: state.themeData,
-            // localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
-            supportedLocales: const [Locale('en'), Locale('zh', 'TW')],
+            localizationsDelegates: [
+              FlutterI18nDelegate(
+                translationLoader: FileTranslationLoader(
+                  useCountryCode: true,
+                  fallbackFile: 'zh_tw',
+                  basePath: 'assets/i18n',
+                  forcedLocale: state.currentLang,
+                ),
+              ),
+              GlobalWidgetsLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+            ],
+            supportedLocales: const [Locale('en','US'), Locale('zh', 'TW')],
             // onGenerateRoute: AppRouter.onGenerateRoute,
             // initialRoute: SplashScreen.routeName,
             // builder: ExtendedNavigator.builder(router: app_router.Router()),

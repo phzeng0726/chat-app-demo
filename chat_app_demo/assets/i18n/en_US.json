@@ -1,0 +1,12 @@
+{
+    "login": {
+        "login": "Login",
+        "username": "Username",
+        "password": "password"
+    },
+    "setting": {
+        "theme": "Theme",
+        "language": "Language",
+        "switchLangMsg": "Switch language to {lang}"
+    }
+}

@@ -13,7 +13,14 @@ class ThemeCubit extends Cubit<ThemeState> {
       state.copyWith(
           themeData: (state.themeData == darkTheme) ? lightTheme : darkTheme),
     );
-    print(state.themeData);
+  }
+
+  void changeLanguage(Locale changedLang) {
+    emit(
+      state.copyWith(
+        currentLang: changedLang,
+      ),
+    );
   }
 
   @override

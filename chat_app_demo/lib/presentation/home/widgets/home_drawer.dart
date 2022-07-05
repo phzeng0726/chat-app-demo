@@ -1,5 +1,9 @@
+import 'package:chat_app_demo/application/theme/theme_cubit.dart';
+import 'package:chat_app_demo/injection.dart';
+import 'package:chat_app_demo/presentation/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../application/auth/auth_cubit.dart';
 import '../../../constants.dart';
@@ -45,27 +49,28 @@ class HomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        // Important: Remove any padding from the ListView.
-        padding: EdgeInsets.zero,
-        children: [
-          _drawerHeader(context),
-          ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('設定'),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(Icons.info_outline),
-            title: const Text('介紹'),
-            onTap: () {},
-          ),
-          ElevatedButton(
-            onPressed: () => context.read<AuthCubit>().signedOut(),
-            child: const Text('登出'),
-          )
-        ],
-      ),
-    );
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            _drawerHeader(context),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('設定'),
+              onTap: () => getIt<RootRouter>().push(const SettingRoute())
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text('介紹'),
+              onTap: () {},
+            ),
+            ElevatedButton(
+              onPressed: () => context.read<AuthCubit>().signedOut(),
+              child: const Text('登出'),
+            )
+          ],
+        ),
+      )
+    ;
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../application/auth/auth_cubit.dart';
 import '../../../application/auth/sign_in_form/sign_in_form_cubit.dart';
@@ -55,7 +56,7 @@ class SignInForm extends StatelessWidget {
             SizedBox(
               width: double.infinity, // <-- match_parent
               child: ElevatedButton(
-                child: const Text('登入'),
+                child: Text(FlutterI18n.translate(context, "login.login")),
                 onPressed: () => context
                     .read<SignInFormCubit>()
                     .signInWithEmailAndPasswordPressed(),
