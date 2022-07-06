@@ -92,9 +92,17 @@ class HomeCubit extends Cubit<HomeState> {
     final failureOption = await _homeRepository.inviteFriend(
       otherUserId: otherUserId,
     );
-    emit(
-      state.copyWith(
-        failureOption: failureOption,
+
+    failureOption.fold(
+      () => emit(
+        state.copyWith(
+          failureOption: none(),
+        ),
+      ),
+      (f) => emit(
+        state.copyWith(
+          failureOption: some(f),
+        ),
       ),
     );
   }

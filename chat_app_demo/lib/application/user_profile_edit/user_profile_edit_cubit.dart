@@ -119,7 +119,7 @@ class UserProfileEditCubit extends Cubit<UserProfileEditState> {
 
   Future<void> updateUserProfile() async {
     Option<HomeFailure> failureOption;
-    
+
     emit(
       state.copyWith(
         isUpdating: true,
@@ -129,10 +129,18 @@ class UserProfileEditCubit extends Cubit<UserProfileEditState> {
     failureOption = await _homeRepository.updateUserProfile(
       user: state.user,
     );
-    emit(
-      state.copyWith(
-        isUpdating: false,
-        failureOption: failureOption,
+    failureOption.fold(
+      () => emit(
+        state.copyWith(
+          failureOption: none(),
+          isUpdating: false,
+        ),
+      ),
+      (f) => emit(
+        state.copyWith(
+          failureOption: some(f),
+          isUpdating: false,
+        ),
       ),
     );
   }
