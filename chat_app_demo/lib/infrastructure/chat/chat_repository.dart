@@ -66,7 +66,6 @@ class ChatRepository implements IChatRepository {
       );
       return right(messageDoc.id);
     } catch (e) {
-
       LoggerService.simple.i('[ChatRepository] $e');
       if (e is FirebaseException && e.code == 'permission-denied') {
         return left(const ChatFailure.insufficientPermission());

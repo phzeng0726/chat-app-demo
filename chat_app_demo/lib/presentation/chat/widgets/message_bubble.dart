@@ -1,7 +1,7 @@
-import '../../../application/theme/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/theme/theme_cubit.dart';
 import '../../../constants.dart';
 import '../../../domain/chat/bubble_theme.dart';
 import '../../../domain/chat/chat_message.dart';

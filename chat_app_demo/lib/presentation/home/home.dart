@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -29,47 +30,71 @@ class HomePage extends StatelessWidget {
             ),
         ),
       ],
-      child: SafeArea(
-        child: DefaultTabController(
-          length: 2,
-          child: TapOutDismissKeyboard(
-            child: Scaffold(
-              drawer: HomeDrawer(
-                currentUser: currentUser,
-              ),
-              appBar: AppBar(
-                title: Text(FlutterI18n.translate(context, "home.title")),
-                centerTitle: true,
-                bottom: TabBar(
-                  tabs: [
-                    Tab(
-                        icon: const Icon(Icons.face),
-                        text: FlutterI18n.translate(context, "home.myFriends")),
-                    Tab(
-                        icon: const Icon(Icons.search),
-                        text: FlutterI18n.translate(context, "home.search"))
-                  ],
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<AuthCubit, AuthState>(
+            listenWhen: (p, c) => p.user != c.user,
+            listener: (context, state) {
+              context
+                  .read<HomeCubit>()
+                  .fetchFriendListStarted(user: state.user);
+            },
+          ),
+          BlocListener<HomeCubit, HomeState>(
+            listenWhen: (p, c) => p.failureOption != c.failureOption,
+            listener: (context, state) {
+              state.failureOption.fold(
+                () => null,
+                (failure) {
+                  FlushbarHelper.createError(
+                      message: failure.map(
+                    serverError: (_) => FlutterI18n.translate(
+                        context, "home.homeFailure.serverError"),
+                    unexpected: (_) => FlutterI18n.translate(
+                        context, "home.homeFailure.unexpected"),
+                    insufficientPermission: (_) => FlutterI18n.translate(
+                        context, "home.homeFailure.insufficientPermission"),
+                    userNotExist: (_) => FlutterI18n.translate(
+                        context, "home.homeFailure.userNotExist"),
+                  )).show(context);
+                },
+              );
+            },
+          )
+        ],
+        child: SafeArea(
+          child: DefaultTabController(
+            length: 2,
+            child: TapOutDismissKeyboard(
+              child: Scaffold(
+                drawer: HomeDrawer(
+                  currentUser: currentUser,
                 ),
-              ),
-              body: BlocConsumer<AuthCubit, AuthState>(
-                listenWhen: (p, c) => p.user != c.user,
-                listener: (context, state) {
-                  context
-                      .read<HomeCubit>()
-                      .fetchFriendListStarted(user: state.user);
-                },
-                builder: (context, state) {
-                  return BlocBuilder<HomeCubit, HomeState>(
-                    builder: (context, state) {
-                      return const TabBarView(
-                        children: [
-                          FriendsOverviewBody(),
-                          SearchUserOverviewBody(),
-                        ],
-                      );
-                    },
-                  );
-                },
+                appBar: AppBar(
+                  title: Text(FlutterI18n.translate(context, "home.title")),
+                  centerTitle: true,
+                  bottom: TabBar(
+                    tabs: [
+                      Tab(
+                          icon: const Icon(Icons.face),
+                          text:
+                              FlutterI18n.translate(context, "home.myFriends")),
+                      Tab(
+                          icon: const Icon(Icons.search),
+                          text: FlutterI18n.translate(context, "home.search"))
+                    ],
+                  ),
+                ),
+                body: BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    return const TabBarView(
+                      children: [
+                        FriendsOverviewBody(),
+                        SearchUserOverviewBody(),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           ),

@@ -9,6 +9,4 @@ abstract class ChatFailure with _$ChatFailure {
   const factory ChatFailure.serverError() = _ServerError;
   const factory ChatFailure.insufficientPermission() = _InsufficientPermission;
   const factory ChatFailure.unexpected() = _Unexpected; // 未知錯誤
-
-  const factory ChatFailure.userNotExist() = _UserNotExist; 
 }

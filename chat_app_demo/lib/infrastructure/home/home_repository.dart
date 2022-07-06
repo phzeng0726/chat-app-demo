@@ -98,44 +98,6 @@ class HomeRepository implements IHomeRepository {
   }
 
   @override
-  Future<Option<HomeFailure>> inviteFriend({
-    required String otherUserId,
-  }) async {
-    try {
-      final userDoc = await _firestore.userDocument();
-      final user = await userDoc.get().then(
-            (doc) => UserDto.fromFirestore(doc).toDomain(),
-          );
-      final friendIdList = user.friendIdList;
-      friendIdList.add(otherUserId);
-
-      final otherUserDoc = _firestore.userListCollection.doc(otherUserId);
-      final otherUser = await otherUserDoc.get().then(
-            (doc) => UserDto.fromFirestore(doc).toDomain(),
-          );
-      final otherFriendIdList = otherUser.friendIdList;
-      otherFriendIdList.add(user.userId);
-
-      await userDoc.update(
-          UserDto.fromDomain(user.copyWith(friendIdList: friendIdList))
-              .toJson());
-
-      await otherUserDoc.update(UserDto.fromDomain(
-              otherUser.copyWith(friendIdList: otherFriendIdList))
-          .toJson());
-
-      return none();
-    } catch (e) {
-      LoggerService.simple.i('[HomeRepository] $e');
-      if (e is FirebaseException && e.code == 'permission-denied') {
-        return some(const HomeFailure.insufficientPermission());
-      } else {
-        return some(const HomeFailure.unexpected());
-      }
-    }
-  }
-
-  @override
   Future<Either<HomeFailure, String>> uploadImage({
     required String userId,
     required String inputSource,
@@ -183,7 +145,45 @@ class HomeRepository implements IHomeRepository {
   }
 
   @override
-  Future<Either<HomeFailure, String>> updateUserProfile({
+  Future<Option<HomeFailure>> inviteFriend({
+    required String otherUserId,
+  }) async {
+    try {
+      final userDoc = await _firestore.userDocument();
+      final user = await userDoc.get().then(
+            (doc) => UserDto.fromFirestore(doc).toDomain(),
+          );
+      final friendIdList = user.friendIdList;
+      friendIdList.add(otherUserId);
+
+      final otherUserDoc = _firestore.userListCollection.doc(otherUserId);
+      final otherUser = await otherUserDoc.get().then(
+            (doc) => UserDto.fromFirestore(doc).toDomain(),
+          );
+      final otherFriendIdList = otherUser.friendIdList;
+      otherFriendIdList.add(user.userId);
+
+      await userDoc.update(
+          UserDto.fromDomain(user.copyWith(friendIdList: friendIdList))
+              .toJson());
+
+      await otherUserDoc.update(UserDto.fromDomain(
+              otherUser.copyWith(friendIdList: otherFriendIdList))
+          .toJson());
+
+      return none();
+    } catch (e) {
+      LoggerService.simple.i('[HomeRepository] $e');
+      if (e is FirebaseException && e.code == 'permission-denied') {
+        return some(const HomeFailure.insufficientPermission());
+      } else {
+        return some(const HomeFailure.unexpected());
+      }
+    }
+  }
+
+  @override
+  Future<Option<HomeFailure>> updateUserProfile({
     required User user,
   }) async {
     try {
@@ -192,13 +192,13 @@ class HomeRepository implements IHomeRepository {
         UserDto.fromDomain(user).toJson(),
       );
 
-      return right(userDoc.id);
+      return none();
     } catch (e) {
       LoggerService.simple.i('[HomeRepository] $e');
       if (e is FirebaseException && e.code == 'permission-denied') {
-        return left(const HomeFailure.insufficientPermission());
+        return some(const HomeFailure.insufficientPermission());
       } else {
-        return left(const HomeFailure.unexpected());
+        return some(const HomeFailure.unexpected());
       }
     }
   }

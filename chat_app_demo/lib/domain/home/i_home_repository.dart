@@ -17,17 +17,17 @@ abstract class IHomeRepository {
   Stream<Either<HomeFailure, List<String>>> watchGroupChat({
     required String userId,
   });
-
-  Future<Option<HomeFailure>> inviteFriend({
-    required String otherUserId,
-  });
-
+  
   Future<Either<HomeFailure, String>> uploadImage({
     required String userId,
     required String inputSource,
   });
 
-  Future<Either<HomeFailure, String>> updateUserProfile({
+  Future<Option<HomeFailure>> inviteFriend({
+    required String otherUserId,
+  });
+
+  Future<Option<HomeFailure>> updateUserProfile({
     required User user,
   });
 }

@@ -7,7 +7,6 @@ import '../../application/auth/auth_cubit.dart';
 import '../../application/chat/chat_cubit.dart';
 import '../../domain/auth/user.dart';
 import '../../domain/chat/i_chat_repository.dart';
-import '../../domain/core/logger.dart';
 import '../../injection.dart';
 import '../core/widgets/load_status_screen.dart';
 import 'widgets/message_enter_box.dart';
@@ -42,21 +41,19 @@ class ChatPage extends StatelessWidget {
                     context, "chat.chatFailure.unexpected"),
                 insufficientPermission: (_) => FlutterI18n.translate(
                     context, "chat.chatFailure.insufficientPermission"),
-                userNotExist: (_) => FlutterI18n.translate(
-                    context, "chat.chatFailure.userNotExist"),
               )).show(context);
             },
           );
         },
         builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(otherUser.userName),
-              centerTitle: true,
-            ),
-            body: BlocBuilder<ChatCubit, ChatState>(
-              builder: (context, state) {
-                return LoadStatusScreen(
+          return BlocBuilder<ChatCubit, ChatState>(
+            builder: (context, state) {
+              return Scaffold(
+                appBar: AppBar(
+                  title: Text(otherUser.userName),
+                  centerTitle: true,
+                ),
+                body: LoadStatusScreen(
                   loadStatus: state.loadStatus,
                   succeedScreen: Column(
                     children: [
@@ -71,9 +68,9 @@ class ChatPage extends StatelessWidget {
                       )
                     ],
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           );
         },
       ),

@@ -86,7 +86,9 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  void inviteFriendPressed({required String otherUserId}) async {
+  void inviteFriendPressed({
+    required String otherUserId,
+  }) async {
     final failureOption = await _homeRepository.inviteFriend(
       otherUserId: otherUserId,
     );

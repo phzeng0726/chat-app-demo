@@ -26,18 +26,18 @@ class UserProfileEditCubit extends Cubit<UserProfileEditState> {
   void cameraButtonPressed({
     required String userId,
   }) async {
-    Either<HomeFailure, String> failureOrFileUrl;
+    Either<HomeFailure, String> failureOrFileURL;
     emit(
       state.copyWith(
         isUploadingImage: true,
       ),
     );
-    failureOrFileUrl = await _homeRepository.uploadImage(
+    failureOrFileURL = await _homeRepository.uploadImage(
       userId: userId,
       inputSource: 'camera',
     );
 
-    failureOrFileUrl.fold(
+    failureOrFileURL.fold(
       (f) => emit(
         state.copyWith(
           failureOption: some(f),
@@ -63,18 +63,18 @@ class UserProfileEditCubit extends Cubit<UserProfileEditState> {
   void galleryButtonPressed({
     required String userId,
   }) async {
-    Either<HomeFailure, String> failureOrFileUrl;
+    Either<HomeFailure, String> failureOrFileURL;
     emit(
       state.copyWith(
         isUploadingImage: true,
       ),
     );
-    failureOrFileUrl = await _homeRepository.uploadImage(
+    failureOrFileURL = await _homeRepository.uploadImage(
       userId: userId,
       inputSource: 'gallery',
     );
 
-    failureOrFileUrl.fold(
+    failureOrFileURL.fold(
       (f) => emit(
         state.copyWith(
           failureOption: some(f),
@@ -118,26 +118,21 @@ class UserProfileEditCubit extends Cubit<UserProfileEditState> {
   }
 
   Future<void> updateUserProfile() async {
-    Either<HomeFailure, String> failureOrUserIdOption;
+    Option<HomeFailure> failureOption;
+    
     emit(
       state.copyWith(
         isUpdating: true,
       ),
     );
 
-    failureOrUserIdOption = await _homeRepository.updateUserProfile(
+    failureOption = await _homeRepository.updateUserProfile(
       user: state.user,
     );
-    failureOrUserIdOption.fold(
-      (f) => state.copyWith(
+    emit(
+      state.copyWith(
         isUpdating: false,
-        failureOption: some(f),
-      ),
-      (_) => emit(
-        state.copyWith(
-          isUpdating: false,
-          failureOption: none(),
-        ),
+        failureOption: failureOption,
       ),
     );
   }
