@@ -9,10 +9,10 @@ import '../../../constants.dart';
 import '../../../domain/auth/user.dart';
 import '../../../domain/core/logger.dart';
 import '../../../injection.dart';
+import '../../core/widgets/uesr_profile_avatar.dart';
 import '../../routes/router.gr.dart';
 import 'search_user_box.dart';
 
-// TODO: [雙語]
 class SearchUserOverviewBody extends StatelessWidget {
   const SearchUserOverviewBody({Key? key}) : super(key: key);
 
@@ -24,14 +24,16 @@ class SearchUserOverviewBody extends StatelessWidget {
         state.failureOption.fold(
           () => null,
           (failure) {
-            LoggerService.simple.i(failure);
-
             FlushbarHelper.createError(
                 message: failure.map(
-              serverError: (_) => '伺服器有問題，請稍候再試',
-              unexpected: (_) => '未知的錯誤',
-              insufficientPermission: (_) => '沒有權限',
-              userNotExist: (_) => '查無此用戶',
+              serverError: (_) => FlutterI18n.translate(
+                  context, "home.homeFailure.serverError"),
+              unexpected: (_) => FlutterI18n.translate(
+                  context, "home.homeFailure.unexpected"),
+              insufficientPermission: (_) => FlutterI18n.translate(
+                  context, "home.homeFailure.insufficientPermission"),
+              userNotExist: (_) => FlutterI18n.translate(
+                  context, "home.homeFailure.userNotExist"),
             )).show(context);
           },
         );
@@ -61,6 +63,7 @@ class SearchUserOverviewBody extends StatelessWidget {
                         onTap: () => getIt<RootRouter>()
                             .push(ChatRoute(otherUser: user)),
                         title: Text(user.userName),
+                        leading: UserProfileAvatar(user: user),
                         trailing: ElevatedButton.icon(
                           onPressed: isFriend
                               ? null

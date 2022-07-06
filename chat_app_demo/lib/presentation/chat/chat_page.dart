@@ -1,10 +1,13 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../application/auth/auth_cubit.dart';
 import '../../application/chat/chat_cubit.dart';
 import '../../domain/auth/user.dart';
 import '../../domain/chat/i_chat_repository.dart';
+import '../../domain/core/logger.dart';
 import '../../injection.dart';
 import '../core/widgets/load_status_screen.dart';
 import 'widgets/message_enter_box.dart';
@@ -25,31 +28,54 @@ class ChatPage extends StatelessWidget {
           currentUserId: context.read<AuthCubit>().state.user.userId,
           otherUserId: otherUser.userId,
         ),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(otherUser.userName),
-          centerTitle: true,
-        ),
-        body: BlocBuilder<ChatCubit, ChatState>(
-          builder: (context, state) {
-            return LoadStatusScreen(
-              loadStatus: state.loadStatus,
-              succeedScreen: Column(
-                children: [
-                  Expanded(
-                    child: MessageOverviewBody(
-                      otherUser: otherUser,
-                    ),
+      child: BlocConsumer<ChatCubit, ChatState>(
+        listenWhen: (p, c) => p.failureOption != c.failureOption,
+        listener: (context, state) {
+          state.failureOption.fold(
+            () => null,
+            (failure) {
+              FlushbarHelper.createError(
+                  message: failure.map(
+                serverError: (_) => FlutterI18n.translate(
+                    context, "chat.chatFailure.serverError"),
+                unexpected: (_) => FlutterI18n.translate(
+                    context, "chat.chatFailure.unexpected"),
+                insufficientPermission: (_) => FlutterI18n.translate(
+                    context, "chat.chatFailure.insufficientPermission"),
+                userNotExist: (_) => FlutterI18n.translate(
+                    context, "chat.chatFailure.userNotExist"),
+              )).show(context);
+            },
+          );
+        },
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(otherUser.userName),
+              centerTitle: true,
+            ),
+            body: BlocBuilder<ChatCubit, ChatState>(
+              builder: (context, state) {
+                return LoadStatusScreen(
+                  loadStatus: state.loadStatus,
+                  succeedScreen: Column(
+                    children: [
+                      Expanded(
+                        child: MessageOverviewBody(
+                          otherUser: otherUser,
+                        ),
+                      ),
+                      const Align(
+                        alignment: Alignment.bottomCenter,
+                        child: MessageEnterBox(),
+                      )
+                    ],
                   ),
-                  const Align(
-                    alignment: Alignment.bottomCenter,
-                    child: MessageEnterBox(),
-                  )
-                ],
-              ),
-            );
-          },
-        ),
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }

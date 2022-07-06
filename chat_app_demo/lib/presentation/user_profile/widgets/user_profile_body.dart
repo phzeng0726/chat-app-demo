@@ -115,25 +115,27 @@ class UserProfileBody extends StatelessWidget {
                       _buildAboutMeListTile(context),
                     ],
                   ),
-                  Positioned(
-                    top: -(64 / 2), // 64 is default fab size
-                    right: 24,
-                    child: FloatingActionButton(
-                      backgroundColor: Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withOpacity(0.9),
-                      child: const Icon(
-                        Icons.add_a_photo,
-                        color: Colors.white,
+                  if (isEditable) ...[
+                    Positioned(
+                      top: -(64 / 2), // 64 is default fab size
+                      right: 24,
+                      child: FloatingActionButton(
+                        backgroundColor: Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withOpacity(0.9),
+                        child: const Icon(
+                          Icons.add_a_photo,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return _buildImagePickBottomSheet();
+                            }),
                       ),
-                      onPressed: () => showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return _buildImagePickBottomSheet();
-                          }),
-                    ),
-                  ),
+                    )
+                  ],
                 ],
               ),
             ),

@@ -24,8 +24,8 @@ class EmailAddressBox extends StatelessWidget {
           // obscureText: state.isPWObscure,
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.assignment_ind),
-            labelText: FlutterI18n.translate(context, "login.emailAddress"),
-            hintText: FlutterI18n.translate(context, "login.emailAddressHint"),
+            labelText: FlutterI18n.translate(context, "auth.emailAddress"),
+            hintText: FlutterI18n.translate(context, "auth.emailAddressHint"),
           ),
         );
       },

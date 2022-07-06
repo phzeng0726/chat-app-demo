@@ -36,7 +36,7 @@ class ChatRepository implements IChatRepository {
         .map((snapshot) => right<ChatFailure, List<ChatMessage>>(
             ChatMessageListDto.fromFirestore(snapshot).toDomain()))
       ..onErrorReturnWith((e, stackTrace) {
-        LoggerService.simple.i(e);
+        LoggerService.simple.i('[ChatRepository] $e');
         if (e is FirebaseException && e.code == 'permission-denied') {
           return left(const ChatFailure.insufficientPermission());
         } else {
@@ -66,8 +66,13 @@ class ChatRepository implements IChatRepository {
       );
       return right(messageDoc.id);
     } catch (e) {
-      LoggerService.simple.i(e);
-      return left(const ChatFailure.insufficientPermission());
+
+      LoggerService.simple.i('[ChatRepository] $e');
+      if (e is FirebaseException && e.code == 'permission-denied') {
+        return left(const ChatFailure.insufficientPermission());
+      } else {
+        return left(const ChatFailure.unexpected());
+      }
     }
   }
 

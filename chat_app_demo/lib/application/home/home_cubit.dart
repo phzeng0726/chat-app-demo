@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:chat_app_demo/domain/home/home_failure.dart';
-import 'package:chat_app_demo/domain/home/i_home_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/auth/user.dart';
 import '../../domain/core/load_status.dart';
+import '../../domain/home/home_failure.dart';
+import '../../domain/home/i_home_repository.dart';
 
 part 'home_cubit.freezed.dart';
 part 'home_state.dart';
@@ -27,7 +27,9 @@ class HomeCubit extends Cubit<HomeState> {
         friendListLoadStatus: const LoadStatus.inProgress(),
       ),
     );
-    failureOrUserList = await _homeRepository.fetchFriendList(user: user);
+    failureOrUserList = await _homeRepository.fetchFriendList(
+      user: user,
+    );
 
     failureOrUserList.fold(
       (f) => emit(
@@ -84,9 +86,15 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-
-  void inviteFriendPressed({required String otherUserId}) {
-    _homeRepository.inviteFriend(otherUserId: otherUserId);
+  void inviteFriendPressed({required String otherUserId}) async {
+    final failureOption = await _homeRepository.inviteFriend(
+      otherUserId: otherUserId,
+    );
+    emit(
+      state.copyWith(
+        failureOption: failureOption,
+      ),
+    );
   }
 
   @override

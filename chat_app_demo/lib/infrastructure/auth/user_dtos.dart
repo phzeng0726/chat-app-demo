@@ -1,4 +1,4 @@
-import 'package:chat_app_demo/domain/core/device_time_stamp.dart';
+import '../../domain/core/device_time_stamp.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

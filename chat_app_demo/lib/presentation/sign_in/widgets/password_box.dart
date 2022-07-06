@@ -31,8 +31,8 @@ class PasswordBox extends StatelessWidget {
                   ? const Icon(Icons.visibility)
                   : const Icon(Icons.visibility_off),
             ),
-            labelText: FlutterI18n.translate(context, "login.password"),
-            hintText: FlutterI18n.translate(context, "login.passwordHint"),
+            labelText: FlutterI18n.translate(context, "auth.password"),
+            hintText: FlutterI18n.translate(context, "auth.passwordHint"),
           ),
         );
       },

@@ -1,7 +1,8 @@
-import '../../domain/chat/chat_message.dart';
-import '../../domain/core/device_time_stamp.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../domain/chat/chat_message.dart';
+import '../../domain/core/device_time_stamp.dart';
 
 part 'chat_message_dtos.freezed.dart';
 part 'chat_message_dtos.g.dart';

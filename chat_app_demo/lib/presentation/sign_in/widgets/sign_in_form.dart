@@ -27,24 +27,23 @@ class SignInForm extends StatelessWidget {
           (either) {
             either.fold(
               (failure) {
-                LoggerService.simple.i(failure);
-
                 FlushbarHelper.createError(
                     message: failure.map(
                   serverError: (_) => FlutterI18n.translate(
-                      context, "login.authError.serverError"),
+                      context, "auth.authError.serverError"),
                   unexpected: (_) => FlutterI18n.translate(
-                      context, "login.authError.unexpected"),
+                      context, "auth.authError.unexpected"),
                   insufficientPermission: (_) => FlutterI18n.translate(
-                      context, "login.authError.insufficientPermission"),
-                  invalidEmailAndPassword: (_) => FlutterI18n.translate(
-                      context, "login.authError.invalidEmailAndPassword"), // 只有sign_in才有這個
+                      context, "auth.authError.insufficientPermission"),
+                  invalidEmailAndPassword: (_) => FlutterI18n.translate(context,
+                      "auth.authError.invalidEmailAndPassword"), // 只有sign_in才有這個
                   emailAddressAlreadyInUse: (_) => FlutterI18n.translate(
-                      context, "login.authError.emailAddressAlreadyInUse"), // 只有register才有這個
+                      context,
+                      "auth.authError.emailAddressAlreadyInUse"), // 只有register才有這個
                   invalidEmail: (_) => FlutterI18n.translate(
-                      context, "login.authError.invalidEmail"), // 只有register才有這個
+                      context, "auth.authError.invalidEmail"), // 只有register才有這個
                   weakPassword: (_) => FlutterI18n.translate(
-                      context, "login.authError.weakPassword"), // 只有register才有這個
+                      context, "auth.authError.weakPassword"), // 只有register才有這個
                 )).show(context);
               },
               (_) {
@@ -55,57 +54,67 @@ class SignInForm extends StatelessWidget {
         );
       },
       builder: (context, state) {
-        return Column(
-          children: [
-            const EmailAddressBox(),
-            const PasswordBox(),
-            const SizedBox(height: kDefaultHeightSize),
-            SizedBox(
-              width: double.infinity, // <-- match_parent
-              child: ElevatedButton(
-                child: Text(FlutterI18n.translate(context, "login.login")),
-                onPressed: () => context
-                    .read<SignInFormCubit>()
-                    .signInWithEmailAndPasswordPressed(),
-              ),
-            ),
-            const SizedBox(
-              height: kDefaultHeightSize,
-            ),
-            RichText(
-              text: TextSpan(
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText1?.color,
+        return Expanded(
+          child: ListView(
+            children: [
+              const EmailAddressBox(),
+              const PasswordBox(),
+              const SizedBox(height: kDefaultHeightSize),
+              SizedBox(
+                width: double.infinity, // <-- match_parent
+                child: ElevatedButton(
+                  child: Text(FlutterI18n.translate(context, "auth.login")),
+                  onPressed: () => context
+                      .read<SignInFormCubit>()
+                      .signInWithEmailAndPasswordPressed(),
                 ),
-                children: [
-                  TextSpan(
-                    text: FlutterI18n.translate(context, "login.notRegistered"),
-                  ),
-                  const TextSpan(
-                    text: "  ",
-                  ),
-                  TextSpan(
-                    text:
-                        FlutterI18n.translate(context, "login.createAnAccount"),
+              ),
+              const SizedBox(
+                height: kDefaultHeightSize,
+              ),
+              Center(
+                child: RichText(
+                  text: TextSpan(
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Theme.of(context).textTheme.bodyText1?.color,
                     ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        getIt<RootRouter>().push(const RegisterRoute());
-                      },
+                    children: [
+                      TextSpan(
+                        text: FlutterI18n.translate(
+                            context, "auth.notRegistered"),
+                      ),
+                      const TextSpan(
+                        text: "  ",
+                      ),
+                      TextSpan(
+                        text: FlutterI18n.translate(
+                            context, "auth.createAnAccount"),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            getIt<RootRouter>().push(const RegisterRoute());
+                          },
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-            if (state.isSubmitting) ...[
-              Text(
-                FlutterI18n.translate(context, "login.submitting"),
+              const SizedBox(
+                height: kDefaultHeightSize,
               ),
-              const SizedBox(height: kDefaultHeightSize / 2),
-              const LinearProgressIndicator()
-            ]
-          ],
+              if (state.isSubmitting) ...[
+                Center(
+                  child: Text(
+                    FlutterI18n.translate(context, "auth.submitting"),
+                  ),
+                ),
+                const SizedBox(height: kDefaultHeightSize / 2),
+                const LinearProgressIndicator()
+              ]
+            ],
+          ),
         );
       },
     );

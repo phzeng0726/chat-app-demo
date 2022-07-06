@@ -1,4 +1,3 @@
-import 'package:chat_app_demo/domain/auth/user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

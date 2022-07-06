@@ -1,15 +1,17 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chat_app_demo/presentation/chat/chat_page.dart';
-import 'package:chat_app_demo/presentation/register/register_page.dart';
-import 'package:chat_app_demo/presentation/sign_in/sign_in_page.dart';
+
+import '../chat/chat_page.dart';
 import '../home/home.dart';
+import '../register/register_page.dart';
 import '../setting/setting_page.dart';
+import '../setting/widgets/introduction_page.dart';
+import '../setting/widgets/langrage_select_page.dart';
+import '../sign_in/sign_in_page.dart';
 import '../splash/splash_page.dart';
 import '../user_profile/user_profile_edit_page.dart';
 import '../user_profile/user_profile_page.dart';
 
 // https://www.youtube.com/watch?v=9oH42_Axr3Q
-// TODO: 記得修改path
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route', // NOTE: 將前者取代為後者，ex: HomePage => HomeRoute
   routes: <AutoRoute>[
@@ -34,83 +36,11 @@ import '../user_profile/user_profile_page.dart';
         AutoRoute(page: UserProfilePage, path: 'profile'),
         AutoRoute(page: UserProfileEditPage, path: 'edit'),
         AutoRoute(page: SettingPage, path: 'setting'),
-
-        // AutoRoute(
-        //   page: EmptyRouterPage,
-        //   path: 'user-profile',
-        //   name: 'UserProfileRouter',
-        //   children: [
-        //     AutoRoute(page: UserProfilePage, path: ''),
-        //     AutoRoute(page: UserProfileEditPage, path: 'edit'),
-        //   ],
-        // ),
-        // AutoRoute(page: UnauthHomePage, path: 'unauth-home', initial: true),
-        // AutoRoute(page: SignInPage, path: 'sign-in'),
-        // AutoRoute(page: RegisterPage, path: 'sign-up'),
-        // AutoRoute(
-        //   page: HomePage,
-        //   path: 'home',
-        //   initial: true,
-        //   children: [
-        //     AutoRoute(
-        //       page: EmptyRouterPage,
-        //       name: 'CompanyInfoRouter',
-        //       path: 'company-info',
-        //       children: [
-        //         AutoRoute(
-        //           page: CompanyInfoPage,
-        //           path: ':companyId',
-        //         ),
-        //         AutoRoute(
-        //           page: CompanyInfoEditPage,
-        //           path: 'edit/:companyId',
-        //         ),
-        //       ],
-        //     ),
-        //     AutoRoute(
-        //       page: EmptyRouterPage,
-        //       name: 'JobOpeningOrTenderRouter',
-        //       path: 'job-opening-or-tender',
-        //       children: [
-        //         AutoRoute(
-        //           page: JobOpeningOrTenderPage,
-        //           path: ':companyId',
-        //         ),
-        //         AutoRoute(
-        //           page: JobOpeningFormPage,
-        //           path: 'job-opening-edit/:companyId',
-        //         ),
-        //         AutoRoute(
-        //           page: TenderFormPage,
-        //           path: 'tender-edit/:companyId',
-        //         ),
-        //       ],
-        //     ),
-        //     AutoRoute(
-        //       page: EmptyRouterPage,
-        //       name: 'JobApplyOrTenderApplyRouter',
-        //       path: 'job-apply-or-tender-apply',
-        //       children: [
-        //         AutoRoute(
-        //           page: JobApplyOrTenderApplyPage,
-        //           path: ':jobId',
-        //         ),
-        //         // AutoRoute(
-        //         //   page: JobOpeningFormPage,
-        //         //   path: 'job-opening-edit/:companyId',
-        //         // ),
-        //         // AutoRoute(
-        //         //   page: TenderFormPage,
-        //         //   path: 'tender-edit/:companyId',
-        //         // ),
-        //       ],
-        //     ),
-        //     // AutoRoute(page: JobOpeningOrTenderPage, path: 'job-opening'),
-        //     // AutoRoute(page: JobOpeningFormPage, path: 'job-opening-form'),
-        //     AutoRoute(page: EmployeeSearchPage, path: 'employee-search'),
+        AutoRoute(page: LangrageSelectPage, path: 'langrage-select'),
+        AutoRoute(page: IntroductionPage, path: 'introduction'),
+        
       ],
     ),
   ],
 )
 class $RootRouter {}
-// TODO:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../application/auth/register_form/register_form_cubit.dart';
 import '../../../domain/auth/auth_validator.dart';
@@ -30,8 +31,8 @@ class PasswordBox extends StatelessWidget {
                   ? const Icon(Icons.visibility)
                   : const Icon(Icons.visibility_off),
             ),
-            labelText: '密碼',
-            hintText: '6 - 20 個英數字',
+            labelText: FlutterI18n.translate(context, "auth.password"),
+            hintText: FlutterI18n.translate(context, "auth.passwordHint"),
           ),
         );
       },

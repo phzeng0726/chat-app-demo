@@ -60,8 +60,8 @@ class HomeDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.info_outline),
             title: Text(
-                FlutterI18n.translate(context, "home.drawer.introduction")),
-            onTap: () {},
+                FlutterI18n.translate(context, "home.drawer.introduction.title")),
+            onTap: () => getIt<RootRouter>().push(const IntroductionRoute()),
           ),
           ElevatedButton(
             onPressed: () => context.read<AuthCubit>().signedOut(),

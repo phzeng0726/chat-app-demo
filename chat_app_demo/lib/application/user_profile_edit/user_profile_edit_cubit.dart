@@ -1,10 +1,10 @@
-import 'package:chat_app_demo/domain/home/i_home_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/auth/user.dart';
 import '../../domain/home/home_failure.dart';
+import '../../domain/home/i_home_repository.dart';
 
 part 'user_profile_edit_cubit.freezed.dart';
 part 'user_profile_edit_state.dart';

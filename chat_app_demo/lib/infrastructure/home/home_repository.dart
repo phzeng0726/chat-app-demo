@@ -6,8 +6,9 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
-import 'package:rxdart/rxdart.dart'; // 為了使用 onErrorReturnWith
 import 'package:path/path.dart' as path;
+import 'package:rxdart/rxdart.dart'; // 為了使用 onErrorReturnWith
+
 import '../../domain/auth/user.dart';
 import '../../domain/core/logger.dart';
 import '../../domain/home/home_failure.dart';
@@ -41,7 +42,7 @@ class HomeRepository implements IHomeRepository {
         return right<HomeFailure, List<User>>(<User>[]);
       }
     } catch (e) {
-      LoggerService.simple.i(e);
+      LoggerService.simple.i('[HomeRepository] $e');
       if (e is FirebaseException && e.code == 'permission-denied') {
         return left(const HomeFailure.insufficientPermission());
       } else {
@@ -67,7 +68,7 @@ class HomeRepository implements IHomeRepository {
         return left(const HomeFailure.userNotExist());
       }
     } catch (e) {
-      LoggerService.simple.i(e);
+      LoggerService.simple.i('[HomeRepository] $e');
       if (e is FirebaseException && e.code == 'permission-denied') {
         return left(const HomeFailure.insufficientPermission());
       } else {
@@ -87,7 +88,7 @@ class HomeRepository implements IHomeRepository {
         .map((snapshot) =>
             right<HomeFailure, List<String>>([snapshot.toString()]))
       ..onErrorReturnWith((e, stackTrace) {
-        LoggerService.simple.i(e);
+        LoggerService.simple.i('[HomeRepository] $e');
         if (e is FirebaseException && e.code == 'permission-denied') {
           return left(const HomeFailure.insufficientPermission());
         } else {
@@ -97,19 +98,41 @@ class HomeRepository implements IHomeRepository {
   }
 
   @override
-  Future<void> inviteFriend({
+  Future<Option<HomeFailure>> inviteFriend({
     required String otherUserId,
   }) async {
-    final userDoc = await _firestore.userDocument();
-    final user = await userDoc.get().then(
-          (doc) => UserDto.fromFirestore(doc).toDomain(),
-        );
-    final friendIdList = user.friendIdList;
-    friendIdList.add(otherUserId);
-    await userDoc.update(
-        UserDto.fromDomain(user.copyWith(friendIdList: friendIdList)).toJson());
+    try {
+      final userDoc = await _firestore.userDocument();
+      final user = await userDoc.get().then(
+            (doc) => UserDto.fromFirestore(doc).toDomain(),
+          );
+      final friendIdList = user.friendIdList;
+      friendIdList.add(otherUserId);
 
-    return;
+      final otherUserDoc = _firestore.userListCollection.doc(otherUserId);
+      final otherUser = await otherUserDoc.get().then(
+            (doc) => UserDto.fromFirestore(doc).toDomain(),
+          );
+      final otherFriendIdList = otherUser.friendIdList;
+      otherFriendIdList.add(user.userId);
+
+      await userDoc.update(
+          UserDto.fromDomain(user.copyWith(friendIdList: friendIdList))
+              .toJson());
+
+      await otherUserDoc.update(UserDto.fromDomain(
+              otherUser.copyWith(friendIdList: otherFriendIdList))
+          .toJson());
+
+      return none();
+    } catch (e) {
+      LoggerService.simple.i('[HomeRepository] $e');
+      if (e is FirebaseException && e.code == 'permission-denied') {
+        return some(const HomeFailure.insufficientPermission());
+      } else {
+        return some(const HomeFailure.unexpected());
+      }
+    }
   }
 
   @override
@@ -141,13 +164,21 @@ class HomeRepository implements IHomeRepository {
         );
         String fileUrl = await fileRef.getDownloadURL();
         return right(fileUrl);
-      } on FirebaseException catch (e) {
-        LoggerService.simple.i(e);
-        return left(const HomeFailure.insufficientPermission());
+      } catch (e) {
+        LoggerService.simple.i('[HomeRepository] $e');
+        if (e is FirebaseException && e.code == 'permission-denied') {
+          return left(const HomeFailure.insufficientPermission());
+        } else {
+          return left(const HomeFailure.unexpected());
+        }
       }
     } catch (e) {
-      LoggerService.simple.i(e);
-      return left(const HomeFailure.unexpected());
+      LoggerService.simple.i('[HomeRepository] $e');
+      if (e is FirebaseException && e.code == 'permission-denied') {
+        return left(const HomeFailure.insufficientPermission());
+      } else {
+        return left(const HomeFailure.unexpected());
+      }
     }
   }
 
@@ -159,13 +190,16 @@ class HomeRepository implements IHomeRepository {
       final userDoc = await _firestore.userDocument();
       await userDoc.update(
         UserDto.fromDomain(user).toJson(),
-        // SetOptions(merge: true),
       );
 
       return right(userDoc.id);
     } catch (e) {
-      LoggerService.simple.i(e);
-      return left(const HomeFailure.unexpected());
+      LoggerService.simple.i('[HomeRepository] $e');
+      if (e is FirebaseException && e.code == 'permission-denied') {
+        return left(const HomeFailure.insufficientPermission());
+      } else {
+        return left(const HomeFailure.unexpected());
+      }
     }
   }
 }

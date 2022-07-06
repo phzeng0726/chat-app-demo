@@ -35,7 +35,6 @@ extension FirestoreX on FirebaseFirestore {
 
   CollectionReference get chatListCollection => collection('chatList');
   CollectionReference get userListCollection => collection('userList');
-  // CollectionReference get messageListCollection => collection('messageList');
 }
 
 // NOTE: 隸屬於doc支線以下的，用這個，才不用一直傳遞companyId

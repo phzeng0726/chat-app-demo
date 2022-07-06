@@ -5,12 +5,12 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../../domain/core/logger.dart';
 import '../../../application/auth/register_form/register_form_cubit.dart';
+import '../../../constants.dart';
 import '../../../injection.dart';
 import '../../routes/router.gr.dart';
 import 'email_address_box.dart';
 import 'password_box.dart';
 
-// TODO: [雙語]
 class RegisterForm extends StatelessWidget {
   const RegisterForm({Key? key}) : super(key: key);
 
@@ -25,39 +25,40 @@ class RegisterForm extends StatelessWidget {
           (either) {
             either.fold(
               (failure) {
-                LoggerService.simple.i(failure);
-
                 FlushbarHelper.createError(
                     message: failure.map(
                   serverError: (_) => FlutterI18n.translate(
-                      context, "login.authError.serverError"),
+                      context, "auth.authError.serverError"),
                   unexpected: (_) => FlutterI18n.translate(
-                      context, "login.authError.unexpected"),
+                      context, "auth.authError.unexpected"),
                   insufficientPermission: (_) => FlutterI18n.translate(
-                      context, "login.authError.insufficientPermission"),
+                      context, "auth.authError.insufficientPermission"),
                   invalidEmailAndPassword: (_) => FlutterI18n.translate(context,
-                      "login.authError.invalidEmailAndPassword"), // 只有sign_in才有這個
+                      "auth.authError.invalidEmailAndPassword"), // 只有sign_in才有這個
                   emailAddressAlreadyInUse: (_) => FlutterI18n.translate(
                       context,
-                      "login.authError.emailAddressAlreadyInUse"), // 只有register才有這個
-                  invalidEmail: (_) => FlutterI18n.translate(context,
-                      "login.authError.invalidEmail"), // 只有register才有這個
-                  weakPassword: (_) => FlutterI18n.translate(context,
-                      "login.authError.weakPassword"), // 只有register才有這個
+                      "auth.authError.emailAddressAlreadyInUse"), // 只有register才有這個
+                  invalidEmail: (_) => FlutterI18n.translate(
+                      context, "auth.authError.invalidEmail"), // 只有register才有這個
+                  weakPassword: (_) => FlutterI18n.translate(
+                      context, "auth.authError.weakPassword"), // 只有register才有這個
                 )).show(context);
               },
               (_) {
                 return showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text("恭喜！"),
-                    content: const Text("您已成功註冊用戶"),
+                    title: Text(FlutterI18n.translate(
+                        context, "auth.register.dialogTitle")),
+                    content: Text(FlutterI18n.translate(
+                        context, "auth.register.dialogContent")),
                     actions: <Widget>[
                       ElevatedButton(
                         onPressed: () {
                           getIt<RootRouter>().pushNamed('/auth');
                         },
-                        child: const Text("OK"),
+                        child: Text(FlutterI18n.translate(
+                            context, "auth.register.dialogButtonText")),
                       ),
                     ],
                   ),
@@ -68,24 +69,37 @@ class RegisterForm extends StatelessWidget {
         );
       },
       builder: (context, state) {
-        return Column(
-          children: [
-            const EmailAddressBox(),
-            const PasswordBox(),
-            ElevatedButton(
-              child: const Text('註冊'),
-              onPressed: () {
-                context
-                    .read<RegisterFormCubit>()
-                    .registerWithEmailAndPasswordPressed();
-              },
-            ),
-            if (state.isSubmitting) ...const [
-              Text('註冊中'),
-              SizedBox(height: 12.0),
-              LinearProgressIndicator()
-            ]
-          ],
+        return Expanded(
+          child: ListView(
+            children: [
+              const EmailAddressBox(),
+              const PasswordBox(),
+              const SizedBox(
+                height: kDefaultHeightSize,
+              ),
+              ElevatedButton(
+                child:
+                    Text(FlutterI18n.translate(context, "auth.register.title")),
+                onPressed: () {
+                  context
+                      .read<RegisterFormCubit>()
+                      .registerWithEmailAndPasswordPressed();
+                },
+              ),
+              const SizedBox(
+                height: kDefaultHeightSize,
+              ),
+              if (state.isSubmitting) ...[
+                Center(
+                  child: Text(
+                    FlutterI18n.translate(context, "auth.register.submitting"),
+                  ),
+                ),
+                const SizedBox(height: kDefaultHeightSize / 2),
+                const LinearProgressIndicator()
+              ]
+            ],
+          ),
         );
       },
     );

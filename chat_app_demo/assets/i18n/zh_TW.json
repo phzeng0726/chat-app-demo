@@ -1,5 +1,5 @@
 {
-    "login": {
+    "auth": {
         "login": "登入",
         "submitting": "登入中...",
         "emailAddress": "電子郵件",
@@ -22,6 +22,13 @@
             "passwordLengthNotice": "密碼長度介於 6 - 20 之間",
             "emailNotEmpty": "電子郵件不能為空",
             "emailFormalError": "電子郵件格式有誤"
+        },
+        "register": {
+            "title": "註冊",
+            "submitting": "註冊中...",
+            "dialogTitle": "恭喜！",
+            "dialogContent": "您已成功註冊用戶",
+            "dialogButtonText": "確認"
         }
     },
     "home": {
@@ -34,16 +41,24 @@
                 "language": "語言",
                 "switchLangMsg": "切換語言成 繁體中文 {lang}"
             },
-            "introduction": "介紹",
+            "introduction": {
+                "title": "APP 介紹"
+            },
             "logout": "登出"
         },
         "searchUserOverview": {
-            "searchBox": "請輸入要搜尋用戶的 Email 地址",
+            "searchBoxHint": "請輸入要搜尋用戶的 Email 地址",
             "addFriend": "加入好友",
             "alreadyFriend": "已成為好友"
         },
         "friendsOverview": {
             "emptyFriends": "您還沒有好友，快點加入好友吧！"
+        },
+        "homeFailure": {
+            "serverError": "伺服器有問題，請稍候再試",
+            "unexpected": "未知的錯誤",
+            "insufficientPermission": "沒有權限",
+            "userNotExist": "查無此用戶"
         }
     },
     "userProfile": {
@@ -55,7 +70,13 @@
         "openCamera": "開啟相機"
     },
     "chat": {
-        "messageBoxHint": "訊息"
+        "messageBoxHint": "訊息",
+        "chatFailure": {
+            "serverError": "伺服器有問題，請稍候再試",
+            "unexpected": "未知的錯誤",
+            "insufficientPermission": "沒有權限",
+            "userNotExist": "查無此用戶"
+        }
     },
     "loadStatus": {
         "initial": "初始化",

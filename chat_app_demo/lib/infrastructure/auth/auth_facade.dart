@@ -43,7 +43,7 @@ class AuthFacade implements IAuthFacade {
       final user = User(
         userId: credential.user!.uid,
         emailAddress: emailAddress,
-        userName: credential.user!.displayName ?? emailAddress,
+        userName: credential.user!.displayName ?? '未命名用戶',
         phoneNumber: credential.user!.phoneNumber ?? '',
         aboutMe: '',
         imageUrl: credential.user!.photoURL ?? '',
@@ -54,13 +54,25 @@ class AuthFacade implements IAuthFacade {
         friendIdList: <String>[],
       );
 
-      await createUserDoc(
+      Either<AuthFailure, String> failureOrUserId;
+
+      failureOrUserId = await createUserDoc(
         user: user,
       );
 
+      failureOrUserId.fold(
+        (f) {
+          return left(f);
+        },
+        (userId) {
+          return right(
+            userId,
+          );
+        },
+      );
       return right(credential.user!.uid);
     } on auth.FirebaseAuthException catch (e) {
-      LoggerService.simple.i(e.code);
+      LoggerService.simple.i('[AuthFacade] $e');
       if (e.code == 'email-already-in-use') {
         return left(const AuthFailure.emailAddressAlreadyInUse());
       } else if (e.code == 'invalid-email') {
@@ -88,7 +100,7 @@ class AuthFacade implements IAuthFacade {
       return right(credential.user!.uid);
     } on auth.FirebaseAuthException catch (e) {
       // PlatformException
-      LoggerService.simple.i(e.code);
+      LoggerService.simple.i('[AuthFacade] $e');
       if (e.code == 'user-not-found' ||
           e.code == 'wrong-password' ||
           e.code == 'invalid-email') {
@@ -107,14 +119,23 @@ class AuthFacade implements IAuthFacade {
   }
 
   @override
-  Future<void> createUserDoc({
+  Future<Either<AuthFailure, String>> createUserDoc({
     required User user,
   }) async {
-    // NOTE: 將帳號資訊放入firestore裡的userList裡
-    final userDoc = await _firestore.userDocument();
-    await userDoc.set(UserDto.fromDomain(user).toJson());
+    try {
+      // NOTE: 將帳號資訊放入firestore裡的userList裡
+      final userDoc = await _firestore.userDocument();
+      await userDoc.set(UserDto.fromDomain(user).toJson());
 
-    return;
+      return right(userDoc.id);
+    } catch (e) {
+      LoggerService.simple.i('[AuthFacade] $e');
+      if (e is FirebaseException && e.code == 'permission-denied') {
+        return left(const AuthFailure.insufficientPermission());
+      } else {
+        return left(const AuthFailure.unexpected());
+      }
+    }
   }
 
   @override
@@ -127,7 +148,7 @@ class AuthFacade implements IAuthFacade {
             UserDto.fromFirestore(snapshot).toDomain(),
           ),
         )..onErrorReturnWith((e, stackTrace) {
-        LoggerService.simple.i(e);
+        LoggerService.simple.i('[AuthFacade] $e');
         if (e is FirebaseException && e.code == 'permission-denied') {
           return left(const AuthFailure.insufficientPermission());
         } else {

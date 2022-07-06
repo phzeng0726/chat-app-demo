@@ -1,5 +1,5 @@
-import 'package:chat_app_demo/injection.dart';
-import 'package:chat_app_demo/presentation/routes/router.gr.dart';
+import '../../../injection.dart';
+import '../../routes/router.gr.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';

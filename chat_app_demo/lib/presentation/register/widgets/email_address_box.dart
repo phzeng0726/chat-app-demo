@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../application/auth/register_form/register_form_cubit.dart';
 import '../../../domain/auth/auth_validator.dart';
 
-// TODO: [雙語]
 class EmailAddressBox extends StatelessWidget {
   const EmailAddressBox({Key? key}) : super(key: key);
 
@@ -22,10 +22,10 @@ class EmailAddressBox extends StatelessWidget {
               : AutovalidateMode.disabled,
           validator: (input) => input!.isValidEmail(context),
           // obscureText: state.isPWObscure,
-          decoration: const InputDecoration(
-            prefixIcon: Icon(Icons.assignment_ind),
-            labelText: '帳號',
-            hintText: '請輸入您的 Email 地址',
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.assignment_ind),
+            labelText: FlutterI18n.translate(context, "auth.emailAddress"),
+            hintText: FlutterI18n.translate(context, "auth.emailAddressHint"),
           ),
         );
       },

@@ -11,20 +11,22 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i1;
-import 'package:flutter/material.dart' as _i10;
+import 'package:flutter/material.dart' as _i12;
 
-import '../../domain/auth/user.dart' as _i11;
+import '../../domain/auth/user.dart' as _i13;
 import '../chat/chat_page.dart' as _i4;
 import '../home/home.dart' as _i3;
-import '../register/register_page.dart' as _i9;
+import '../register/register_page.dart' as _i11;
 import '../setting/setting_page.dart' as _i7;
-import '../sign_in/sign_in_page.dart' as _i8;
+import '../setting/widgets/introduction_page.dart' as _i9;
+import '../setting/widgets/langrage_select_page.dart' as _i8;
+import '../sign_in/sign_in_page.dart' as _i10;
 import '../splash/splash_page.dart' as _i2;
 import '../user_profile/user_profile_edit_page.dart' as _i6;
 import '../user_profile/user_profile_page.dart' as _i5;
 
 class RootRouter extends _i1.RootStackRouter {
-  RootRouter([_i10.GlobalKey<_i10.NavigatorState>? navigatorKey])
+  RootRouter([_i12.GlobalKey<_i12.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
@@ -71,13 +73,21 @@ class RootRouter extends _i1.RootStackRouter {
       return _i1.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i7.SettingPage());
     },
+    LangrageSelectRoute.name: (routeData) {
+      return _i1.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i8.LangrageSelectPage());
+    },
+    IntroductionRoute.name: (routeData) {
+      return _i1.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i9.IntroductionPage());
+    },
     SignInRoute.name: (routeData) {
       return _i1.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i8.SignInPage());
+          routeData: routeData, child: const _i10.SignInPage());
     },
     RegisterRoute.name: (routeData) {
       return _i1.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i9.RegisterPage());
+          routeData: routeData, child: const _i11.RegisterPage());
     }
   };
 
@@ -104,7 +114,11 @@ class RootRouter extends _i1.RootStackRouter {
           _i1.RouteConfig(UserProfileEditRoute.name,
               path: 'edit', parent: EmptyRouterRoute.name),
           _i1.RouteConfig(SettingRoute.name,
-              path: 'setting', parent: EmptyRouterRoute.name)
+              path: 'setting', parent: EmptyRouterRoute.name),
+          _i1.RouteConfig(LangrageSelectRoute.name,
+              path: 'langrage-select', parent: EmptyRouterRoute.name),
+          _i1.RouteConfig(IntroductionRoute.name,
+              path: 'introduction', parent: EmptyRouterRoute.name)
         ])
       ];
 }
@@ -146,7 +160,7 @@ class HomeRoute extends _i1.PageRouteInfo<void> {
 /// generated route for
 /// [_i4.ChatPage]
 class ChatRoute extends _i1.PageRouteInfo<ChatRouteArgs> {
-  ChatRoute({_i10.Key? key, required _i11.User otherUser})
+  ChatRoute({_i12.Key? key, required _i13.User otherUser})
       : super(ChatRoute.name,
             path: 'chat', args: ChatRouteArgs(key: key, otherUser: otherUser));
 
@@ -156,9 +170,9 @@ class ChatRoute extends _i1.PageRouteInfo<ChatRouteArgs> {
 class ChatRouteArgs {
   const ChatRouteArgs({this.key, required this.otherUser});
 
-  final _i10.Key? key;
+  final _i12.Key? key;
 
-  final _i11.User otherUser;
+  final _i13.User otherUser;
 
   @override
   String toString() {
@@ -169,7 +183,7 @@ class ChatRouteArgs {
 /// generated route for
 /// [_i5.UserProfilePage]
 class UserProfileRoute extends _i1.PageRouteInfo<UserProfileRouteArgs> {
-  UserProfileRoute({_i10.Key? key, required _i11.User user})
+  UserProfileRoute({_i12.Key? key, required _i13.User user})
       : super(UserProfileRoute.name,
             path: 'profile', args: UserProfileRouteArgs(key: key, user: user));
 
@@ -179,9 +193,9 @@ class UserProfileRoute extends _i1.PageRouteInfo<UserProfileRouteArgs> {
 class UserProfileRouteArgs {
   const UserProfileRouteArgs({this.key, required this.user});
 
-  final _i10.Key? key;
+  final _i12.Key? key;
 
-  final _i11.User user;
+  final _i13.User user;
 
   @override
   String toString() {
@@ -193,10 +207,10 @@ class UserProfileRouteArgs {
 /// [_i6.UserProfileEditPage]
 class UserProfileEditRoute extends _i1.PageRouteInfo<UserProfileEditRouteArgs> {
   UserProfileEditRoute(
-      {_i10.Key? key,
+      {_i12.Key? key,
       required String editItemTitle,
       required String itemString,
-      required _i10.Widget textFormFieldWidget})
+      required _i12.Widget textFormFieldWidget})
       : super(UserProfileEditRoute.name,
             path: 'edit',
             args: UserProfileEditRouteArgs(
@@ -215,13 +229,13 @@ class UserProfileEditRouteArgs {
       required this.itemString,
       required this.textFormFieldWidget});
 
-  final _i10.Key? key;
+  final _i12.Key? key;
 
   final String editItemTitle;
 
   final String itemString;
 
-  final _i10.Widget textFormFieldWidget;
+  final _i12.Widget textFormFieldWidget;
 
   @override
   String toString() {
@@ -238,7 +252,25 @@ class SettingRoute extends _i1.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.SignInPage]
+/// [_i8.LangrageSelectPage]
+class LangrageSelectRoute extends _i1.PageRouteInfo<void> {
+  const LangrageSelectRoute()
+      : super(LangrageSelectRoute.name, path: 'langrage-select');
+
+  static const String name = 'LangrageSelectRoute';
+}
+
+/// generated route for
+/// [_i9.IntroductionPage]
+class IntroductionRoute extends _i1.PageRouteInfo<void> {
+  const IntroductionRoute()
+      : super(IntroductionRoute.name, path: 'introduction');
+
+  static const String name = 'IntroductionRoute';
+}
+
+/// generated route for
+/// [_i10.SignInPage]
 class SignInRoute extends _i1.PageRouteInfo<void> {
   const SignInRoute() : super(SignInRoute.name, path: '');
 
@@ -246,7 +278,7 @@ class SignInRoute extends _i1.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.RegisterPage]
+/// [_i11.RegisterPage]
 class RegisterRoute extends _i1.PageRouteInfo<void> {
   const RegisterRoute() : super(RegisterRoute.name, path: 'register');
 

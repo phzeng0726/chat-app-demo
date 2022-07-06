@@ -23,26 +23,20 @@ class AuthCubit extends Cubit<AuthState> {
         status: const AuthStatus.inProgress(),
       ),
     );
+    // Get the signed in user's userId.
+    final userIdOption = await _authFacade.getSignedInUserId();
 
-    try {
-      // Get the signed in user's userId.
-      final userIdOption = await _authFacade.getSignedInUserId();
-
-      userIdOption.fold(
-          () => emit(
-                state.copyWith(
-                  status: const AuthStatus.unauthenticated(),
-                ),
-              ), (userId) async {
-        await _userDataSubscription?.cancel();
-        _userDataSubscription =
-            _authFacade.watchUserData(userId: userId).listen(
-                  (failureOrUser) => userDataReceived(failureOrUser),
-                );
-      });
-    } catch (e) {
-      LoggerService.simple.i('[AuthCubit] $e');
-    }
+    userIdOption.fold(
+        () => emit(
+              state.copyWith(
+                status: const AuthStatus.unauthenticated(),
+              ),
+            ), (userId) async {
+      await _userDataSubscription?.cancel();
+      _userDataSubscription = _authFacade.watchUserData(userId: userId).listen(
+            (failureOrUser) => userDataReceived(failureOrUser),
+          );
+    });
   }
 
   void userDataReceived(

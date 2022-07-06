@@ -1,5 +1,6 @@
-import 'package:chat_app_demo/domain/core/device_time_stamp.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../core/device_time_stamp.dart';
 
 part 'chat_message.freezed.dart';
 
@@ -13,7 +14,6 @@ class ChatMessage with _$ChatMessage {
     required String content,
     required DeviceTimeStamp createdTimeStamp,
     required int type,
-    // required bool isRead,
   }) = _ChatMessage;
 
   factory ChatMessage.empty() {

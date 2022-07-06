@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:chat_app_demo/domain/auth/user.dart';
+import 'user.dart';
 import 'package:dartz/dartz.dart';
 
 import 'auth_failure.dart';
@@ -24,7 +24,7 @@ abstract class IAuthFacade {
   Future<void> signOut();
 
   // NOTE: Firestore 區
-  Future<void> createUserDoc({
+  Future<Either<AuthFailure, String>> createUserDoc({
     required User user,
   });
   

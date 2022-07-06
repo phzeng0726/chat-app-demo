@@ -18,7 +18,7 @@ abstract class IHomeRepository {
     required String userId,
   });
 
-  Future<void> inviteFriend({
+  Future<Option<HomeFailure>> inviteFriend({
     required String otherUserId,
   });
 
