@@ -22,7 +22,7 @@ class ChatMessage with _$ChatMessage {
       toId: '',
       content: '',
       createdTimeStamp: DeviceTimeStamp.now(),
-      type: -1,
+      type: -1, // 1為 text，2為 image
     );
   }
 }

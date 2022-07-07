@@ -7,6 +7,7 @@ import '../../../application/user_profile_edit/user_profile_edit_cubit.dart';
 import '../../../constants.dart';
 import '../../../domain/auth/user.dart';
 import '../../../injection.dart';
+import '../../core/widgets/image_picker_bottom_sheet.dart';
 import '../../routes/router.gr.dart';
 import 'about_me_box.dart';
 import 'user_name_box.dart';
@@ -69,32 +70,19 @@ class UserProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget _buildImagePickBottomSheet() {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTile(
-            leading: const Icon(Icons.photo),
-            title:
-                Text(FlutterI18n.translate(context, "userProfile.openGallery")),
-            onTap: () {
-              context.read<UserProfileEditCubit>().galleryButtonPressed(
-                    userId: user.userId,
-                  );
-              context.router.pop();
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.camera_alt),
-            title:
-                Text(FlutterI18n.translate(context, "userProfile.openCamera")),
-            onTap: () {
-              context.read<UserProfileEditCubit>().cameraButtonPressed(
-                    userId: user.userId,
-                  );
-              context.router.pop();
-            },
-          ),
-        ],
+      return ImagePickerBottomSheet(
+        firstTileOnTap: () async {
+          context.read<UserProfileEditCubit>().galleryButtonPressed(
+                userId: user.userId,
+              );
+          context.router.pop();
+        },
+        secondTileOnTap: () async {
+          context.read<UserProfileEditCubit>().cameraButtonPressed(
+                userId: user.userId,
+              );
+          context.router.pop();
+        },
       );
     }
 

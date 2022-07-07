@@ -1,8 +1,13 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
+import 'package:path/path.dart' as path;
+
 import 'package:rxdart/rxdart.dart'; // 為了使用 onErrorReturnWith
 
 import '../../domain/chat/chat_failure.dart';
@@ -16,9 +21,11 @@ import 'chat_message_dtos.dart';
 @LazySingleton(as: IChatRepository)
 class ChatRepository implements IChatRepository {
   final FirebaseFirestore _firestore;
+  final FirebaseStorage _storage;
 
   ChatRepository(
     this._firestore,
+    this._storage,
   );
 
   @override
@@ -74,30 +81,51 @@ class ChatRepository implements IChatRepository {
       }
     }
   }
+  // 與 HomeRepository的相同
+  @override
+  Future<Either<ChatFailure, String>> uploadImage({
+    required String userId,
+    required String inputSource,
+  }) async {
+    final picker = ImagePicker();
+    XFile? pickedImage;
+    try {
+      pickedImage = await picker.pickImage(
+          source: inputSource == 'camera'
+              ? ImageSource.camera
+              : ImageSource.gallery,
+          maxWidth: 1920);
 
-  // @override
-  // Future<void> update({
-  //   required ChatMessage chatMessage,
-  // }) async {
-  //   final userDoc = await _firestore.userDocument();
-  //   // await userDoc.chatListCollection.doc().set(
-  //   //       ChatMessageDto.fromDomain(chatMessage).toJson(),
-  //   //     );
+      final String fileName = path.basename(pickedImage!.path);
+      File imageFile = File(pickedImage.path);
 
-  //   return;
-  // }
-
-  // @override
-  // Future<void> delete({
-  //   required String chatMessageId,
-  // }) async {
-  //   // final groupChatDoc = await _firestore.groupChatDocument(
-  //   //   fromId: chatMessage.fromId,
-  //   //   toId: chatMessage.toId,
-  //   // );
-
-  //   // await groupChatDoc.messageListCollection.doc(chatMessageId).delete();
-
-  //   return;
-  // }
+      try {
+        Reference fileRef = _storage.ref(fileName);
+        await fileRef.putFile(
+          imageFile,
+          SettableMetadata(
+            customMetadata: {
+              'userId': userId,
+            },
+          ),
+        );
+        String fileUrl = await fileRef.getDownloadURL();
+        return right(fileUrl);
+      } catch (e) {
+        LoggerService.simple.i('[ChatRepository] $e');
+        if (e is FirebaseException && e.code == 'permission-denied') {
+          return left(const ChatFailure.insufficientPermission());
+        } else {
+          return left(const ChatFailure.unexpected());
+        }
+      }
+    } catch (e) {
+      LoggerService.simple.i('[ChatRepository] $e');
+      if (e is FirebaseException && e.code == 'permission-denied') {
+        return left(const ChatFailure.insufficientPermission());
+      } else {
+        return left(const ChatFailure.unexpected());
+      }
+    }
+  }
 }

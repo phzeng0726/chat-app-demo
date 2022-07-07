@@ -10,7 +10,10 @@ abstract class IChatRepository {
     required String currentUserId,
     required String otherUserId,
   });
-
+  Future<Either<ChatFailure, String>> uploadImage({
+    required String userId,
+    required String inputSource,
+  });
   Future<Either<ChatFailure, String>> create({
     required ChatMessage chatMessage,
   });

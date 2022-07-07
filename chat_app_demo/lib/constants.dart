@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 
-const kSecondaryColor = Color(0xFF8B94BC);
-const kGreenColor = Color(0xFF6AC259);
-const kRedColor = Color(0xFFE92E30);
-const kGrayColor = Color(0xFFC1C1C1);
-const kBlackColor = Color(0xFF101010);
-
 const double kDefaultPadding = 20.0;
 const double kDefaultHeightSize = 20.0;
 
@@ -36,11 +30,11 @@ const String introductionDataMD = """
 
 ### 主要開發工具
 - 前端：Flutter
-- 後端：Cloud Firestore | Cloud Stroag
+- 後端：Cloud Firestore | Cloud Stroage
 
 ### 特點
 - 使用 Bloc 狀態管理\n
-  很好的將狀態拆分為小元件，易於維護擴充
+  很好地將狀態拆分為小元件，高效能且易於維護
 - DDD design pattern\n
   乾淨簡潔的程式碼，易於維護擴充
 
@@ -55,6 +49,6 @@ const String introductionDataMD = """
 ## ==其他作品==
 除此之外我還做過
 - 實驗平台APP（開發工具為 Python、Flutter、Cloud Firestore、Cloud Stroage、Cloud Function）
-- 人力資源APP（開發工具為 Flutter、Cloud Firestore、Cloud Stroage、Cloud Function）
-- 視覺化記帳APP（開發工具為 Flutter、SQLite）
+- 找人才APP（開發工具為 Flutter、Cloud Firestore、Cloud Stroage、Cloud Function）
+- 免廣告視覺化記帳APP（開發工具為 Flutter、SQLite）
 """;

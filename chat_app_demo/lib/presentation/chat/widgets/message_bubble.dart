@@ -34,7 +34,7 @@ class MessageBubble extends StatelessWidget {
     );
   }
 
-  Widget _buildContent({
+  Widget _buildTextContent({
     required String text,
     required TextStyle style,
     required String reserve,
@@ -69,6 +69,124 @@ class MessageBubble extends StatelessWidget {
     );
   }
 
+  Widget textBubble(BuildContext context, MessageTheme messageTheme) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment:
+          isMyMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(
+            vertical: kDefaultPadding / 2,
+            horizontal: kDefaultPadding,
+          ),
+          margin: const EdgeInsets.symmetric(
+            vertical: kDefaultPadding / 2,
+            horizontal: kDefaultPadding,
+          ),
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width * .7,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.4),
+                spreadRadius: 2.0,
+                blurRadius: 4.0,
+                offset: isMyMessage
+                    ? const Offset(-2, 2)
+                    : const Offset(2, 2), // changes position of shadow
+              ),
+            ],
+            color: isMyMessage
+                ? messageTheme.myBubbleColor
+                : messageTheme.otherBubbleColor,
+          ),
+          child: Stack(
+            children: [
+              _buildTextContent(
+                text: chatMessage.content,
+                style: isMyMessage
+                    ? messageTheme.myContentTextStyle
+                    : messageTheme.otherContentTextStyle,
+                reserve: '\u202F',
+              ),
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: _buildTimeStamp(
+                    color: isMyMessage
+                        ? messageTheme.myTimeStampColor
+                        : messageTheme.otherTimeStampColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget imageBubble(BuildContext context, MessageTheme messageTheme) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment:
+          isMyMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 100,
+          width: 150,
+          padding: const EdgeInsets.symmetric(
+            vertical: kDefaultPadding / 2,
+            horizontal: kDefaultPadding,
+          ),
+          margin: const EdgeInsets.symmetric(
+            vertical: kDefaultPadding / 2,
+            horizontal: kDefaultPadding,
+          ),
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width * .7,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            image: DecorationImage(
+              image: NetworkImage(chatMessage.content),
+              fit: BoxFit.cover,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.4),
+                spreadRadius: 2.0,
+                blurRadius: 4.0,
+                offset: isMyMessage
+                    ? const Offset(-2, 2)
+                    : const Offset(2, 2), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 2.0,
+                horizontal: 4.0,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.2),
+                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+              ),
+              child: _buildTimeStamp(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isDarkTheme =
@@ -77,61 +195,8 @@ class MessageBubble extends StatelessWidget {
         ? BubbleTheme().darkThemeBubble
         : BubbleTheme().lightThemeBubble;
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment:
-          isMyMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-      children: [
-        Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: kDefaultPadding / 2,
-              horizontal: kDefaultPadding,
-            ),
-            margin: const EdgeInsets.symmetric(
-              vertical: kDefaultPadding / 2,
-              horizontal: kDefaultPadding,
-            ),
-            constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width * .7,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.4),
-                  spreadRadius: 2.0,
-                  blurRadius: 4.0,
-                  offset: isMyMessage
-                      ? const Offset(-2, 2)
-                      : const Offset(2, 2), // changes position of shadow
-                ),
-              ],
-              color: isMyMessage
-                  ? messageTheme.myBubbleColor
-                  : messageTheme.otherBubbleColor,
-            ),
-            child: Stack(
-              children: [
-                _buildContent(
-                  text: chatMessage.content,
-                  style: isMyMessage
-                      ? messageTheme.myContentTextStyle
-                      : messageTheme.otherContentTextStyle,
-                  reserve: '\u202F',
-                ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: _buildTimeStamp(
-                      color: isMyMessage
-                          ? messageTheme.myTimeStampColor
-                          : messageTheme.otherTimeStampColor,
-                    ),
-                  ),
-                ),
-              ],
-            ))
-      ],
-    );
+    return chatMessage.type == 1
+        ? textBubble(context, messageTheme)
+        : imageBubble(context, messageTheme);
   }
 }

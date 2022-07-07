@@ -65,9 +65,7 @@
         "aboutMe": "Add a few words about yourself",
         "aboutMeTitle": "About me",
         "userName": "Username",
-        "userNameTitle": "Username",
-        "openGallery": "From gallery",
-        "openCamera": "From camera"
+        "userNameTitle": "Username"
     },
     "chat": {
         "messageBoxHint": "Message",
@@ -82,5 +80,9 @@
         "initial": "Load initial",
         "inProgress": "Load in progress...",
         "failed": "Load failed"
+    },
+    "core": {
+        "openGallery": "From gallery",
+        "openCamera": "From camera"
     }
 }

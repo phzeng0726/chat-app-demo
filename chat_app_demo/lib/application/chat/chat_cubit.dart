@@ -60,6 +60,106 @@ class ChatCubit extends Cubit<ChatState> {
     );
   }
 
+  Future<void> sendImageByGallery() async {
+    Either<ChatFailure, String> failureOrMessageId;
+    Either<ChatFailure, String> failureOrFileURL;
+    emit(
+      state.copyWith(
+        isSubmitting: true,
+      ),
+    );
+
+    failureOrFileURL = await _chatRepository.uploadImage(
+      userId: state.currentUserId,
+      inputSource: 'gallery',
+    );
+
+    failureOrFileURL.fold(
+      (f) => emit(
+        state.copyWith(
+          failureOption: some(f),
+          isSubmitting: false,
+        ),
+      ),
+      (fileUrl) async {
+        failureOrMessageId = await _chatRepository.create(
+          chatMessage: state.chatMessage.copyWith(
+            fromId: state.currentUserId,
+            toId: state.otherUserId,
+            content: fileUrl,
+            type: 2,
+          ),
+        );
+
+        failureOrMessageId.fold(
+          (f) => emit(
+            state.copyWith(
+              failureOption: some(f),
+              isSubmitting: false,
+            ),
+          ),
+          (messageId) => emit(
+            state.copyWith(
+              sendedMessageId: messageId,
+              failureOption: none(),
+              isSubmitting: false,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> sendImageByCamera() async {
+    Either<ChatFailure, String> failureOrMessageId;
+    Either<ChatFailure, String> failureOrFileURL;
+    emit(
+      state.copyWith(
+        isSubmitting: true,
+      ),
+    );
+
+    failureOrFileURL = await _chatRepository.uploadImage(
+      userId: state.currentUserId,
+      inputSource: 'camera',
+    );
+
+    failureOrFileURL.fold(
+      (f) => emit(
+        state.copyWith(
+          failureOption: some(f),
+          isSubmitting: false,
+        ),
+      ),
+      (fileUrl) async {
+        failureOrMessageId = await _chatRepository.create(
+          chatMessage: state.chatMessage.copyWith(
+            fromId: state.currentUserId,
+            toId: state.otherUserId,
+            content: fileUrl,
+            type: 2,
+          ),
+        );
+
+        failureOrMessageId.fold(
+          (f) => emit(
+            state.copyWith(
+              failureOption: some(f),
+              isSubmitting: false,
+            ),
+          ),
+          (messageId) => emit(
+            state.copyWith(
+              sendedMessageId: messageId,
+              failureOption: none(),
+              isSubmitting: false,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Future<void> sendMessage(String content) async {
     Either<ChatFailure, String> failureOrMessageId;
     emit(
@@ -72,9 +172,10 @@ class ChatCubit extends Cubit<ChatState> {
         fromId: state.currentUserId,
         toId: state.otherUserId,
         content: content,
+        type: 1,
       ),
     );
-    
+
     failureOrMessageId.fold(
       (f) => emit(
         state.copyWith(

@@ -65,9 +65,7 @@
         "aboutMe": "添加一些自我介紹吧",
         "aboutMeTitle": "關於我",
         "userName": "暱稱",
-        "userNameTitle": "暱稱",
-        "openGallery": "從相簿獲取",
-        "openCamera": "開啟相機"
+        "userNameTitle": "暱稱"
     },
     "chat": {
         "messageBoxHint": "訊息",
@@ -82,5 +80,9 @@
         "initial": "初始化",
         "inProgress": "載入中...",
         "failed": "加載失敗"
+    },
+    "core": {
+        "openGallery": "從相簿獲取",
+        "openCamera": "開啟相機"
     }
 }
