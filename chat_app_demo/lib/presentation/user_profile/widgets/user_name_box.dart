@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/user_profile_edit/user_profile_edit_cubit.dart';
@@ -19,7 +18,6 @@ class UserNameBox extends StatelessWidget {
           autofocus: true,
           decoration: const InputDecoration(
             prefixIcon: Icon(Icons.edit_note_rounded),
-            // hintText: '請輸入要搜尋用戶的 Email 地址',
           ),
         );
       },

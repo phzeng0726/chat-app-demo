@@ -27,27 +27,34 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  another_flushbar: ^1.10.29
-  auto_route: ^4.0.1
-  bubble: ^1.2.1
-  cloud_firestore: ^3.1.17
+  # NOTE: necessary
   cupertino_icons: ^1.0.2
-  dartz: ^0.10.1
+  flutter:
+    sdk: flutter
+  # NOTE: firebase
   firebase_auth: ^3.3.19
   firebase_core: ^1.17.1
   firebase_storage: ^10.2.18
-  flutter:
-    sdk: flutter
+  cloud_firestore: ^3.1.17
+  # NOTE: router
+  auto_route: ^4.0.1
+  path_provider: ^2.0.11
+  # NOTE: log and error code display
+  another_flushbar: ^1.10.29
+  logger: ^1.1.0
+  # NOTE: state management
   flutter_bloc: ^8.0.1
+  # NOTE: localizations
   flutter_i18n: ^0.32.4
   flutter_localizations:
     sdk: flutter
+  # NOTE: speed up the development process
+  dartz: ^0.10.1
   freezed_annotation: ^1.0.0
-  image_picker: ^0.8.5+3
   json_serializable: ^6.2.0
-  logger: ^1.1.0
-  path_provider: ^2.0.11
   rxdart: ^0.27.4
+  # NOTE: others
+  image_picker: ^0.8.5+3
   flutter_markdown: ^0.6.10+2
   
 dev_dependencies:

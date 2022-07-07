@@ -1,8 +1,8 @@
-import '../../domain/core/device_time_stamp.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/auth/user.dart';
+import '../../domain/core/device_time_stamp.dart';
 
 part 'user_dtos.freezed.dart';
 part 'user_dtos.g.dart';

@@ -30,7 +30,7 @@ const String introductionDataMD = """
 
 ### 主要開發工具
 - 前端：Flutter
-- 後端：Cloud Firestore | Cloud Stroage
+- 後端：Cloud Firestore | Cloud Storage
 
 ### 特點
 - 使用 Bloc 狀態管理\n

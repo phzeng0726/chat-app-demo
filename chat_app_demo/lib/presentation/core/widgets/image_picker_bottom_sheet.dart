@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 class ImagePickerBottomSheet extends StatelessWidget {
@@ -19,8 +17,7 @@ class ImagePickerBottomSheet extends StatelessWidget {
       children: [
         ListTile(
           leading: const Icon(Icons.photo),
-          title:
-              Text(FlutterI18n.translate(context, "core.openGallery")),
+          title: Text(FlutterI18n.translate(context, "core.openGallery")),
           onTap: firstTileOnTap,
         ),
         ListTile(

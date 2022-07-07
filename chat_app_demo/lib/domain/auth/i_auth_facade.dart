@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'user.dart';
 import 'package:dartz/dartz.dart';
 
 import 'auth_failure.dart';
+import 'user.dart';
 
 // NOTE: 抽象定義 auth 的資料動作
 abstract class IAuthFacade {

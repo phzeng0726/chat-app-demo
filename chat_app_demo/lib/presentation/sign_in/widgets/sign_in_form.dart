@@ -7,7 +7,6 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import '../../../application/auth/auth_cubit.dart';
 import '../../../application/auth/sign_in_form/sign_in_form_cubit.dart';
 import '../../../constants.dart';
-import '../../../domain/core/logger.dart';
 import '../../../injection.dart';
 import '../../routes/router.gr.dart';
 import 'email_address_box.dart';

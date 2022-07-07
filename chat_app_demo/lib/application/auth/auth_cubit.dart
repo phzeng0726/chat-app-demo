@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -5,8 +7,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../domain/auth/auth_failure.dart';
 import '../../domain/auth/i_auth_facade.dart';
 import '../../domain/auth/user.dart';
-import '../../domain/core/logger.dart';
-import 'dart:async';
 
 part 'auth_cubit.freezed.dart';
 part 'auth_state.dart';

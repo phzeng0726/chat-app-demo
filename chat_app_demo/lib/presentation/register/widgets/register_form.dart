@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
-import '../../../../domain/core/logger.dart';
 import '../../../application/auth/register_form/register_form_cubit.dart';
 import '../../../constants.dart';
 import '../../../injection.dart';
