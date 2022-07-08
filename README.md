@@ -29,4 +29,4 @@ flutter pub run build_runner build --delete-conflicting-outputs`
 - 多國語言切換
 
 ### 介面呈現
-詳細的操作介面或操作影片，您可以下載這份專案，或是前往 [我的作品集](https://drive.google.com/drive/folders/1AM28Gl5v1MKCRl5QRBr3-FpcJoRSk5dS?usp=sharing) 觀看
+詳細的[操作介面](https://www.cakeresume.com/portfolios/project-2-33a887) 或 [操作影片](https://drive.google.com/drive/folders/13ETyAQSxGWwuAUzo-ixPRfSphgR8lwrO)，您可以下載這份專案，或是前往連結觀看。
