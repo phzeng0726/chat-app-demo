@@ -28,14 +28,6 @@ class SignInFormCubit extends Cubit<SignInFormState> {
     );
   }
 
-  void checkPasswordChanged(String passwordStr) {
-    emit(
-      state.copyWith(
-        password: passwordStr,
-      ),
-    );
-  }
-
   void passwordVisibleSwitched() {
     emit(
       state.copyWith(isPWObscure: !state.isPWObscure),

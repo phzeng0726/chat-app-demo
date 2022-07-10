@@ -14,7 +14,7 @@ class HomeState with _$HomeState {
   }) = _HomeState;
 
   factory HomeState.initial() => HomeState(
-        emailAddress: 'testEmail2@gmail.com',
+        emailAddress: '',
         searchedUserList: <User>[],
         searchStatus: const LoadStatus.initial(),
         friendList: <User>[],

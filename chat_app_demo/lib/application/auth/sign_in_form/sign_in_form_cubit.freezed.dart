@@ -21,7 +21,6 @@ class _$SignInFormStateTearOff {
   _SignInFormState call(
       {required String emailAddress,
       required String password,
-      String? checkPassword,
       required bool isSubmitting,
       required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
       required bool isPWObscure,
@@ -29,7 +28,6 @@ class _$SignInFormStateTearOff {
     return _SignInFormState(
       emailAddress: emailAddress,
       password: password,
-      checkPassword: checkPassword,
       isSubmitting: isSubmitting,
       authFailureOrSuccessOption: authFailureOrSuccessOption,
       isPWObscure: isPWObscure,
@@ -45,7 +43,6 @@ const $SignInFormState = _$SignInFormStateTearOff();
 mixin _$SignInFormState {
   String get emailAddress => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
-  String? get checkPassword => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, String>> get authFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
@@ -65,7 +62,6 @@ abstract class $SignInFormStateCopyWith<$Res> {
   $Res call(
       {String emailAddress,
       String password,
-      String? checkPassword,
       bool isSubmitting,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
       bool isPWObscure,
@@ -85,7 +81,6 @@ class _$SignInFormStateCopyWithImpl<$Res>
   $Res call({
     Object? emailAddress = freezed,
     Object? password = freezed,
-    Object? checkPassword = freezed,
     Object? isSubmitting = freezed,
     Object? authFailureOrSuccessOption = freezed,
     Object? isPWObscure = freezed,
@@ -100,10 +95,6 @@ class _$SignInFormStateCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      checkPassword: checkPassword == freezed
-          ? _value.checkPassword
-          : checkPassword // ignore: cast_nullable_to_non_nullable
-              as String?,
       isSubmitting: isSubmitting == freezed
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -134,7 +125,6 @@ abstract class _$SignInFormStateCopyWith<$Res>
   $Res call(
       {String emailAddress,
       String password,
-      String? checkPassword,
       bool isSubmitting,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
       bool isPWObscure,
@@ -156,7 +146,6 @@ class __$SignInFormStateCopyWithImpl<$Res>
   $Res call({
     Object? emailAddress = freezed,
     Object? password = freezed,
-    Object? checkPassword = freezed,
     Object? isSubmitting = freezed,
     Object? authFailureOrSuccessOption = freezed,
     Object? isPWObscure = freezed,
@@ -171,10 +160,6 @@ class __$SignInFormStateCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      checkPassword: checkPassword == freezed
-          ? _value.checkPassword
-          : checkPassword // ignore: cast_nullable_to_non_nullable
-              as String?,
       isSubmitting: isSubmitting == freezed
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -201,7 +186,6 @@ class _$_SignInFormState implements _SignInFormState {
   const _$_SignInFormState(
       {required this.emailAddress,
       required this.password,
-      this.checkPassword,
       required this.isSubmitting,
       required this.authFailureOrSuccessOption,
       required this.isPWObscure,
@@ -211,8 +195,6 @@ class _$_SignInFormState implements _SignInFormState {
   final String emailAddress;
   @override
   final String password;
-  @override
-  final String? checkPassword;
   @override
   final bool isSubmitting;
   @override
@@ -224,7 +206,7 @@ class _$_SignInFormState implements _SignInFormState {
 
   @override
   String toString() {
-    return 'SignInFormState(emailAddress: $emailAddress, password: $password, checkPassword: $checkPassword, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption, isPWObscure: $isPWObscure, validate: $validate)';
+    return 'SignInFormState(emailAddress: $emailAddress, password: $password, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption, isPWObscure: $isPWObscure, validate: $validate)';
   }
 
   @override
@@ -235,8 +217,6 @@ class _$_SignInFormState implements _SignInFormState {
             const DeepCollectionEquality()
                 .equals(other.emailAddress, emailAddress) &&
             const DeepCollectionEquality().equals(other.password, password) &&
-            const DeepCollectionEquality()
-                .equals(other.checkPassword, checkPassword) &&
             const DeepCollectionEquality()
                 .equals(other.isSubmitting, isSubmitting) &&
             const DeepCollectionEquality().equals(
@@ -251,7 +231,6 @@ class _$_SignInFormState implements _SignInFormState {
       runtimeType,
       const DeepCollectionEquality().hash(emailAddress),
       const DeepCollectionEquality().hash(password),
-      const DeepCollectionEquality().hash(checkPassword),
       const DeepCollectionEquality().hash(isSubmitting),
       const DeepCollectionEquality().hash(authFailureOrSuccessOption),
       const DeepCollectionEquality().hash(isPWObscure),
@@ -267,7 +246,6 @@ abstract class _SignInFormState implements SignInFormState {
   const factory _SignInFormState(
       {required String emailAddress,
       required String password,
-      String? checkPassword,
       required bool isSubmitting,
       required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
       required bool isPWObscure,
@@ -277,8 +255,6 @@ abstract class _SignInFormState implements SignInFormState {
   String get emailAddress;
   @override
   String get password;
-  @override
-  String? get checkPassword;
   @override
   bool get isSubmitting;
   @override
