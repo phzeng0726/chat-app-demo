@@ -45,13 +45,11 @@ class _MessageEnterBoxState extends State<MessageEnterBox> {
                       builder: (_) {
                         return ImagePickerBottomSheet(
                           firstTileOnTap: () async {
-                            await context
-                                .read<ChatCubit>()
-                                .sendImageByGallery();
+                            context.read<ChatCubit>().sendImageByGallery();
                             context.router.pop();
                           },
                           secondTileOnTap: () async {
-                            await context.read<ChatCubit>().sendImageByCamera();
+                            context.read<ChatCubit>().sendImageByCamera();
                             context.router.pop();
                           },
                         );
@@ -64,7 +62,7 @@ class _MessageEnterBoxState extends State<MessageEnterBox> {
                     return IconButton(
                       onPressed: value.text.isNotEmpty
                           ? () async {
-                              await context
+                              context
                                   .read<ChatCubit>()
                                   .sendMessage(_inputController.text);
                               focusNode.requestFocus();

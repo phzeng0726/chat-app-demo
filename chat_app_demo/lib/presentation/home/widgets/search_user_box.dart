@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../application/home/home_cubit.dart';
+import '../../../domain/auth/auth_validator.dart';
 
 class SearchUserBox extends StatelessWidget {
   const SearchUserBox({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class SearchUserBox extends StatelessWidget {
           onChanged: (value) =>
               context.read<HomeCubit>().searchUserChanged(value),
           autocorrect: false,
+          validator: (input) => input!.isValidEmail(context),
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.search),
             hintText: FlutterI18n.translate(

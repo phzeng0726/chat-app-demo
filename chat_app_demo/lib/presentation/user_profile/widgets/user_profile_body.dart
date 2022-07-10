@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../application/user_profile_edit/user_profile_edit_cubit.dart';
-import '../../../constants.dart';
 import '../../../domain/auth/user.dart';
 import '../../../injection.dart';
 import '../../core/widgets/image_picker_bottom_sheet.dart';
@@ -26,10 +25,15 @@ class UserProfileBody extends StatelessWidget {
     return SizedBox(
       height: imageHeight,
       width: MediaQuery.of(context).size.width,
-      child: Image.network(
-        user.imageUrl != '' ? user.imageUrl : defaultUserProfileImage,
-        fit: BoxFit.cover,
-      ),
+      child: user.imageUrl != ''
+          ? Image.network(
+              user.imageUrl,
+              fit: BoxFit.cover,
+            )
+          : Image.asset(
+              'assets/images/blank_profile_picture.png',
+              fit: BoxFit.cover,
+            ),
     );
   }
 

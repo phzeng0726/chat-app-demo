@@ -49,7 +49,9 @@
         "searchUserOverview": {
             "searchBoxHint": "請輸入要搜尋用戶的 Email 地址",
             "addFriend": "加入好友",
-            "alreadyFriend": "已成為好友"
+            "alreadyFriend": "已成為好友",
+            "isMyself": "不可新增自己"
+
         },
         "friendsOverview": {
             "emptyFriends": "您還沒有好友，快點加入好友吧！"

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
 import '../../../domain/auth/user.dart';
 import '../../../injection.dart';
 import '../../routes/router.gr.dart';
@@ -19,7 +18,8 @@ class UserProfileAvatar extends StatelessWidget {
         radius: 30.0,
         backgroundImage: user.imageUrl != ''
             ? NetworkImage(user.imageUrl)
-            : const NetworkImage(defaultUserProfileImage),
+            : const AssetImage('assets/images/blank_profile_picture.png')
+                as ImageProvider,
         backgroundColor: Colors.transparent,
       ),
       onTap: () => getIt<RootRouter>().push(UserProfileRoute(user: user)),

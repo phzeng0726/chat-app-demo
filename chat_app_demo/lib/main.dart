@@ -15,10 +15,10 @@ Future<void> main() async {
   // https://juejin.cn/post/7060525200139354148
   configureInjection(Environment.prod); // 沒有這行的話沒辦法用injection
   getIt.registerSingleton<RootRouter>(RootRouter());
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   runApp(const AppWidget());
 }
-

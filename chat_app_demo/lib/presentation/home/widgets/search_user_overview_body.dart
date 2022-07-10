@@ -25,13 +25,10 @@ class SearchUserOverviewBody extends StatelessWidget {
               itemCount: state.searchedUserList.length,
               itemBuilder: ((context, index) {
                 User user = state.searchedUserList[index];
+                User currentUser = state.user;
 
-                bool isFriend = context
-                    .read<AuthCubit>()
-                    .state
-                    .user
-                    .friendIdList
-                    .contains(user.userId);
+                bool isFriend = currentUser.friendIdList.contains(user.userId);
+                bool isMyself = currentUser.userId == user.userId;
 
                 return Padding(
                   padding:
@@ -42,16 +39,19 @@ class SearchUserOverviewBody extends StatelessWidget {
                     title: Text(user.userName),
                     leading: UserProfileAvatar(user: user),
                     trailing: ElevatedButton.icon(
-                      onPressed: isFriend
+                      onPressed: isFriend || isMyself
                           ? null
                           : () => context
                               .read<HomeCubit>()
                               .inviteFriendPressed(otherUserId: user.userId),
-                      label: Text(isFriend
+                      label: Text(isMyself
                           ? FlutterI18n.translate(
-                              context, "home.searchUserOverview.alreadyFriend")
-                          : FlutterI18n.translate(
-                              context, "home.searchUserOverview.addFriend")),
+                              context, "home.searchUserOverview.isMyself")
+                          : isFriend
+                              ? FlutterI18n.translate(context,
+                                  "home.searchUserOverview.alreadyFriend")
+                              : FlutterI18n.translate(context,
+                                  "home.searchUserOverview.addFriend")),
                       icon: const Icon(Icons.add),
                     ),
                   ),

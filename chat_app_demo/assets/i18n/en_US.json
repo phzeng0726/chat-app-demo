@@ -55,7 +55,8 @@
         "searchUserOverview": {
             "searchBoxHint": "Type the user's email.",
             "addFriend": "Add friend",
-            "alreadyFriend": "Already friend"
+            "alreadyFriend": "Already friend",
+            "isMyself": "Youself"
         },
         "friendsOverview": {
             "emptyFriends": "Opps...! Friend list is empty. That's join a friend!"
