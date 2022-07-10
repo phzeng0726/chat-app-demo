@@ -19,13 +19,15 @@ class _$HomeStateTearOff {
   const _$HomeStateTearOff();
 
   _HomeState call(
-      {required String emailAddress,
+      {required User user,
+      required String emailAddress,
       required List<User> searchedUserList,
       required LoadStatus searchStatus,
       required List<User> friendList,
       required LoadStatus friendListLoadStatus,
       required Option<HomeFailure> failureOption}) {
     return _HomeState(
+      user: user,
       emailAddress: emailAddress,
       searchedUserList: searchedUserList,
       searchStatus: searchStatus,
@@ -41,8 +43,9 @@ const $HomeState = _$HomeStateTearOff();
 
 /// @nodoc
 mixin _$HomeState {
-  String get emailAddress =>
-      throw _privateConstructorUsedError; // 可能要改Option，因為有可能為空
+// 可能要改Option，因為有可能為空
+  User get user => throw _privateConstructorUsedError; // currentUser
+  String get emailAddress => throw _privateConstructorUsedError; // searchBody使用
   List<User> get searchedUserList => throw _privateConstructorUsedError;
   LoadStatus get searchStatus => throw _privateConstructorUsedError;
   List<User> get friendList => throw _privateConstructorUsedError;
@@ -59,13 +62,15 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res>;
   $Res call(
-      {String emailAddress,
+      {User user,
+      String emailAddress,
       List<User> searchedUserList,
       LoadStatus searchStatus,
       List<User> friendList,
       LoadStatus friendListLoadStatus,
       Option<HomeFailure> failureOption});
 
+  $UserCopyWith<$Res> get user;
   $LoadStatusCopyWith<$Res> get searchStatus;
   $LoadStatusCopyWith<$Res> get friendListLoadStatus;
 }
@@ -80,6 +85,7 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? user = freezed,
     Object? emailAddress = freezed,
     Object? searchedUserList = freezed,
     Object? searchStatus = freezed,
@@ -88,6 +94,10 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
     Object? failureOption = freezed,
   }) {
     return _then(_value.copyWith(
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
       emailAddress: emailAddress == freezed
           ? _value.emailAddress
           : emailAddress // ignore: cast_nullable_to_non_nullable
@@ -116,6 +126,13 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
   }
 
   @override
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
+  }
+
+  @override
   $LoadStatusCopyWith<$Res> get searchStatus {
     return $LoadStatusCopyWith<$Res>(_value.searchStatus, (value) {
       return _then(_value.copyWith(searchStatus: value));
@@ -137,13 +154,16 @@ abstract class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
       __$HomeStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String emailAddress,
+      {User user,
+      String emailAddress,
       List<User> searchedUserList,
       LoadStatus searchStatus,
       List<User> friendList,
       LoadStatus friendListLoadStatus,
       Option<HomeFailure> failureOption});
 
+  @override
+  $UserCopyWith<$Res> get user;
   @override
   $LoadStatusCopyWith<$Res> get searchStatus;
   @override
@@ -161,6 +181,7 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? user = freezed,
     Object? emailAddress = freezed,
     Object? searchedUserList = freezed,
     Object? searchStatus = freezed,
@@ -169,6 +190,10 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
     Object? failureOption = freezed,
   }) {
     return _then(_HomeState(
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
       emailAddress: emailAddress == freezed
           ? _value.emailAddress
           : emailAddress // ignore: cast_nullable_to_non_nullable
@@ -201,7 +226,8 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
 
 class _$_HomeState extends _HomeState {
   const _$_HomeState(
-      {required this.emailAddress,
+      {required this.user,
+      required this.emailAddress,
       required this.searchedUserList,
       required this.searchStatus,
       required this.friendList,
@@ -209,9 +235,11 @@ class _$_HomeState extends _HomeState {
       required this.failureOption})
       : super._();
 
-  @override
-  final String emailAddress;
   @override // 可能要改Option，因為有可能為空
+  final User user;
+  @override // currentUser
+  final String emailAddress;
+  @override // searchBody使用
   final List<User> searchedUserList;
   @override
   final LoadStatus searchStatus;
@@ -224,7 +252,7 @@ class _$_HomeState extends _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(emailAddress: $emailAddress, searchedUserList: $searchedUserList, searchStatus: $searchStatus, friendList: $friendList, friendListLoadStatus: $friendListLoadStatus, failureOption: $failureOption)';
+    return 'HomeState(user: $user, emailAddress: $emailAddress, searchedUserList: $searchedUserList, searchStatus: $searchStatus, friendList: $friendList, friendListLoadStatus: $friendListLoadStatus, failureOption: $failureOption)';
   }
 
   @override
@@ -232,6 +260,7 @@ class _$_HomeState extends _HomeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _HomeState &&
+            const DeepCollectionEquality().equals(other.user, user) &&
             const DeepCollectionEquality()
                 .equals(other.emailAddress, emailAddress) &&
             const DeepCollectionEquality()
@@ -249,6 +278,7 @@ class _$_HomeState extends _HomeState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(user),
       const DeepCollectionEquality().hash(emailAddress),
       const DeepCollectionEquality().hash(searchedUserList),
       const DeepCollectionEquality().hash(searchStatus),
@@ -264,7 +294,8 @@ class _$_HomeState extends _HomeState {
 
 abstract class _HomeState extends HomeState {
   const factory _HomeState(
-      {required String emailAddress,
+      {required User user,
+      required String emailAddress,
       required List<User> searchedUserList,
       required LoadStatus searchStatus,
       required List<User> friendList,
@@ -272,9 +303,11 @@ abstract class _HomeState extends HomeState {
       required Option<HomeFailure> failureOption}) = _$_HomeState;
   const _HomeState._() : super._();
 
-  @override
-  String get emailAddress;
   @override // 可能要改Option，因為有可能為空
+  User get user;
+  @override // currentUser
+  String get emailAddress;
+  @override // searchBody使用
   List<User> get searchedUserList;
   @override
   LoadStatus get searchStatus;

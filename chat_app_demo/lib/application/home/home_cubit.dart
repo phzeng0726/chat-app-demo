@@ -18,24 +18,60 @@ class HomeCubit extends Cubit<HomeState> {
 
   StreamSubscription<Either<HomeFailure, List<User>>>? _userListSubscription;
 
-  Future<void> fetchFriendListStarted({
-    required User user,
-  }) async {
-    Either<HomeFailure, List<User>> failureOrUserList;
+  void init({required User user}) async {
     emit(
       state.copyWith(
-        friendListLoadStatus: const LoadStatus.inProgress(),
+        user: user,
       ),
     );
-    failureOrUserList = await _homeRepository.fetchFriendList(
-      user: user,
-    );
+    await _userListSubscription?.cancel();
+    _userListSubscription = _homeRepository
+        .watchFriendList(
+          user: user,
+        )
+        .listen(
+          (failureOrUserList) => userListReceived(failureOrUserList),
+        );
+  }
 
+  // Future<void> watchFriendListStarted({
+  //   required User user,
+  // }) async {
+  //   // Either<HomeFailure, List<User>> failureOrUserList;
+  //   // emit(
+  //   //   state.copyWith(
+  //   //     friendListLoadStatus: const LoadStatus.inProgress(),
+  //   //   ),
+  //   // );
+  //   // failureOrUserList = await _homeRepository.fetchFriendList(
+  //   //   user: user,
+  //   // );
+
+  //   // failureOrUserList.fold(
+  //   //   (f) => emit(
+  //   //     state.copyWith(
+  //   //       friendListLoadStatus: const LoadStatus.failed(),
+  //   //       failureOption: some(f),
+  //   //     ),
+  //   //   ),
+  //   //   (userList) => emit(
+  //   //     state.copyWith(
+  //   //       friendListLoadStatus: const LoadStatus.succeed(),
+  //   //       friendList: userList,
+  //   //       failureOption: none(),
+  //   //     ),
+  //   //   ),
+  //   // );
+  // }
+
+  void userListReceived(
+    Either<HomeFailure, List<User>> failureOrUserList,
+  ) {
     failureOrUserList.fold(
       (f) => emit(
         state.copyWith(
-          friendListLoadStatus: const LoadStatus.failed(),
           failureOption: some(f),
+          friendListLoadStatus: const LoadStatus.failed(),
         ),
       ),
       (userList) => emit(

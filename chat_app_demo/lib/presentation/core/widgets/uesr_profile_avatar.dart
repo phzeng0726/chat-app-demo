@@ -1,9 +1,9 @@
-import '../../../injection.dart';
-import '../../routes/router.gr.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../../../domain/auth/user.dart';
+import '../../../injection.dart';
+import '../../routes/router.gr.dart';
 
 class UserProfileAvatar extends StatelessWidget {
   final User user;

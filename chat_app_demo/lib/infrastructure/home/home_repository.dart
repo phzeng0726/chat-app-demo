@@ -27,28 +27,43 @@ class HomeRepository implements IHomeRepository {
   );
 
   @override
-  Future<Either<HomeFailure, List<User>>> fetchFriendList({
+  Stream<Either<HomeFailure, List<User>>> watchFriendList({
     required User user,
-  }) async {
+  }) async* {
     final userListCollection = _firestore.userListCollection;
-    try {
-      if (user.friendIdList.isNotEmpty) {
-        return userListCollection
-            .where('userId', whereIn: user.friendIdList)
-            .get()
-            .then((value) => right<HomeFailure, List<User>>(
-                UserListDto.fromFirestore(value).toDomain()));
-      } else {
-        return right<HomeFailure, List<User>>(<User>[]);
-      }
-    } catch (e) {
-      LoggerService.simple.i('[HomeRepository] $e');
-      if (e is FirebaseException && e.code == 'permission-denied') {
-        return left(const HomeFailure.insufficientPermission());
-      } else {
-        return left(const HomeFailure.unexpected());
-      }
-    }
+
+    yield* userListCollection
+        .where('friendIdList', arrayContains: user.userId)
+        .snapshots()
+        .map((snapshot) => right<HomeFailure, List<User>>(
+            UserListDto.fromFirestore(snapshot).toDomain()))
+      ..onErrorReturnWith((e, stackTrace) {
+        LoggerService.simple.i('[HomeRepository] $e');
+        if (e is FirebaseException && e.code == 'permission-denied') {
+          return left(const HomeFailure.insufficientPermission());
+        } else {
+          return left(const HomeFailure.unexpected());
+        }
+      });
+    // NOTE: 如果好友的狀態改變，會沒辦法及時更新，所以本來用future，後來改stream
+    // try {
+    //   if (user.friendIdList.isNotEmpty) {
+    //     return userListCollection
+    //         .where('userId', whereIn: user.friendIdList)
+    //         .get()
+    //         .then((value) => right<HomeFailure, List<User>>(
+    //             UserListDto.fromFirestore(value).toDomain()));
+    //   } else {
+    //     return right<HomeFailure, List<User>>(<User>[]);
+    //   }
+    // } catch (e) {
+    //   LoggerService.simple.i('[HomeRepository] $e');
+    //   if (e is FirebaseException && e.code == 'permission-denied') {
+    //     return left(const HomeFailure.insufficientPermission());
+    //   } else {
+    //     return left(const HomeFailure.unexpected());
+    //   }
+    // }
   }
 
   @override

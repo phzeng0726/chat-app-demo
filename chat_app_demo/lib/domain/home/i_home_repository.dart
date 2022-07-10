@@ -6,7 +6,7 @@ import '../auth/user.dart';
 import 'home_failure.dart';
 
 abstract class IHomeRepository {
-  Future<Either<HomeFailure, List<User>>> fetchFriendList({
+  Stream<Either<HomeFailure, List<User>>> watchFriendList({
     required User user,
   });
 

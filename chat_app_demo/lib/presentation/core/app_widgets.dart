@@ -4,9 +4,12 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../../application/auth/auth_cubit.dart';
+import '../../application/home/home_cubit.dart';
 import '../../application/theme/theme_cubit.dart';
+import '../../application/user_profile_edit/user_profile_edit_cubit.dart';
 import '../../constants.dart';
 import '../../domain/auth/i_auth_facade.dart';
+import '../../domain/home/i_home_repository.dart';
 import '../../injection.dart';
 import '../routes/router.gr.dart';
 
@@ -17,6 +20,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final rootRouter = getIt<RootRouter>();
 
+    // 會同時出現在好幾個 page 的 provider 放這
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -26,6 +30,16 @@ class AppWidget extends StatelessWidget {
           create: (context) => AuthCubit(
             getIt<IAuthFacade>(),
           )..authCheckRequested(),
+        ),
+        BlocProvider(
+          create: (context) => UserProfileEditCubit(
+            getIt<IHomeRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => HomeCubit(
+            getIt<IHomeRepository>(),
+          ),
         ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
