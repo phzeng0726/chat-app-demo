@@ -1,7 +1,7 @@
 # chat-app-demo
 ---
 ## 資料庫 與 介面呈現
-![](https://i.imgur.com/88LglAI.png)
+![](https://i.imgur.com/1Zdhbqf.png)
 
 詳細的 [操作介面](https://www.cakeresume.com/portfolios/project-2-33a887) 或 [操作影片](https://drive.google.com/drive/folders/13ETyAQSxGWwuAUzo-ixPRfSphgR8lwrO)，您可以下載這份專案，或是前往連結觀看。
 
