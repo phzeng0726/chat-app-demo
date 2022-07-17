@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 import '../../../application/auth/register_form/register_form_cubit.dart';
 import '../../../domain/auth/auth_validator.dart';
 
@@ -31,8 +30,8 @@ class PasswordBox extends StatelessWidget {
                   ? const Icon(Icons.visibility)
                   : const Icon(Icons.visibility_off),
             ),
-            labelText: FlutterI18n.translate(context, "auth.password"),
-            hintText: FlutterI18n.translate(context, "auth.passwordHint"),
+            labelText: tr(context, "auth.password"),
+            hintText: tr(context, "auth.passwordHint"),
           ),
         );
       },

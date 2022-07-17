@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 import '../../../application/auth/auth_cubit.dart';
 import '../../../constants.dart';
 import '../../../domain/auth/user.dart';
@@ -54,18 +53,16 @@ class HomeDrawer extends StatelessWidget {
           _drawerHeader(context),
           ListTile(
               leading: const Icon(Icons.settings),
-              title: Text(
-                  FlutterI18n.translate(context, "home.drawer.setting.title")),
+              title: Text(tr(context, "home.drawer.setting.title")),
               onTap: () => getIt<RootRouter>().push(const SettingRoute())),
           ListTile(
             leading: const Icon(Icons.info_outline),
-            title: Text(
-                FlutterI18n.translate(context, "home.drawer.introduction.title")),
+            title: Text(tr(context, "home.drawer.introduction.title")),
             onTap: () => getIt<RootRouter>().push(const IntroductionRoute()),
           ),
           ElevatedButton(
             onPressed: () => context.read<AuthCubit>().signedOut(),
-            child: Text(FlutterI18n.translate(context, "home.drawer.logout")),
+            child: Text(tr(context, "home.drawer.logout")),
           )
         ],
       ),

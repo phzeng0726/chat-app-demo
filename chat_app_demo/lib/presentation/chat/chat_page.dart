@@ -1,8 +1,7 @@
 import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 import '../../application/auth/auth_cubit.dart';
 import '../../application/chat/chat_cubit.dart';
 import '../../domain/auth/user.dart';
@@ -35,12 +34,10 @@ class ChatPage extends StatelessWidget {
             (failure) {
               FlushbarHelper.createError(
                   message: failure.map(
-                serverError: (_) => FlutterI18n.translate(
-                    context, "chat.chatFailure.serverError"),
-                unexpected: (_) => FlutterI18n.translate(
-                    context, "chat.chatFailure.unexpected"),
-                insufficientPermission: (_) => FlutterI18n.translate(
-                    context, "chat.chatFailure.insufficientPermission"),
+                serverError: (_) => tr(context, "chat.chatFailure.serverError"),
+                unexpected: (_) => tr(context, "chat.chatFailure.unexpected"),
+                insufficientPermission: (_) =>
+                    tr(context, "chat.chatFailure.insufficientPermission"),
               )).show(context);
             },
           );

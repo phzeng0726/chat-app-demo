@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 import '../../application/auth/auth_cubit.dart';
 import '../../application/auth/register_form/register_form_cubit.dart';
 import '../../constants.dart';
@@ -21,8 +20,7 @@ class RegisterPage extends StatelessWidget {
         return TapOutDismissKeyboard(
           child: Scaffold(
             appBar: AppBar(
-              title:
-                  Text(FlutterI18n.translate(context, "auth.register.title")),
+              title: Text(tr(context, "auth.register.title")),
               centerTitle: true,
             ),
             body: Padding(

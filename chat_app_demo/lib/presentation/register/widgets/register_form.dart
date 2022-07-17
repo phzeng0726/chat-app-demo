@@ -1,8 +1,7 @@
 import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 import '../../../application/auth/register_form/register_form_cubit.dart';
 import '../../../constants.dart';
 import '../../../injection.dart';
@@ -26,20 +25,17 @@ class RegisterForm extends StatelessWidget {
               (failure) {
                 FlushbarHelper.createError(
                     message: failure.map(
-                  serverError: (_) => FlutterI18n.translate(
-                      context, "auth.authError.serverError"),
-                  unexpected: (_) => FlutterI18n.translate(
-                      context, "auth.authError.unexpected"),
-                  insufficientPermission: (_) => FlutterI18n.translate(
-                      context, "auth.authError.insufficientPermission"),
-                  invalidEmailAndPassword: (_) => FlutterI18n.translate(context,
+                  serverError: (_) => tr(context, "auth.authError.serverError"),
+                  unexpected: (_) => tr(context, "auth.authError.unexpected"),
+                  insufficientPermission: (_) =>
+                      tr(context, "auth.authError.insufficientPermission"),
+                  invalidEmailAndPassword: (_) => tr(context,
                       "auth.authError.invalidEmailAndPassword"), // 只有sign_in才有這個
-                  emailAddressAlreadyInUse: (_) => FlutterI18n.translate(
-                      context,
+                  emailAddressAlreadyInUse: (_) => tr(context,
                       "auth.authError.emailAddressAlreadyInUse"), // 只有register才有這個
-                  invalidEmail: (_) => FlutterI18n.translate(
+                  invalidEmail: (_) => tr(
                       context, "auth.authError.invalidEmail"), // 只有register才有這個
-                  weakPassword: (_) => FlutterI18n.translate(
+                  weakPassword: (_) => tr(
                       context, "auth.authError.weakPassword"), // 只有register才有這個
                 )).show(context);
               },
@@ -47,17 +43,15 @@ class RegisterForm extends StatelessWidget {
                 return showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: Text(FlutterI18n.translate(
-                        context, "auth.register.dialogTitle")),
-                    content: Text(FlutterI18n.translate(
-                        context, "auth.register.dialogContent")),
+                    title: Text(tr(context, "auth.register.dialogTitle")),
+                    content: Text(tr(context, "auth.register.dialogContent")),
                     actions: <Widget>[
                       ElevatedButton(
                         onPressed: () {
                           getIt<RootRouter>().pushNamed('/auth');
                         },
-                        child: Text(FlutterI18n.translate(
-                            context, "auth.register.dialogButtonText")),
+                        child:
+                            Text(tr(context, "auth.register.dialogButtonText")),
                       ),
                     ],
                   ),
@@ -77,8 +71,7 @@ class RegisterForm extends StatelessWidget {
                 height: kDefaultHeightSize,
               ),
               ElevatedButton(
-                child:
-                    Text(FlutterI18n.translate(context, "auth.register.title")),
+                child: Text(tr(context, "auth.register.title")),
                 onPressed: () {
                   context
                       .read<RegisterFormCubit>()
@@ -91,7 +84,7 @@ class RegisterForm extends StatelessWidget {
               if (state.isSubmitting) ...[
                 Center(
                   child: Text(
-                    FlutterI18n.translate(context, "auth.register.submitting"),
+                    tr(context, "auth.register.submitting"),
                   ),
                 ),
                 const SizedBox(height: kDefaultHeightSize / 2),

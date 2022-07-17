@@ -2,8 +2,7 @@ import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 import '../../../application/auth/auth_cubit.dart';
 import '../../../application/auth/sign_in_form/sign_in_form_cubit.dart';
 import '../../../constants.dart';
@@ -28,20 +27,17 @@ class SignInForm extends StatelessWidget {
               (failure) {
                 FlushbarHelper.createError(
                     message: failure.map(
-                  serverError: (_) => FlutterI18n.translate(
-                      context, "auth.authError.serverError"),
-                  unexpected: (_) => FlutterI18n.translate(
-                      context, "auth.authError.unexpected"),
-                  insufficientPermission: (_) => FlutterI18n.translate(
-                      context, "auth.authError.insufficientPermission"),
-                  invalidEmailAndPassword: (_) => FlutterI18n.translate(context,
+                  serverError: (_) => tr(context, "auth.authError.serverError"),
+                  unexpected: (_) => tr(context, "auth.authError.unexpected"),
+                  insufficientPermission: (_) =>
+                      tr(context, "auth.authError.insufficientPermission"),
+                  invalidEmailAndPassword: (_) => tr(context,
                       "auth.authError.invalidEmailAndPassword"), // 只有sign_in才有這個
-                  emailAddressAlreadyInUse: (_) => FlutterI18n.translate(
-                      context,
+                  emailAddressAlreadyInUse: (_) => tr(context,
                       "auth.authError.emailAddressAlreadyInUse"), // 只有register才有這個
-                  invalidEmail: (_) => FlutterI18n.translate(
+                  invalidEmail: (_) => tr(
                       context, "auth.authError.invalidEmail"), // 只有register才有這個
-                  weakPassword: (_) => FlutterI18n.translate(
+                  weakPassword: (_) => tr(
                       context, "auth.authError.weakPassword"), // 只有register才有這個
                 )).show(context);
               },
@@ -62,7 +58,7 @@ class SignInForm extends StatelessWidget {
               SizedBox(
                 width: double.infinity, // <-- match_parent
                 child: ElevatedButton(
-                  child: Text(FlutterI18n.translate(context, "auth.login")),
+                  child: Text(tr(context, "auth.login")),
                   onPressed: () => context
                       .read<SignInFormCubit>()
                       .signInWithEmailAndPasswordPressed(),
@@ -79,15 +75,13 @@ class SignInForm extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: FlutterI18n.translate(
-                            context, "auth.notRegistered"),
+                        text: tr(context, "auth.notRegistered"),
                       ),
                       const TextSpan(
                         text: "  ",
                       ),
                       TextSpan(
-                        text: FlutterI18n.translate(
-                            context, "auth.createAnAccount"),
+                        text: tr(context, "auth.createAnAccount"),
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                         ),
@@ -106,7 +100,7 @@ class SignInForm extends StatelessWidget {
               if (state.isSubmitting) ...[
                 Center(
                   child: Text(
-                    FlutterI18n.translate(context, "auth.submitting"),
+                    tr(context, "auth.submitting"),
                   ),
                 ),
                 const SizedBox(height: kDefaultHeightSize / 2),

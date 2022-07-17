@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 import '../../injection.dart';
 import '../routes/router.gr.dart';
 
@@ -11,8 +10,7 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text(FlutterI18n.translate(context, "home.drawer.setting.title")),
+        title: Text(tr(context, "home.drawer.setting.title")),
         centerTitle: true,
       ),
       body: Padding(
@@ -20,8 +18,7 @@ class SettingPage extends StatelessWidget {
         child: ListView(
           children: [
             ListTile(
-              title: Text(FlutterI18n.translate(
-                  context, "home.drawer.setting.language")),
+              title: Text(tr(context, "home.drawer.setting.language")),
               trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () =>
                   getIt<RootRouter>().push(const LangrageSelectRoute()),

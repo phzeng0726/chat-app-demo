@@ -1,8 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 import '../../../application/user_profile_edit/user_profile_edit_cubit.dart';
 import '../../../domain/auth/user.dart';
 import '../../../injection.dart';
@@ -40,12 +39,11 @@ class UserProfileBody extends StatelessWidget {
   Widget _buildUserNameListTile(BuildContext context) {
     return ListTile(
       title: Text(user.userName),
-      subtitle: Text(FlutterI18n.translate(context, "userProfile.userName")),
+      subtitle: Text(tr(context, "userProfile.userName")),
       onTap: isEditable
           ? () => getIt<RootRouter>().push(
                 UserProfileEditRoute(
-                  editItemTitle: FlutterI18n.translate(
-                      context, "userProfile.userNameTitle"),
+                  editItemTitle: tr(context, "userProfile.userNameTitle"),
                   itemString: user.userName,
                   textFormFieldWidget: const UserNameBox(),
                 ),
@@ -57,12 +55,11 @@ class UserProfileBody extends StatelessWidget {
   Widget _buildAboutMeListTile(BuildContext context) {
     return ListTile(
       title: Text(user.aboutMe == '' ? 'Bio' : user.aboutMe),
-      subtitle: Text(FlutterI18n.translate(context, "userProfile.aboutMe")),
+      subtitle: Text(tr(context, "userProfile.aboutMe")),
       onTap: isEditable
           ? () => getIt<RootRouter>().push(
                 UserProfileEditRoute(
-                  editItemTitle: FlutterI18n.translate(
-                      context, "userProfile.aboutMeTitle"),
+                  editItemTitle: tr(context, "userProfile.aboutMeTitle"),
                   itemString: user.aboutMe,
                   textFormFieldWidget: const AboutMeBox(),
                 ),

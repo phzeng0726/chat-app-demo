@@ -18,8 +18,7 @@ extension PasswordValidator on String {
       return FlutterI18n.translate(context, "auth.validator.passwordNotEmpty");
     } else {
       if (!regex.hasMatch(this)) {
-        return FlutterI18n.translate(
-            context, "auth.validator.passwordLengthNotice");
+        return FlutterI18n.translate(context, "auth.validator.passwordLengthNotice");
       } else {
         return null;
       }
@@ -36,8 +35,7 @@ extension EmailValidator on String {
       return FlutterI18n.translate(context, "auth.validator.emailNotEmpty");
     } else {
       if (!regex.hasMatch(this)) {
-        return FlutterI18n.translate(
-            context, "auth.validator.emailFormalError");
+        return FlutterI18n.translate(context, "auth.validator.emailFormalError");
       } else {
         return null;
       }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 import '../../../application/home/home_cubit.dart';
 import '../../../constants.dart';
 import '../../../domain/auth/user.dart';
@@ -21,8 +20,7 @@ class FriendsOverviewBody extends StatelessWidget {
           loadStatus: state.friendListLoadStatus,
           succeedScreen: state.friendList.isEmpty
               ? Center(
-                  child: Text(FlutterI18n.translate(
-                      context, "home.friendsOverview.emptyFriends")),
+                  child: Text(tr(context, "home.friendsOverview.emptyFriends")),
                 )
               : ListView.builder(
                   itemCount: state.friendList.length,

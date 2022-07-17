@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 import '../../../application/auth/auth_cubit.dart';
 import '../../../application/home/home_cubit.dart';
 import '../../../constants.dart';
@@ -45,12 +44,11 @@ class SearchUserOverviewBody extends StatelessWidget {
                               .read<HomeCubit>()
                               .inviteFriendPressed(otherUserId: user.userId),
                       label: Text(isMyself
-                          ? FlutterI18n.translate(
-                              context, "home.searchUserOverview.isMyself")
+                          ? tr(context, "home.searchUserOverview.isMyself")
                           : isFriend
-                              ? FlutterI18n.translate(context,
+                              ? tr(context,
                                   "home.searchUserOverview.alreadyFriend")
-                              : FlutterI18n.translate(context,
+                              : tr(context,
                                   "home.searchUserOverview.addFriend")),
                       icon: const Icon(Icons.add),
                     ),

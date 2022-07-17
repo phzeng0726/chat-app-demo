@@ -1,8 +1,7 @@
 import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 import '../../application/auth/auth_cubit.dart';
 import '../../application/home/home_cubit.dart';
 import '../../domain/auth/user.dart';
@@ -26,14 +25,11 @@ class HomePage extends StatelessWidget {
           (failure) {
             FlushbarHelper.createError(
                 message: failure.map(
-              serverError: (_) => FlutterI18n.translate(
-                  context, "home.homeFailure.serverError"),
-              unexpected: (_) =>
-                  FlutterI18n.translate(context, "home.homeFailure.unexpected"),
-              insufficientPermission: (_) => FlutterI18n.translate(
-                  context, "home.homeFailure.insufficientPermission"),
-              userNotExist: (_) => FlutterI18n.translate(
-                  context, "home.homeFailure.userNotExist"),
+              serverError: (_) => tr(context, "home.homeFailure.serverError"),
+              unexpected: (_) => tr(context, "home.homeFailure.unexpected"),
+              insufficientPermission: (_) =>
+                  tr(context, "home.homeFailure.insufficientPermission"),
+              userNotExist: (_) => tr(context, "home.homeFailure.userNotExist"),
             )).show(context);
           },
         );
@@ -50,18 +46,16 @@ class HomePage extends StatelessWidget {
                       currentUser: state.user,
                     ),
                     appBar: AppBar(
-                      title: Text(FlutterI18n.translate(context, "home.title")),
+                      title: Text(tr(context, "home.title")),
                       centerTitle: true,
                       bottom: TabBar(
                         tabs: [
                           Tab(
                               icon: const Icon(Icons.face),
-                              text: FlutterI18n.translate(
-                                  context, "home.myFriends")),
+                              text: tr(context, "home.myFriends")),
                           Tab(
                               icon: const Icon(Icons.search),
-                              text:
-                                  FlutterI18n.translate(context, "home.search"))
+                              text: tr(context, "home.search"))
                         ],
                       ),
                     ),

@@ -73,7 +73,7 @@ class _MessageEnterBoxState extends State<MessageEnterBox> {
                     );
                   },
                 ),
-                hintText: FlutterI18n.translate(context, "chat.messageBoxHint"),
+                hintText: FlutterI18n.translate(context, "chat.messageBoxHint"), // stful 要避免直接叫tr
               ),
             ),
           ],

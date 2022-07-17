@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 import '../../../application/auth/register_form/register_form_cubit.dart';
 import '../../../domain/auth/auth_validator.dart';
 
@@ -24,8 +23,8 @@ class EmailAddressBox extends StatelessWidget {
           // obscureText: state.isPWObscure,
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.assignment_ind),
-            labelText: FlutterI18n.translate(context, "auth.emailAddress"),
-            hintText: FlutterI18n.translate(context, "auth.emailAddressHint"),
+            labelText: tr(context, "auth.emailAddress"),
+            hintText: tr(context, "auth.emailAddressHint"),
           ),
         );
       },

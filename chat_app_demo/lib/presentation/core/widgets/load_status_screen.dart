@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../constants.dart';
 import '../../../domain/core/load_status.dart';
+import 'translation_helper.dart';
 
 class LoadStatusScreen extends StatelessWidget {
   final LoadStatus loadStatus;
@@ -17,15 +17,11 @@ class LoadStatusScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return loadStatus.map(
       initial: (_) => Center(
-        child: Text(
-          FlutterI18n.translate(context, "loadStatus.initial"),
-        ),
+        child: Text(tr(context, "loadStatus.initial")),
       ),
       inProgress: (_) => Column(
         children: [
-          Text(
-            FlutterI18n.translate(context, "loadStatus.inProgress"),
-          ),
+          Text(tr(context, "loadStatus.inProgress")),
           const SizedBox(
             height: kDefaultHeightSize,
           ),
@@ -34,9 +30,7 @@ class LoadStatusScreen extends StatelessWidget {
       ),
       succeed: (_) => succeedScreen,
       failed: (_) => Center(
-        child: Text(
-          FlutterI18n.translate(context, "loadStatus.failed"),
-        ),
+        child: Text(tr(context, "loadStatus.failed")),
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 
 class ImagePickerBottomSheet extends StatelessWidget {
   final void Function()? firstTileOnTap;
@@ -17,12 +17,12 @@ class ImagePickerBottomSheet extends StatelessWidget {
       children: [
         ListTile(
           leading: const Icon(Icons.photo),
-          title: Text(FlutterI18n.translate(context, "core.openGallery")),
+          title: Text(tr(context, "core.openGallery")),
           onTap: firstTileOnTap,
         ),
         ListTile(
           leading: const Icon(Icons.camera_alt),
-          title: Text(FlutterI18n.translate(context, "core.openCamera")),
+          title: Text(tr(context, "core.openCamera")),
           onTap: secondTileOnTap,
         ),
       ],

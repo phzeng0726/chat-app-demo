@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:chat_app_demo/presentation/core/widgets/translation_helper.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -10,8 +10,7 @@ class IntroductionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            FlutterI18n.translate(context, "home.drawer.introduction.title")),
+        title: Text(tr(context, "home.drawer.introduction.title")),
         centerTitle: true,
       ),
       body: Card(

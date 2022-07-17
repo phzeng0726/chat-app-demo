@@ -1,11 +1,10 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../application/theme/theme_cubit.dart';
 import '../../../constants.dart';
+import '../../core/widgets/translation_helper.dart';
 
 class LangrageSelectPage extends StatelessWidget {
   const LangrageSelectPage({Key? key}) : super(key: key);
@@ -21,8 +20,7 @@ class LangrageSelectPage extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(FlutterI18n.translate(
-                  context, "home.drawer.setting.language")),
+              title: Text(tr(context, "home.drawer.setting.language")),
               centerTitle: true,
             ),
             body: Padding(
