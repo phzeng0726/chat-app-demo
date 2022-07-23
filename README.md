@@ -2,6 +2,7 @@
 ---
 ## 資料庫 與 介面呈現
 ![](https://i.imgur.com/1Zdhbqf.png)
+![](https://i.imgur.com/k1Oj3hb.png)
 
 詳細的 [操作介面](https://www.cakeresume.com/portfolios/project-2-33a887) 或 [操作影片](https://drive.google.com/drive/folders/13ETyAQSxGWwuAUzo-ixPRfSphgR8lwrO)，您可以下載這份專案，或是前往連結觀看。
 
@@ -12,7 +13,6 @@
 這個 聊天APP 是用來展現我所做過的專案的精簡版，比起以往的作品，這個作品的架構相對簡單，不過可以展現一些我的基本功，
 - 功能：資料驗證、用戶註冊、即時傳訊、主題切換、多國語言切換...等。
 - 開發時長：從0到有 **開發總時長為 5 天**。
-![](https://i.imgur.com/k1Oj3hb.png)
 
 在執行專案之前，先於 Flutter 的專案路徑執行
 
