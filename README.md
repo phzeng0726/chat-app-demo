@@ -4,6 +4,12 @@
 
 ---
 
+## 目錄
+
+1. [作品介紹](#作品介紹) - 快速點餐系統（Order Ease 餐點輕鬆訂）介紹。
+2. [Demo 影片](#demo-影片) - 實際 APP 操作影片。
+3. [技術清單](#技術清單) - 包含了使用的前端技術和相關工具的版本與清單。
+
 ## 作品介紹
 
 ### 簡介
@@ -16,13 +22,13 @@
 `
 flutter pub run build_runner build --delete-conflicting-outputs`
 
-### 資料庫架構
+## Demo 影片
 
-![](https://i.imgur.com/1Zdhbqf.png)
-
-## Demo Video
+[![Demo Video](screenshots/chat_app_video_cover.png)](https://www.youtube.com/watch?v=YN8_XEp8O7Y)
 
 ## 技術清單
+
+![](https://i.imgur.com/1Zdhbqf.png)
 
 - **前端**
   - Flutter
